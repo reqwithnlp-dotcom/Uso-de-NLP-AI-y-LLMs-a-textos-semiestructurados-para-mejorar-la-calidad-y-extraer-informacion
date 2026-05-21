@@ -1,5 +1,5 @@
 import re
-
+ 
 CONNECTORS = {
     # Addition
     "and": "addition",
@@ -11,14 +11,14 @@ CONNECTORS = {
     "too": "addition",
     "in addition": "addition",
     "as well as": "addition",
-
+ 
     # Disjunction
     "or": "disjunction",
     "either": "disjunction",
     "neither": "disjunction",
     "nor": "disjunction",
     "otherwise": "disjunction",
-
+ 
     # Contrast
     "but": "contrast",
     "however": "contrast",
@@ -35,7 +35,7 @@ CONNECTORS = {
     "on the other hand": "contrast",
     "in contrast": "contrast",
     "on the contrary": "contrast",
-
+ 
     # Cause-effect
     "so": "cause-effect",
     "therefore": "cause-effect",
@@ -48,7 +48,7 @@ CONNECTORS = {
     "as a result": "cause-effect",
     "due to": "cause-effect",
     "for this reason": "cause-effect",
-
+ 
     # Sequence
     "first": "sequence",
     "second": "sequence",
@@ -60,7 +60,7 @@ CONNECTORS = {
     "subsequently": "sequence",
     "lastly": "sequence",
     "to begin with": "sequence",
-
+ 
     # Exemplification
     "namely": "exemplification",
     "for example": "exemplification",
@@ -68,7 +68,7 @@ CONNECTORS = {
     "such as": "exemplification",
     "in other words": "exemplification",
     "that is": "exemplification",
-
+ 
     # Conclusion
     "overall": "conclusion",
     "in conclusion": "conclusion",
@@ -76,7 +76,7 @@ CONNECTORS = {
     "to sum up": "conclusion",
     "in short": "conclusion",
     "to conclude": "conclusion",
-
+ 
     # Condition
     "if": "condition",
     "unless": "condition",
@@ -84,52 +84,58 @@ CONNECTORS = {
     "as long as": "condition",
     "in case": "condition",
 }
-
+ 
 MULTI_WORD = sorted([k for k in CONNECTORS if " " in k], key=lambda x: -len(x.split()))
 SINGLE_WORD = [k for k in CONNECTORS if " " not in k]
-
-
+ 
+ 
 def normalize(text: str) -> str:
     text = text.lower()
     text = re.sub(r"[.,;:!?'\"()\[\]]", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
+ 
+ 
+def detect_connectors(text: str, connectors: dict[str, str] = CONNECTORS) -> list[tuple[str, str]]:
+    multi_word = sorted([k for k in connectors if " " in k], key=lambda x: -len(x.split()))
+    single_word = [k for k in connectors if " " not in k]
 
-
-def detect_connectors(text: str) -> list[tuple[str, str]]:
     normalized = normalize(text)
     found = []
     matched_positions = set()
 
-    for phrase in MULTI_WORD:
+    for phrase in multi_word:
         for match in re.finditer(r"\b" + re.escape(phrase) + r"\b", normalized):
             positions = set(range(match.start(), match.end()))
             if not positions & matched_positions:
                 matched_positions |= positions
-                found.append((match.start(), phrase, CONNECTORS[phrase]))
+                found.append((match.start(), phrase, connectors[phrase]))
 
-    for word in SINGLE_WORD:
+    for word in single_word:
         for match in re.finditer(r"\b" + re.escape(word) + r"\b", normalized):
             positions = set(range(match.start(), match.end()))
             if not positions & matched_positions:
                 matched_positions |= positions
-                found.append((match.start(), word, CONNECTORS[word]))
+                found.append((match.start(), word, connectors[word]))
 
     found.sort(key=lambda x: x[0])
-
     return [(word, type_) for _, word, type_ in found]
-
-
+ 
+ 
 if __name__ == "__main__":
-    examples = [
-        "Dog and cat or rabbit",
-        "I wanted to go for a run; however, it was raining, so I stayed at home.",
-        "Today I went for a run.",
-        "She studied hard; therefore, she passed. Furthermore, she got an A.",
-    ]
-
-    for sentence in examples:
-        connectors = detect_connectors(sentence)
-        print(f"Input:      {sentence}")
-        print(f"Connectors: {connectors}")
-        print()
+    print("=== Logical Connector Detector ===")
+    print("Escribi 'salir' para terminar.\n")
+ 
+    while True:
+        text = input("Ingresa una oracion: ")
+ 
+        if text.strip().lower() == "salir":
+            print("Saliendo...")
+            break
+ 
+        if text.strip() == "":
+            print("Por favor ingresa una oracion.\n")
+            continue
+ 
+        connectors = detect_connectors(text)
+        print(f"Connectors: {connectors}\n")
