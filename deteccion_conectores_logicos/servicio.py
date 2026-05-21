@@ -125,10 +125,8 @@ def detect_connectors(text: str, connectors: dict[str, str] = CONNECTORS) -> lis
 if __name__ == "__main__":
     print("=== Logical Connector Detector ===")
     print("Escribi 'salir' para terminar.\n")
- 
     while True:
         text = input("Ingresa una oracion: ")
- 
         if text.strip().lower() == "salir":
             print("Saliendo...")
             break
@@ -136,6 +134,5 @@ if __name__ == "__main__":
         if text.strip() == "":
             print("Por favor ingresa una oracion.\n")
             continue
- 
         connectors = detect_connectors(text)
         print(f"Connectors: {connectors}\n")

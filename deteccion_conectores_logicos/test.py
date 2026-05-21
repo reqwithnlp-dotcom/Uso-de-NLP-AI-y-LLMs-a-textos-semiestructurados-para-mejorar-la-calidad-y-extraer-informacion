@@ -20,3 +20,10 @@ def test_normalization():
 def test_empty_string():
     result = detect_connectors("", CONNECTORS)
     assert result == []
+if __name__ == "__main__":
+    test_basic_connectors()
+    test_multi_word_connector()
+    test_no_connectors()
+    test_normalization()
+    test_empty_string()
+    print("Todos los tests pasaron!")   
