@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>REQ-NLP Toolkit
+    </title>
+    <link rel="stylesheet" href="{% static 'req_nlp_app/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        const API_INVERTIR_TEXTO_URL = "{{API_INVERTIR_TEXTO_URL}}";
+        const API_VOZ_PASIVA_URL = "{{API_VOZ_PASIVA_URL}}";
+        const API_WORD_REPETITION_URL = "{{API_WORD_REPETITION_URL}}";
+        const API_IMPERSONAL_SENTENCES_URL = "{{API_IMPERSONAL_SENTENCES_URL}}";
+        const API_NEGATIVE_PHRASE_URL = "{{API_NEGATIVE_PHRASE_URL}}";
+        const API_OPINION_PERCEPTION_URL = "{{API_OPINION_PERCEPTION_URL}}";
+        const API_UNUSUAL_PUNCTUATION_URL = "{{API_UNUSUAL_PUNCTUATION_URL}}";
+        const API_ABSTRACT_WORDS_URL = "{{API_ABSTRACT_WORDS_URL}}";
+        const API_LOGICAL_CONNECTORS_URL = "{{API_LOGICAL_CONNECTORS_URL}}";
+        const API_READABILITY_METRIC_URL = "{{API_READABILITY_METRIC_URL}}";
+        const API_TENSES_URL = "{{API_TENSES_URL}}";
+        const API_CLICHES_URL = "{{API_CLICHES_URL}}";
+        
+    </script>
+    
+</head>
+<body>
+    <header class="navbar">
+        <h1>Req NLP Toolkit</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <span>Hola, {{ user.username }}</span>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; padding:0; color:blue; text-decoration:underline; cursor:pointer;">
+                        Cerrar sesión
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Ingresar</a>
+                <a href="{% url 'signup' %}">Registrarse</a>
+            {% endif %}
+        </nav>
+    </header>
+ 
+    <div class="container">
+        <!-- 📁 Panel izquierdo -->
+         {% if user.is_authenticated %}
+        <aside class="sidebar-left">
+            <h2>Documentos</h2>
+    <ul id="lista-documentos">
+        {% for doc in documentos %}
+        <li data-id="{{ doc.id }}">
+            <i class="bi bi-trash" onclick="eliminarDocumento(event, {{ doc.id }})" title="Eliminar documento" style="cursor:pointer; color:red; margin-right: 8px;"></i>
+            <span class="nombre-doc" 
+                data-id="{{ doc.id }}" 
+                oncontextmenu="editarNombre(event, this)" 
+                ondblclick="cargarContenidoDocumento({{ doc.id }})" 
+                style="cursor:pointer;">{{ doc.nombre }}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+    <button onclick="crearNuevoDocumento()">+ Nuevo documento</button>
+        </aside>
+         {% endif %}
+        <!-- 📄 Panel central -->
+        <main class="editor">
+            <h2>Editor de Documentos</h2>
+            <textarea 
+                id="editor-texto" 
+                placeholder="Escribí tu documento aquí...">
+            </textarea>
+            <button onclick="guardarDocumento(getCurrentDocId(), obtenerTexto())">Guardar</button>
+            
+            <div 
+                id="resultados" 
+                style="border: 1px solid gray; height: 250px; padding: 10px; background-color: #f9f9f9;">
+            Aquí se mostrarán los resultados...
+            </div>
+        </main>
+        {% if user.is_authenticated %}
+        <aside class="sidebar-right">
+            <h2>Indicadores</h2>
+            <form>
+                <div class="form-check">
+                    <!--label><input type="checkbox" id="invertir-texto" name="invertir"> Invertir texto</label><br-->
+                    <input class="form-check-input" type="checkbox" id="voz-pasiva" name="voz-pasiva"> 
+                    <label class="form-check-label">
+                        Pasar de voz pasiva a voz activa
+                    </label>
+                </div>
+                <div class="form-check">    
+                    <input class="form-check-input" type="checkbox" id="word-repetition" name="word-repetition">
+                    <label class="form-check-label">Detectar repetición de palabras</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="impersonal-sentences" name="impersonal-sentences">
+                    <label class="form-check-label">Detectar oraciones impersonales</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="negative-phrase" name="negative-phrase">
+                    <label class="form-check-label">Detectar frases negativas complejas</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="opinion-perception" name="opinion-perception">
+                    <label class="form-check-label">Detectar palabras de opinión o percepción</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="unusual-punctuation" name="unusual-punctuation">
+                    <label class="form-check-label">Detectar puntuación inusual</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="abstract-words" name="abstract-words">
+                    <label class="form-check-label">Detectar palabras abstractas</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="logical-connectors" name="logical-connectors">
+                    <label class="form-check-label">Detectar conectores lógicos</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="readability-metric" name="readability-metric">
+                    <label class="form-check-label">Establecer métrica de legibilidad</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="tenses" name="tenses">
+                    <label class="form-check-label">Detectar tiempos verbales</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="cliches" name="cliches">
+                    <label class="form-check-label">Detectar cliches</label>
+                </div>
+
+                 <button type="button" onclick="mostrarResultado()">OK</button>
+                 </div>
+            </form>
+        </aside>
+         {% endif %}
+    </div>
+
+
+    <script>
+    const URL_NUEVO_DOCUMENTO = "{% url 'nuevo_documento' %}";
+    </script>
+
+<script src="{% static 'req_nlp_app/js/config.js' %}"></script>
+
+<script src="{% static 'req_nlp_app/js/interfaz.js' %}"></script>
+<script src="{% static 'req_nlp_app/js/documentos.js' %}"></script>
+<script src="{% static 'req_nlp_app/js/aplicar_servicios.js' %}"></script>
+
+</body>
+</html>
