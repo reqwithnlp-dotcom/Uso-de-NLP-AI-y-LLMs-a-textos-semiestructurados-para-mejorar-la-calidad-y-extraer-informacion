@@ -1,0 +1,74 @@
+# ============================
+# Archivos de Python
+# ============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+*.log
+
+# ============================
+# Archivos de Django
+# ============================
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# ============================
+# Archivos de entorno
+# ============================
+.env
+*.env
+.env.*
+
+# ============================
+# Archivos de cobertura y pruebas
+# ============================
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.mo
+*.pot
+
+# ============================
+# IDEs y editores
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+
+# ============================
+# Archivos de Docker
+# ============================
+*.pid
+*.seed
+*.bak
+*.tmp
+*.old
+*.orig
+docker-compose.override.yml
+.docker/
+
+# ============================
+# Archivos de Kubernetes
+# ============================
+# (Si generás yaml temporales o manifests locales)
+*.local.yaml
+*.secret.yaml
+*.backup.yaml
+
+# ============================
+# Archivos del sistema operativo
+# ============================
+.DS_Store
+Thumbs.db

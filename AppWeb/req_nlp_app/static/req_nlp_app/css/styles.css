@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #8fb3e9;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
+    min-width: 150px;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar li {
+    margin: 0.5rem 0;
+}
+
+.sidebar button {
+    margin-top: 1rem;
+}
+
+.editor {
+    flex: 1;
+    padding: 1rem;
+    background-color: #ffffff;
+    min-width: 200px;
+}
+
+.editor textarea {
+    width: 100%;
+    height: 30vh;
+    font-size: 1rem;
+    padding: 1rem;
+}
+.sidebar-left {
+    width: 250px;
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
+    min-width: 150px;
+}
+.sidebar-right {
+    width: 280px;
+    background-color: #e6e6e6;
+    padding: 1rem;
+    min-width: 150px;
+}
+.sidebar-right button {
+    width: 100%;      /* ocupa todo el ancho disponible */
+    padding: 10px;    /* más alto */
+    font-size: 16px;  /* texto más grande */
+}

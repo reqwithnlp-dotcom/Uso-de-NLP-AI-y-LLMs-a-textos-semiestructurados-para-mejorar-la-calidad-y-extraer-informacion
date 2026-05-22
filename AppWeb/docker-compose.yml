@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: req_DB
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rqadmin
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    # Importante: agregar healthcheck para que web espere
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=req_DB
+      - MYSQL_USER=rqadmin
+      - MYSQL_PASSWORD=rqadminpassword
+      - MYSQL_PORT=3306
+volumes:
+  dbdata:
