@@ -2,7 +2,7 @@ from enum import StrEnum
 
 
 class PenalizacionPorComa(StrEnum):
-
+    MINIMUM="minimum"
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -10,6 +10,8 @@ class PenalizacionPorComa(StrEnum):
     @property
     def alpha(self) -> float:
         match self:
+            case PenalizacionPorComa.MINIMUM:
+                return 0.025
             case PenalizacionPorComa.LOW:
                 return 0.05
             case PenalizacionPorComa.MEDIUM:

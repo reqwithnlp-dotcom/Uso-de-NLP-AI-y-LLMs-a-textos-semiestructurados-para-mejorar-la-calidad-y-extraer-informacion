@@ -3,7 +3,7 @@ from spacy.tokens import Doc
 from model.PenalizacionPorComa import PenalizacionPorComa
 
 
-def calcularGunningExtendido (doc: Doc, penalizacion: PenalizacionPorComa = PenalizacionPorComa.MEDIUM)-> dict:
+def calcularGunningExtendido (doc: Doc, penalizacion: PenalizacionPorComa)-> dict:
     sentences = list(doc.sents)
     word =[token for token in doc if token.is_alpha]
     comas =[token for token in doc if token.text == ","]
