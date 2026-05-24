@@ -1,0 +1,20 @@
+Embeddings: en_core_web_md (spacy)
+ML: XGBoost
+
+RESULTS (SIN FILTROS)
+--------------------
+MAE: 0.5623
+R2 : 0.5162
+Accuracy : 0.7772
+Precision: 0.7443
+Recall   : 0.8016
+F1 Score : 0.7719
+
+RESULTS (CON FILTROS)
+--------------------
+MAE: 0.5037
+R2 : 0.6889
+Accuracy : 0.8839
+Precision: 0.8694
+Recall   : 0.9107
+F1 Score : 0.8896

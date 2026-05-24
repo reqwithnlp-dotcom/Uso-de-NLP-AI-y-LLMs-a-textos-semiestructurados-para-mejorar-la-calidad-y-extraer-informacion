@@ -1,0 +1,21 @@
+Embeddings: en_core_web_md (spacy)
+ML: RandomForest
+
+
+RESULTS (SIN FILTROS)
+--------------------
+MAE: 0.5795
+R2 : 0.4826
+Accuracy : 0.7752
+Precision: 0.7421
+Recall   : 0.7629
+F1 Score : 0.7523
+
+RESULTS (con filtros)
+--------------------
+MAE: 0.5337
+R2 : 0.6617
+Accuracy : 0.8729
+Precision: 0.8559
+Recall   : 0.8896
+F1 Score : 0.8724
