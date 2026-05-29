@@ -1,14 +1,17 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------
 # CONFIG
 # -----------------------------
 
-INPUT_FILE = "Concreteness_ratings_Brysbaert_et_al_BRM.txt"
+INPUT_FILE = BASE_PATH / "Concreteness_ratings_Brysbaert_et_al_BRM.txt"
 
-TRAIN_OUTPUT = "train.csv"
-TEST_OUTPUT = "test.csv"
+TRAIN_OUTPUT = BASE_PATH / "train.csv"
+TEST_OUTPUT = BASE_PATH / "test.csv"
 
 TEST_SIZE = 0.2
 RANDOM_STATE = 42

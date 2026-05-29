@@ -11,6 +11,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------------
 # LOAD SPACY MODEL
@@ -26,8 +29,8 @@ nlp = spacy.load("en_core_web_md")
 
 print("Loading datasets...")
 
-train_df = pd.read_csv("train.csv")
-test_df = pd.read_csv("test.csv")
+train_df = pd.read_csv(BASE_PATH / "train.csv")
+test_df = pd.read_csv(BASE_PATH / "test.csv")
 
 # -----------------------------------
 # EXTRA CLEANING
@@ -189,7 +192,7 @@ print(f"F1 Score : {f1:.4f}")
 
 print("\nSaving model...")
 
-joblib.dump(model, "xgboost_model.joblib")
+joblib.dump(model, BASE_PATH /  "xgboost_model.joblib")
 
 print("Model saved as xgboost_model.joblib")
 

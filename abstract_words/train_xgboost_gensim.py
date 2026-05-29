@@ -11,6 +11,10 @@ from sklearn.metrics import f1_score
 
 import gensim.downloader as api
 
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
+
 # -----------------------------------
 # LOAD FASTTEXT EMBEDDINGS
 # -----------------------------------
@@ -37,8 +41,8 @@ def word_to_vector(word):
 
 print("Loading datasets...")
 
-train_df = pd.read_csv("train.csv")
-test_df = pd.read_csv("test.csv")
+train_df = pd.read_csv(BASE_PATH / "train.csv")
+test_df = pd.read_csv(BASE_PATH / "test.csv")
 
 # -----------------------------------
 # OPTIONAL CLEANING (igual que antes)
@@ -178,6 +182,6 @@ print(f"F1 Score : {f1:.4f}")
 # SAVE MODEL
 # -----------------------------------
 
-joblib.dump(model, "xgboost_fasttext_model.joblib")
+joblib.dump(model, BASE_PATH / "xgboost_fasttext_model.joblib")
 
 print("\nModel saved: xgboost_fasttext_model.joblib")

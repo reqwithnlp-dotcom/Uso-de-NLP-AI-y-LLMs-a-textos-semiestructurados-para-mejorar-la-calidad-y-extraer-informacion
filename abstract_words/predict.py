@@ -1,5 +1,8 @@
 import spacy
 import joblib
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------------
 # LOAD SPACY
@@ -15,7 +18,7 @@ nlp = spacy.load("en_core_web_md")
 
 print("Loading model...")
 
-model = joblib.load("model.pkl")
+model = joblib.load(BASE_PATH / "model.joblib")
 
 # -----------------------------------
 # PREDICT FUNCTION

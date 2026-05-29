@@ -1,25 +1,37 @@
 import pandas as pd
-import spacy
 import joblib
+import numpy as np
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import r2_score
+from xgboost import XGBRegressor
+from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from pathlib import Path
 
+from sentence_transformers import SentenceTransformer
+
 BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------------
-# LOAD SPACY MODEL
+# LOAD FASTTEXT EMBEDDINGS
 # -----------------------------------
 
-print("Loading spaCy model...")
+print("Loading transformer embeddings...")
 
-nlp = spacy.load("en_core_web_md")
+embedding_model = SentenceTransformer(
+    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+)
+
+def word_to_vector(word):
+
+    embedding = embedding_model.encode(
+        word,
+        normalize_embeddings=True
+    )
+
+    return embedding
 
 # -----------------------------------
 # LOAD DATASETS
@@ -30,77 +42,76 @@ print("Loading datasets...")
 train_df = pd.read_csv(BASE_PATH / "train.csv")
 test_df = pd.read_csv(BASE_PATH / "test.csv")
 
+# -----------------------------------
+# OPTIONAL CLEANING (igual que antes)
+# -----------------------------------
+
 # eliminar filas inválidas
 train_df = train_df.dropna(subset=["Word", "Conc.M"])
 test_df = test_df.dropna(subset=["Word", "Conc.M"])
 
 # eliminar palabras ambiguas
-train_df = train_df[train_df["Conc.SD"] < 1.2]
-test_df = test_df[test_df["Conc.SD"] < 1.2]
+# train_df = train_df[train_df["Conc.SD"] < 1.2]
+# test_df = test_df[test_df["Conc.SD"] < 1.2]
 
 # mantener palabras conocidas
-train_df = train_df[train_df["Percent_known"] >= 0.9]
-test_df = test_df[test_df["Percent_known"] >= 0.9]
+# train_df = train_df[train_df["Percent_known"] >= 0.9]
+# test_df = test_df[test_df["Percent_known"] >= 0.9]
 
 print(f"Train rows after cleaning: {len(train_df)}")
 print(f"Test rows after cleaning : {len(test_df)}")
 
 # -----------------------------------
-# VECTOR FUNCTION
+# BUILD TRAIN SET
 # -----------------------------------
 
-def word_to_vector(word):
-
-    doc = nlp(str(word))
-
-    return doc.vector
-
-# -----------------------------------
-# BUILD TRAIN DATA
-# -----------------------------------
-
-print("Generating train embeddings...")
+print("Building train embeddings...")
 
 X_train = []
 y_train = []
 
 for _, row in train_df.iterrows():
 
-    word = row["Word"]
-    conc = row["Conc.M"]
+    vec = word_to_vector(row["Word"])
 
-    vector = word_to_vector(word)
+    if np.sum(vec) == 0:
+        continue
 
-    X_train.append(vector)
-    y_train.append(conc)
+    X_train.append(vec)
+    y_train.append(row["Conc.M"])
 
 # -----------------------------------
-# BUILD TEST DATA
+# BUILD TEST SET
 # -----------------------------------
 
-print("Generating test embeddings...")
+print("Building test embeddings...")
 
 X_test = []
 y_test = []
 
 for _, row in test_df.iterrows():
 
-    word = row["Word"]
-    conc = row["Conc.M"]
+    vec = word_to_vector(row["Word"])
 
-    vector = word_to_vector(word)
+    if np.sum(vec) == 0:
+        continue
 
-    X_test.append(vector)
-    y_test.append(conc)
+    X_test.append(vec)
+    y_test.append(row["Conc.M"])
 
 # -----------------------------------
 # TRAIN MODEL
 # -----------------------------------
 
-print("Training model...")
+print("Training XGBoost...")
 
-model = RandomForestRegressor(
-    n_estimators=100,
+model = XGBRegressor(
+    n_estimators=300,
+    max_depth=6,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    objective="reg:squarederror",
     random_state=42,
     n_jobs=-1
 )
@@ -110,8 +121,6 @@ model.fit(X_train, y_train)
 # -----------------------------------
 # EVALUATION
 # -----------------------------------
-
-print("Evaluating model...")
 
 predictions = model.predict(X_test)
 
@@ -158,7 +167,6 @@ f1 = f1_score(
     pred_binary
 )
 
-print("\nSpacy embeddings and RandomForest")
 print("\nRESULTS")
 print("--------------------")
 print(f"MAE: {mae:.4f}")
@@ -172,8 +180,6 @@ print(f"F1 Score : {f1:.4f}")
 # SAVE MODEL
 # -----------------------------------
 
-print("\nSaving model...")
+joblib.dump(model, BASE_PATH / "xgboost_mpnet_model.joblib")
 
-joblib.dump(model, BASE_PATH / "model.joblib")
-
-print("Model saved as model.joblib")
+print("\nModel saved: xgboost_mpnet_model.joblib")

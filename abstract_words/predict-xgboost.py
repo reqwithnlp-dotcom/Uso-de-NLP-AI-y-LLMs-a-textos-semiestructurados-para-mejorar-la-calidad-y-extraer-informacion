@@ -1,5 +1,8 @@
 import spacy
 import joblib
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------------
 # LOAD MODELS
@@ -11,7 +14,7 @@ nlp = spacy.load("en_core_web_md")
 
 print("Loading XGBoost model...")
 
-model = joblib.load("xgboost_model.joblib")
+model = joblib.load(BASE_PATH / "xgboost_model.joblib")
 
 # -----------------------------------
 # FEATURE FUNCTION

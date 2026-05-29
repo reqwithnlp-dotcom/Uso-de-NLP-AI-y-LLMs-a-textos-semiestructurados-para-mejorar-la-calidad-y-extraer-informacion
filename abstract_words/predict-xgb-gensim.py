@@ -1,6 +1,9 @@
 import numpy as np
 import joblib
 import gensim.downloader as api
+from pathlib import Path
+
+BASE_PATH = Path(__file__).resolve().parent
 
 # -----------------------------------
 # LOAD MODELS
@@ -12,7 +15,7 @@ ft = api.load("fasttext-wiki-news-subwords-300")
 
 print("Loading XGBoost model...")
 
-model = joblib.load("xgboost_fasttext_model.pkl")
+model = joblib.load(BASE_PATH / "xgboost_fasttext_model.joblib")
 
 VECTOR_SIZE = 300
 

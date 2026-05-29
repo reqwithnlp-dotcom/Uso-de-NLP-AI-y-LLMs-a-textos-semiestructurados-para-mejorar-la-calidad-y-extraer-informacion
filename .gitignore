@@ -217,5 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Datasets
+*.csv
 # ML models
 *.joblib

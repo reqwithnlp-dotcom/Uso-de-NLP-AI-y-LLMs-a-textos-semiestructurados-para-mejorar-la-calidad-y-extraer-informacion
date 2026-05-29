@@ -1,0 +1,20 @@
+Embeddings: mpnet
+ML: XGBoost
+
+RESULTS (sin filtros)
+--------------------
+MAE: 0.4045
+R2 : 0.7383
+Accuracy : 0.8473
+Precision: 0.7990
+Recall   : 0.8803
+F1 Score : 0.8377
+
+RESULTS (con filtros)
+--------------------
+MAE: 0.3635
+R2 : 0.8488
+Accuracy : 0.9319
+Precision: 0.8988
+Recall   : 0.9697
+F1 Score : 0.9329
