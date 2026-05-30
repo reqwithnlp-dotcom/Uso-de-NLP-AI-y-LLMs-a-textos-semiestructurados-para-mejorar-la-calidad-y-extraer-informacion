@@ -41,12 +41,10 @@ train_df = train_df.dropna(subset=["Word", "Conc.M"])
 test_df = test_df.dropna(subset=["Word", "Conc.M"])
 
 # eliminar palabras ambiguas
-train_df = train_df[train_df["Conc.SD"] < 1.2]
-test_df = test_df[test_df["Conc.SD"] < 1.2]
+train_df = train_df[train_df["Conc.SD"] < 1.5]
 
 # mantener palabras conocidas
-train_df = train_df[train_df["Percent_known"] >= 0.9]
-test_df = test_df[test_df["Percent_known"] >= 0.9]
+#train_df = train_df[train_df["Percent_known"] >= 0.8]
 
 print(f"Train rows after cleaning: {len(train_df)}")
 print(f"Test rows after cleaning : {len(test_df)}")

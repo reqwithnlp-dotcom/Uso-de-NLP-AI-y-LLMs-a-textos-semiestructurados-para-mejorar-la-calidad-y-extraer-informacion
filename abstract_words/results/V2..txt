@@ -10,11 +10,11 @@ Precision: 0.7443
 Recall   : 0.8016
 F1 Score : 0.7719
 
-RESULTS (CON FILTROS)
+RESULTS (SD < 1.5)
 --------------------
-MAE: 0.5037
-R2 : 0.6889
-Accuracy : 0.8839
-Precision: 0.8694
-Recall   : 0.9107
-F1 Score : 0.8896
+MAE: 0.5621
+R2 : 0.5081
+Accuracy : 0.7772
+Precision: 0.7431
+Recall   : 0.8042
+F1 Score : 0.7725

@@ -11,11 +11,47 @@ Precision: 0.7421
 Recall   : 0.7629
 F1 Score : 0.7523
 
-RESULTS (con filtros)
+RESULTS (<1.5)
 --------------------
-MAE: 0.5337
-R2 : 0.6617
-Accuracy : 0.8729
-Precision: 0.8559
-Recall   : 0.8896
-F1 Score : 0.8724
+MAE: 0.5792
+R2 : 0.4738
+Accuracy : 0.7767
+Precision: 0.7422
+Recall   : 0.7679
+F1 Score : 0.7548
+
+RESULTS (con filtros <1.5 y >0.8)
+--------------------
+MAE: 0.5792
+R2 : 0.4738
+Accuracy : 0.7767
+Precision: 0.7422
+Recall   : 0.7679
+F1 Score : 0.7548
+
+RESULTS (<1.4)
+--------------------
+MAE: 0.5832
+R2 : 0.4548
+Accuracy : 0.7752
+Precision: 0.7416
+Recall   : 0.7640
+F1 Score : 0.7526
+
+RESULTS (<1.45)
+--------------------
+MAE: 0.5800
+R2 : 0.4681
+Accuracy : 0.7760
+Precision: 0.7419
+Recall   : 0.7659
+F1 Score : 0.7537
+
+RESULTS (< 1.55)
+--------------------
+MAE: 0.5797
+R2 : 0.4765
+Accuracy : 0.7751
+Precision: 0.7416
+Recall   : 0.7634
+F1 Score : 0.7524

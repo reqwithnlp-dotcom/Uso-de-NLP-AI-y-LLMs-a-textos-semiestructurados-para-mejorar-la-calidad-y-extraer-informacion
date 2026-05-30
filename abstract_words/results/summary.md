@@ -4,8 +4,7 @@
 
 The filtered executions apply the following dataset cleaning rules:
 
-* Remove ambiguous words using the concreteness standard deviation (`Conc.SD < 1.2`)
-* Keep only highly recognized words (`Percent_known >= 0.9`)
+* Remove ambiguous words using the concreteness standard deviation (`Conc.SD < 1.5`)
 
 ---
 
@@ -20,13 +19,13 @@ The filtered executions apply the following dataset cleaning rules:
 
 ---
 
-# Results With Filters
+# Results with Training Filter (Conc.SD < 1.5)
 
-| Embeddings             | ML Model     | MAE    | R²     | Accuracy | Precision | Recall | F1 Score |
-| ---------------------- | ------------ | ------ | ------ | -------- | --------- | ------ | -------- |
-| spaCy `en_core_web_md` | RandomForest | 0.5337 | 0.6617 | 0.8729   | 0.8559    | 0.8896 | 0.8724   |
-| spaCy `en_core_web_md` | XGBoost      | 0.5037 | 0.6889 | 0.8839   | 0.8694    | 0.9107 | 0.8896   |
-| FastText               | XGBoost      | 0.3087 | 0.8934 | 0.9586   | 0.9493    | 0.9609 | 0.9551   |
-| MPNet                  | XGBoost      | 0.3635 | 0.8488 | 0.9319   | 0.8988    | 0.9697 | 0.9329   |
+| Embeddings | ML Model | MAE | R² | Accuracy | Precision | Recall | F1 Score |
+|------------|----------|------|------|----------|-----------|--------|----------|
+| spaCy `en_core_web_md` | RandomForest | 0.5792 | 0.4738 | 0.7767 | 0.7422 | 0.7679 | 0.7548 |
+| spaCy `en_core_web_md` | XGBoost | 0.5621 | 0.5081 | 0.7772 | 0.7431 | 0.8042 | 0.7725 |
+| FastText | XGBoost | 0.3621 | 0.7850 | 0.8661 | 0.8380 | 0.8606 | 0.8491 |
+| MPNet | XGBoost | 0.4044 | 0.7363 | 0.8457 | 0.7940 | 0.8848 | 0.8369 |
 
 ---
