@@ -1,0 +1,5 @@
+{
+  "embedding": "spacy",
+  "model": "rf",
+  "save": null
+}
