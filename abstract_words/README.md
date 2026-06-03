@@ -86,6 +86,11 @@ test.csv
 
 ## Step 2 — Train Model
 
+See config.json. 
+Values: 
+embedding: spacy, fasttext, mpnet
+model: rf, xgboost
+
 Generates semantic embeddings and trains the machine learning model.
 
 Run:

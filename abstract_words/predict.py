@@ -24,34 +24,22 @@ def main():
 
     import sys
     sys.path.insert(0, str(BASE_PATH))
-    from strategies import create_embedding_strategy
+    from strategies import create_embedding_strategy, get_default_model_path
 
     emb_name = (args.embedding or cfg.get("embedding") or "spacy").lower()
     model_arg = args.model or cfg.get("model")
     print(f"Using embedding strategy: {emb_name}")
     embedder = create_embedding_strategy(emb_name)
 
-    # determine model filename
-    if model_arg:
-        model_path = Path(model_arg)
-        print(f"Using model file: {model_path}")
-    else:
-        # choose default names to keep backward compatibility
-        default_map = {
-            "spacy": BASE_PATH / "model.joblib",
-            "fasttext": BASE_PATH / "xgboost_fasttext_model.joblib",
-            "gensim": BASE_PATH / "xgboost_fasttext_model.joblib",
-            "mpnet": BASE_PATH / "xgboost_mpnet_model.joblib",
-        }
-        model_path = default_map.get(emb_name, BASE_PATH / "model.joblib")
-        print(f"Using default model file for embedding '{emb_name}': {model_path}")
+    # determine model filename from strategy helper
+    file_model_path = get_default_model_path(BASE_PATH, model_arg, emb_name)
 
-    if not model_path.exists():
-        raise SystemExit(f"Model file not found: {model_path}")
+    if not file_model_path.exists():
+        raise SystemExit(f"Model file not found: {file_model_path}")
 
     # load model via model strategy wrapper (joblib used internally)
     import joblib
-    loaded = joblib.load(model_path)
+    loaded = joblib.load(file_model_path)
 
     # simple wrapper object to expose predict
     class _SimpleModel:

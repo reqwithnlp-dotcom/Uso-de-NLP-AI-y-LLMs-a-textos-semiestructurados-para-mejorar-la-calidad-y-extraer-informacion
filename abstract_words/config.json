@@ -1,5 +1,4 @@
 {
-  "embedding": "spacy",
-  "model": "rf",
-  "save": null
+  "embedding": "mpnet",
+  "model": "xgboost"
 }

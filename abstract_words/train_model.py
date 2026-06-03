@@ -57,12 +57,11 @@ def main():
     # CLI args take precedence over config values
     emb_arg = args.embedding or cfg.get("embedding") or "spacy"
     model_arg = args.model or cfg.get("model") or "rf"
-    save_arg = args.save if args.save is not None else cfg.get("save")
 
     # lazy imports to reduce startup cost when not needed
     import sys
     sys.path.insert(0, str(BASE_PATH))
-    from strategies import create_embedding_strategy, create_ml_model_strategy
+    from strategies import create_embedding_strategy, create_ml_model_strategy, get_default_model_path
 
     print("Loading datasets...")
     train_df, test_df = load_datasets()
@@ -77,16 +76,7 @@ def main():
 
     print(f"Using ML model strategy: {model_arg.lower()}")
     model = create_ml_model_strategy(model_arg)
-    if model_arg.lower() in ("rf", "randomforest"):
-        default_save = BASE_PATH / "model.joblib"
-    else:
-        save_map = {
-            "spacy": BASE_PATH / "xgboost_model.joblib",
-            "fasttext": BASE_PATH / "xgboost_fasttext_model.joblib",
-            "gensim": BASE_PATH / "xgboost_fasttext_model.joblib",
-            "mpnet": BASE_PATH / "xgboost_mpnet_model.joblib",
-        }
-        default_save = save_map.get(emb_name, BASE_PATH / "xgboost_model.joblib")
+    file_model_path = get_default_model_path(BASE_PATH, model_arg, emb_name)
 
     print("Training model...")
     model.fit(X_train, y_train)
@@ -117,7 +107,7 @@ def main():
     print(f"Recall   : {recall:.4f}")
     print(f"F1 Score : {f1:.4f}")
 
-    save_path = Path(save_arg) if save_arg else default_save
+    save_path = file_model_path
     print(f"Saving model to {save_path}")
     model.save(save_path)
 
