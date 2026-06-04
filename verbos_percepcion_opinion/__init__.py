@@ -1,3 +1,3 @@
-"""Paquete para verbos_percepcion_opinion (módulo de ejemplo)."""
+"""Package for verbos_percepcion_opinion."""
 
 __all__ = ["service"]

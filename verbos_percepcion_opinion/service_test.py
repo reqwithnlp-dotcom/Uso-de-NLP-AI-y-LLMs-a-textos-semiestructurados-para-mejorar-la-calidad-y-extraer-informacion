@@ -37,3 +37,6 @@ class TestVerbosPercepcionOpinion(unittest.TestCase):
 				"others": ["I", "pain", "in", "my", "back"],
 			},
 		)
+
+if __name__ == "__main__":
+    unittest.main()
