@@ -1,0 +1,8 @@
+spacy>=3.5.0,<4.0.0
+numpy
+# Modelo de idioma inglés de spaCy (instalar con: python -m spacy download en_core_web_sm)
+# en_core_web_sm>=3.5.0
+
+# Para analisis_profundo=True (Fase 2 SBERT):
+sentence-transformers>=2.2.0
+# El modelo 'paraphrase-MiniLM-L6-v2' (~80MB) se descarga automáticamente en la primera ejecución.
