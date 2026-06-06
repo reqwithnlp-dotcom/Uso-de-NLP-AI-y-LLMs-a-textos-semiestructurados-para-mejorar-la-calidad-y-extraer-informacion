@@ -37,7 +37,7 @@ class AnalizarResponse(BaseModel):
     score: float
     gunning_fog: float
     comma_penalty: float
-    commas_per_sentence: float
+    comma_ratio: float
     words_per_sentence: float
     alpha: float
 

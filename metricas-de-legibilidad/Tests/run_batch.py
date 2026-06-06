@@ -20,8 +20,8 @@ def analizar(texto: str, penalizacion: str) -> dict:
 def imprimir_resultado(label: str, r: dict):
     print(f"  {label:<25} score={r['score']:>6.2f}  "
           f"gunning={r['gunning_fog']:>5.2f}  "
-          f"penalización={r['comma_penalty']:>5.2f}  "
-          f"comas/oración={r['commas_per_sentence']:>4.2f}")
+          f"penalizacion={r['comma_penalty']:>5.2f}  "
+          f"ratio_comas={r['comma_ratio']:>6.4f}")
 
 
 def main():
