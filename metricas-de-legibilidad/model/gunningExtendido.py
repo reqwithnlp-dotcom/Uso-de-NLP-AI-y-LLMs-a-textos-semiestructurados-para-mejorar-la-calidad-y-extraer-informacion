@@ -23,16 +23,16 @@ def calcularGunningExtendido (doc: Doc, penalizacion: PenalizacionPorComa)-> dic
         }
 
     wordsPerSentence = wordsCount / sentencesCount
-    commasPerSentence = commasCount / sentencesCount
+    commaRatio = commasCount / wordsCount
 
     gunning_fog = doc._.readability["gunning_fog"]
-    comma_penalty = penalizacion.alpha*(commasPerSentence* wordsPerSentence)
+    comma_penalty = penalizacion.alpha * commaRatio * 100
     extended_score = gunning_fog + comma_penalty
 
     return {"score": round(extended_score, 2),
             "gunning_fog": round(gunning_fog, 2),
             "comma_penalty": round(comma_penalty, 2),
-            "commas_per_sentence": round(commasPerSentence, 2),
+            "comma_ratio": round(commaRatio, 4),
             "words_per_sentence": round(wordsPerSentence, 2),
             "alpha": penalizacion.alpha}
 

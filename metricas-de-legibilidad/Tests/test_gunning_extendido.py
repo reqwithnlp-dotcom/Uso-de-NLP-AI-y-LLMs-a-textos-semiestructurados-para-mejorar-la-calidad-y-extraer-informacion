@@ -18,5 +18,5 @@ casosPrueba = [
             The final decision, keeping the original objective, required each department to submit progress information every month.
             """
     }
-
+    
 ]
