@@ -14,8 +14,8 @@ except Exception:
 
 try:
     nlp = spacy.load("en_core_web_sm") if spacy is not None else None
-except Exception:
-    nlp = None
+except Exception as exc:
+    raise RuntimeError("Could not load spaCy model 'en_core_web_sm'") from exc
 
 OPINION_AND_PERCEPTION_VERBS = [
     "think",
@@ -42,15 +42,6 @@ OPINION_AND_PERCEPTION_VERBS = [
     "forget",
 ]
 
-
-def lemmatize_text(text: str):
-    """Returns a token list with the original text, POS and lemma for each token in `text`.
-
-    If not nlp, return an empty list.
-    """
-    if nlp is None:
-        return []
-    return list(nlp(text))
 
 
 def detect_opinion_and_perception(text: str) -> Dict[str, List[str]]:
