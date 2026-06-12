@@ -23,7 +23,7 @@ python -m spacy download en_core_web_sm
 ## Run the API (development)
 
 ```bash
-uvicorn perception_opinion_api:app --reload
+uvicorn app.main:app --reload
 ```
 
 The API will be available at `http://127.0.0.1:8000`.
@@ -54,8 +54,16 @@ Common errors:
 Tests use `unittest` and `fastapi.testclient`.
 
 ```bash
-python -m unittest api_test.py
-python -m unittest service_test.py
+python tests/api_test.py
+python tests/service_test.py
+```
+
+## PEP8 and style checks
+
+The project includes `flake8` and a default config in `.flake8`.
+
+```bash
+python -m flake8 app tests
 ```
 
 ## Notes

@@ -2,6 +2,7 @@ spacy>=3.0.0
 pytest>=6.0
 fastapi>=0.110.0
 uvicorn[standard]>=0.18.3
-httpx2>=0.0.1
+httpx>=0.27.0
+flake8>=7.0.0
 # Note: install the English model with:
 # python -m spacy download en_core_web_sm
