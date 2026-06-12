@@ -90,17 +90,25 @@ async function mostrarResultado() {
         promesas.push(p);
     }
     if (opinion_perception){
-        const p = fetch(`${API_OPINION_PERCEPTION_URL}/opinion-percepcion?texto=${encodeURIComponent(texto)}`, {
-            method: "GET",
-            headers: {"Content-Type": "application/json"}
+        const p = fetch(`http://127.0.0.1:8000/perception-opinion`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text: texto })  // 👈 Envía JSON en el body
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log("Respuesta del opinion perception:", data);
-            if (data.resultado.length > 0) {
-                data.resultado.forEach(item => {
+            if (data.opinion_perception && data.opinion_perception.length > 0) {
+                data.opinion_perception.forEach(item => {
                     resultados.push(
-                    `Frase detectada -> Verbo: ${item.verbo}, Tipo: ${item.tipo}, Lema: ${item.lema}`
+                        `Verbo de opinion y percepcion detectados -> ${item}`
                     );
                 });
             } else {
@@ -231,5 +239,46 @@ async function mostrarResultado() {
     }
 
     await Promise.all(promesas);
-    document.getElementById("resultados").innerText = resultados.join("\n");
+
+    const contenedor = document.getElementById('resultados-items');
+    const estadoVacio = document.getElementById('estado-vacio');
+
+    if (resultados.length === 0) {
+        estadoVacio.style.display = 'block';
+        contenedor.innerHTML = '';
+        contenedor.appendChild(estadoVacio);
+    } else {
+        estadoVacio.style.display = 'none';
+        
+        // Agrupar por tipo de indicador
+        const grupos = {};
+        resultados.forEach(resultado => {
+            const tipo = resultado.split('->')[0].trim() || 'General';
+            if (!grupos[tipo]) grupos[tipo] = [];
+            grupos[tipo].push(resultado);
+        });
+        
+        let html = '';
+        Object.entries(grupos).forEach(([tipo, items]) => {
+            html += `
+                <div class="mb-3">
+                    <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">
+                        ${tipo} <span class="badge bg-secondary">${items.length}</span>
+                    </h4>
+                    ${items.map(item => `
+                        <div class="result-card">
+                            <div class="result-icon warning">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                            <div class="result-content">
+                                <p class="result-desc">${item}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        });
+        
+        contenedor.innerHTML = html;
+    }
 }
