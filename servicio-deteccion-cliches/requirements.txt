@@ -6,3 +6,8 @@ numpy
 # Para analisis_profundo=True (Fase 2 SBERT):
 sentence-transformers>=2.2.0
 # El modelo 'paraphrase-MiniLM-L6-v2' (~80MB) se descarga automáticamente en la primera ejecución.
+
+fastapi>=0.95.0
+uvicorn>=0.22.0
+pydantic>=2.0.0
+

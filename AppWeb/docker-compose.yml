@@ -15,18 +15,41 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+
+  cliches-api:
+    build:
+      context: ../servicio-deteccion-cliches
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+
+  repeticion-api:
+    build:
+      context: ../servicio-repeticion-palabras
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+      cliches-api:
+        condition: service_started
+      repeticion-api:
+        condition: service_started
     environment:
       - MYSQL_HOST=db
       - MYSQL_DATABASE=req_DB
       - MYSQL_USER=rqadmin
       - MYSQL_PASSWORD=rqadminpassword
       - MYSQL_PORT=3306
+      - API_CLICHES_URL=http://localhost:8001
+      - API_WORD_REPETITION_URL=http://localhost:8002
 volumes:
   dbdata:
+
