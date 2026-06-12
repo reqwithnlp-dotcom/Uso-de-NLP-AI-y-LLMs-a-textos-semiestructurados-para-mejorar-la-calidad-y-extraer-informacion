@@ -1,14 +1,518 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <title>REQ-NLP Toolkit
-    </title>
+    <title>REQ-NLP Toolkit</title>
+    
     <link rel="stylesheet" href="{% static 'req_nlp_app/css/styles.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-light: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .app-header .brand-icon {
+            background: rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .app-header .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .app-header .user-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .app-header .btn-logout {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.375rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .app-header .btn-logout:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            height: calc(100vh - 64px);
+            gap: 1rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        /* Sidebars */
+        .sidebar {
+            background: var(--bg-sidebar);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .sidebar-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.75rem;
+        }
+
+        /* Search box */
+        .search-box {
+            padding: 0 0.5rem 0.75rem;
+        }
+
+        .search-box .input-group-text {
+            background: var(--bg-light);
+            border-right: none;
+        }
+
+        .search-box .form-control {
+            border-left: none;
+            font-size: 0.875rem;
+        }
+
+        /* Documents list */
+        .doc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .doc-list li {
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 0.75rem;
+            margin-bottom: 0.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .doc-list li:hover {
+            background: var(--bg-light);
+            border-color: var(--border);
+        }
+
+        .doc-list li.active {
+            background: #eef2ff;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .doc-list li .doc-icon {
+            color: var(--text-secondary);
+            margin-right: 0.625rem;
+            font-size: 0.875rem;
+        }
+
+        .doc-list li.active .doc-icon {
+            color: var(--primary);
+        }
+
+        .doc-list li .nombre-doc {
+            flex: 1;
+            font-size: 0.875rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .doc-list li .doc-actions {
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .doc-list li:hover .doc-actions {
+            opacity: 1;
+        }
+
+        .doc-actions .btn-icon {
+            background: none;
+            border: none;
+            padding: 0.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .doc-actions .btn-icon:hover {
+            background: rgba(239,68,68,0.1);
+            color: var(--danger);
+        }
+
+        .btn-new-doc {
+            margin: 0.5rem;
+            background: var(--bg-light);
+            border: 1px dashed var(--border);
+            color: var(--primary);
+            padding: 0.625rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-new-doc:hover {
+            background: #eef2ff;
+            border-color: var(--primary);
+            border-style: solid;
+        }
+
+        /* Editor */
+        .editor-container {
+            background: var(--bg-sidebar);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+        }
+
+        .editor-toolbar .doc-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .editor-toolbar .toolbar-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .editor-status {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 0.375rem 0.75rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+
+        #editor-texto {
+            flex: 1;
+            width: 100%;
+            border: none;
+            padding: 1.5rem;
+            resize: none;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: white;
+            outline: none;
+        }
+
+        #editor-texto:focus {
+            background: #fafbfc;
+        }
+
+        .editor-footer {
+            padding: 0.625rem 1.25rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-light);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        /* Results area */
+        .results-container {
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem 1.25rem;
+            background: var(--bg-light);
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .results-header h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .result-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.875rem;
+        }
+
+        .result-icon.warning {
+            background: #fef3c7;
+            color: var(--warning);
+        }
+
+        .result-icon.info {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .result-icon.success {
+            background: #d1fae5;
+            color: var(--success);
+        }
+
+        .result-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .result-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Indicators sidebar */
+        .indicator-group {
+            margin-bottom: 1rem;
+        }
+
+        .indicator-group-title {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            padding: 0 0.75rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .indicator-item {
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.125rem;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .indicator-item:hover {
+            background: var(--bg-light);
+        }
+
+        .indicator-item .form-check {
+            margin: 0;
+            padding-left: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .indicator-item .form-check-label {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .indicator-item .indicator-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .btn-analyze {
+            margin: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            width: calc(100% - 1rem);
+        }
+
+        .btn-analyze:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+
+        /* Login page layout */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 64px);
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 240px 1fr 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                overflow-y: auto;
+            }
+            body { overflow: auto; }
+            .sidebar { min-height: 300px; }
+            .editor-container { min-height: 500px; }
+        }
+    </style>
 
     <script>
         const API_INVERTIR_TEXTO_URL = "{{API_INVERTIR_TEXTO_URL}}";
@@ -23,134 +527,322 @@
         const API_READABILITY_METRIC_URL = "{{API_READABILITY_METRIC_URL}}";
         const API_TENSES_URL = "{{API_TENSES_URL}}";
         const API_CLICHES_URL = "{{API_CLICHES_URL}}";
-        
     </script>
-    
 </head>
 <body>
-    <header class="navbar">
-        <h1>Req NLP Toolkit</h1>
-        <nav>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <div>
+                <div>REQ-NLP Toolkit</div>
+                <small style="opacity: 0.8; font-size: 0.75rem;">Analizador de Requisitos</small>
+            </div>
+        </div>
+        <nav class="user-actions">
             {% if user.is_authenticated %}
-                <span>Hola, {{ user.username }}</span>
+                <div class="user-name">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Hola, <strong>{{ user.username }}</strong></span>
+                </div>
                 <form method="post" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" style="background:none; border:none; padding:0; color:blue; text-decoration:underline; cursor:pointer;">
-                        Cerrar sesión
+                    <button type="submit" class="btn-logout">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
                     </button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}">Ingresar</a>
-                <a href="{% url 'signup' %}">Registrarse</a>
+                <a href="{% url 'login' %}" class="btn-logout">
+                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                </a>
+                <a href="{% url 'signup' %}" class="btn-logout">
+                    <i class="bi bi-person-plus"></i> Registrarse
+                </a>
             {% endif %}
         </nav>
     </header>
- 
-    <div class="container">
-        <!-- 📁 Panel izquierdo -->
-         {% if user.is_authenticated %}
-        <aside class="sidebar-left">
-            <h2>Documentos</h2>
-    <ul id="lista-documentos">
-        {% for doc in documentos %}
-        <li data-id="{{ doc.id }}">
-            <i class="bi bi-trash" onclick="eliminarDocumento(event, {{ doc.id }})" title="Eliminar documento" style="cursor:pointer; color:red; margin-right: 8px;"></i>
-            <span class="nombre-doc" 
-                data-id="{{ doc.id }}" 
-                oncontextmenu="editarNombre(event, this)" 
-                ondblclick="cargarContenidoDocumento({{ doc.id }})" 
-                style="cursor:pointer;">{{ doc.nombre }}
-            </span>
-        </li>
-        {% endfor %}
-    </ul>
-    <button onclick="crearNuevoDocumento()">+ Nuevo documento</button>
+
+    {% if user.is_authenticated %}
+    <!-- Main layout -->
+    <div class="app-container">
+        <!-- Sidebar izquierda: Documentos -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>
+                    <i class="bi bi-folder-fill"></i>
+                    Mis Documentos
+                </h2>
+                <span class="badge bg-primary">{{ documentos|length }}</span>
+            </div>
+            <div class="search-box">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" id="buscar-documentos" class="form-control" placeholder="Buscar documento...">
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <ul class="doc-list" id="lista-documentos">
+                    {% for doc in documentos %}
+                    <li data-id="{{ doc.id }}" ondblclick="cargarContenidoDocumento({{ doc.id }})">
+                        <i class="bi bi-file-earmark-text doc-icon"></i>
+                        <span class="nombre-doc" 
+                            data-id="{{ doc.id }}" 
+                            oncontextmenu="editarNombre(event, this)">{{ doc.nombre }}</span>
+                        <span class="doc-actions">
+                            <button class="btn-icon" onclick="eliminarDocumento(event, {{ doc.id }})" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </span>
+                    </li>
+                    {% empty %}
+                    <li style="justify-content: center; color: var(--text-secondary); padding: 2rem 0.75rem; cursor: default;">
+                        <i class="bi bi-inbox"></i>&nbsp;Sin documentos
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="btn-new-doc" onclick="crearNuevoDocumento()">
+                <i class="bi bi-plus-lg"></i>
+                Nuevo documento
+            </button>
         </aside>
-         {% endif %}
-        <!-- 📄 Panel central -->
-        <main class="editor">
-            <h2>Editor de Documentos</h2>
+
+        <!-- Panel central: Editor -->
+        <main class="editor-container">
+            <div class="editor-toolbar">
+                <div class="doc-title">
+                    <i class="bi bi-pencil-square" style="color: var(--primary);"></i>
+                    <span id="titulo-doc">Editor de Documentos</span>
+                </div>
+                <div class="toolbar-actions">
+                    <span class="editor-status" id="estado-guardado">
+                        <i class="bi bi-circle-fill" style="color: var(--success); font-size: 0.5rem;"></i>
+                        Listo
+                    </span>
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="guardarDocumento(getCurrentDocId(), obtenerTexto())">
+                        <i class="bi bi-floppy"></i> Guardar
+                    </button>
+                </div>
+            </div>
+
             <textarea 
                 id="editor-texto" 
-                placeholder="Escribí tu documento aquí...">
-            </textarea>
-            <button onclick="guardarDocumento(getCurrentDocId(), obtenerTexto())">Guardar</button>
-            
-            <div 
-                id="resultados" 
-                style="border: 1px solid gray; height: 250px; padding: 10px; background-color: #f9f9f9;">
-            Aquí se mostrarán los resultados...
+                placeholder="Comienza a escribir tu documento aquí...&#10;&#10;Puedes crear documentos de requisitos y analizarlos con las herramientas del panel derecho."></textarea>
+
+            <div class="editor-footer">
+                <div>
+                    <span id="contador-palabras"><strong>0</strong> palabras</span>
+                    &nbsp;·&nbsp;
+                    <span id="contador-caracteres"><strong>0</strong> caracteres</span>
+                </div>
+                <div id="ultima-modificacion">Última modificación: --</div>
+            </div>
+
+            <div class="results-container" id="resultados">
+                <div class="results-header">
+                    <h3>
+                        <i class="bi bi-clipboard-data"></i>
+                        Resultados del análisis
+                    </h3>
+                </div>
+                <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                    <i class="bi bi-info-circle" style="font-size: 2rem; opacity: 0.3;"></i>
+                    <p class="mt-2 mb-0" style="font-size: 0.875rem;">
+                        Selecciona indicadores y haz clic en "Analizar" para ver los resultados.
+                    </p>
+                </div>
             </div>
         </main>
-        {% if user.is_authenticated %}
-        <aside class="sidebar-right">
-            <h2>Indicadores</h2>
-            <form>
-                <div class="form-check">
-                    <!--label><input type="checkbox" id="invertir-texto" name="invertir"> Invertir texto</label><br-->
-                    <input class="form-check-input" type="checkbox" id="voz-pasiva" name="voz-pasiva"> 
-                    <label class="form-check-label">
-                        Pasar de voz pasiva a voz activa
-                    </label>
-                </div>
-                <div class="form-check">    
-                    <input class="form-check-input" type="checkbox" id="word-repetition" name="word-repetition">
-                    <label class="form-check-label">Detectar repetición de palabras</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="impersonal-sentences" name="impersonal-sentences">
-                    <label class="form-check-label">Detectar oraciones impersonales</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="negative-phrase" name="negative-phrase">
-                    <label class="form-check-label">Detectar frases negativas complejas</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="opinion-perception" name="opinion-perception">
-                    <label class="form-check-label">Detectar palabras de opinión o percepción</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="unusual-punctuation" name="unusual-punctuation">
-                    <label class="form-check-label">Detectar puntuación inusual</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="abstract-words" name="abstract-words">
-                    <label class="form-check-label">Detectar palabras abstractas</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="logical-connectors" name="logical-connectors">
-                    <label class="form-check-label">Detectar conectores lógicos</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="readability-metric" name="readability-metric">
-                    <label class="form-check-label">Establecer métrica de legibilidad</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="tenses" name="tenses">
-                    <label class="form-check-label">Detectar tiempos verbales</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="cliches" name="cliches">
-                    <label class="form-check-label">Detectar cliches</label>
-                </div>
 
-                 <button type="button" onclick="mostrarResultado()">OK</button>
-                 </div>
-            </form>
+        <!-- Sidebar derecha: Indicadores -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>
+                    <i class="bi bi-speedometer2"></i>
+                    Indicadores
+                </h2>
+                <button type="button" class="btn btn-sm btn-link p-0" onclick="toggleAllIndicators()" title="Marcar/Desmarcar todos">
+                    <i class="bi bi-check2-square"></i>
+                </button>
+            </div>
+            <div class="sidebar-body">
+                <form id="form-indicadores">
+                    <!-- Calidad del Texto -->
+                    <div class="indicator-group">
+                        <div class="indicator-group-title">
+                            <i class="bi bi-stars"></i> Calidad del texto
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="voz-pasiva" name="voz-pasiva">
+                                <i class="bi bi-arrow-left-right indicator-icon"></i>
+                                <label class="form-check-label" for="voz-pasiva">Voz pasiva a activa</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="word-repetition" name="word-repetition">
+                                <i class="bi bi-arrow-repeat indicator-icon"></i>
+                                <label class="form-check-label" for="word-repetition">Repetición de palabras</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cliches" name="cliches">
+                                <i class="bi bi-chat-quote indicator-icon"></i>
+                                <label class="form-check-label" for="cliches">Clichés</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="abstract-words" name="abstract-words">
+                                <i class="bi bi-cloud-fog indicator-icon"></i>
+                                <label class="form-check-label" for="abstract-words">Palabras abstractas</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estructura y Gramática -->
+                    <div class="indicator-group">
+                        <div class="indicator-group-title">
+                            <i class="bi bi-list-check"></i> Estructura y gramática
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="impersonal-sentences" name="impersonal-sentences">
+                                <i class="bi bi-person-slash indicator-icon"></i>
+                                <label class="form-check-label" for="impersonal-sentences">Oraciones impersonales</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="negative-phrase" name="negative-phrase">
+                                <i class="bi bi-x-circle indicator-icon"></i>
+                                <label class="form-check-label" for="negative-phrase">Frases negativas complejas</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="opinion-perception" name="opinion-perception">
+                                <i class="bi bi-eye indicator-icon"></i>
+                                <label class="form-check-label" for="opinion-perception">Opinión o percepción</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="unusual-punctuation" name="unusual-punctuation">
+                                <i class="bi bi-exclamation-circle indicator-icon"></i>
+                                <label class="form-check-label" for="unusual-punctuation">Puntuación inusual</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="tenses" name="tenses">
+                                <i class="bi bi-clock-history indicator-icon"></i>
+                                <label class="form-check-label" for="tenses">Tiempos verbales</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="logical-connectors" name="logical-connectors">
+                                <i class="bi bi-link-45deg indicator-icon"></i>
+                                <label class="form-check-label" for="logical-connectors">Conectores lógicos</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legibilidad -->
+                    <div class="indicator-group">
+                        <div class="indicator-group-title">
+                            <i class="bi bi-bar-chart-line"></i> Legibilidad
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="readability-metric" name="readability-metric">
+                                <i class="bi bi-speedometer indicator-icon"></i>
+                                <label class="form-check-label" for="readability-metric">Métrica de legibilidad</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button type="button" class="btn-analyze" onclick="mostrarResultado()">
+                <i class="bi bi-play-fill"></i>
+                Analizar documento
+            </button>
         </aside>
-         {% endif %}
     </div>
-
 
     <script>
     const URL_NUEVO_DOCUMENTO = "{% url 'nuevo_documento' %}";
+
+    // Contador de palabras y caracteres
+    const editorTexto = document.getElementById('editor-texto');
+    if (editorTexto) {
+        const contadorPalabras = document.getElementById('contador-palabras');
+        const contadorCaracteres = document.getElementById('contador-caracteres');
+        editorTexto.addEventListener('input', () => {
+            const texto = editorTexto.value;
+            const palabras = texto.trim() ? texto.trim().split(/\s+/).length : 0;
+            const caracteres = texto.length;
+            contadorPalabras.innerHTML = `<strong>${palabras}</strong> palabras`;
+            contadorCaracteres.innerHTML = `<strong>${caracteres}</strong> caracteres`;
+        });
+    }
+
+    // Búsqueda de documentos
+    const buscarDocs = document.getElementById('buscar-documentos');
+    if (buscarDocs) {
+        buscarDocs.addEventListener('input', (e) => {
+            const filtro = e.target.value.toLowerCase();
+            document.querySelectorAll('#lista-documentos li').forEach(li => {
+                const nombre = li.querySelector('.nombre-doc')?.textContent.toLowerCase() || '';
+                li.style.display = nombre.includes(filtro) ? '' : 'none';
+            });
+        });
+    }
+
+    // Marcar documento activo
+    function marcarDocumentoActivo(id) {
+        document.querySelectorAll('#lista-documentos li').forEach(li => {
+            li.classList.toggle('active', li.dataset.id == id);
+        });
+    }
+
+    // Toggle todos los indicadores
+    function toggleAllIndicators() {
+        const checkboxes = document.querySelectorAll('#form-indicadores input[type="checkbox"]');
+        const todosMarcados = Array.from(checkboxes).every(cb => cb.checked);
+        checkboxes.forEach(cb => cb.checked = !todosMarcados);
+    }
     </script>
 
-<script src="{% static 'req_nlp_app/js/config.js' %}"></script>
+    {% else %}
+    <!-- Vista de login -->
+    <div class="login-container">
+        <div class="login-card">
+            <i class="bi bi-file-earmark-text-fill" style="font-size: 3rem; color: var(--primary);"></i>
+            <h2 class="mt-3">Bienvenido a REQ-NLP Toolkit</h2>
+            <p class="text-muted">Una herramienta para analizar y mejorar tus documentos de requisitos</p>
+            <div class="d-grid gap-2 mt-4">
+                <a href="{% url 'login' %}" class="btn btn-primary">
+                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                </a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-person-plus"></i> Crear cuenta
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
-<script src="{% static 'req_nlp_app/js/interfaz.js' %}"></script>
-<script src="{% static 'req_nlp_app/js/documentos.js' %}"></script>
-<script src="{% static 'req_nlp_app/js/aplicar_servicios.js' %}"></script>
-
+    <script src="{% static 'req_nlp_app/js/config.js' %}"></script>
+    <script src="{% static 'req_nlp_app/js/interfaz.js' %}"></script>
+    <script src="{% static 'req_nlp_app/js/documentos.js' %}"></script>
+    <script src="{% static 'req_nlp_app/js/aplicar_servicios.js' %}"></script>
 </body>
 </html>
