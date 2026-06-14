@@ -105,7 +105,7 @@ def extract_abstract_words(text: str, threshold: float = 3.0):
     results = []
 
     # para evitar duplicados
-    processed_lemmas = set()
+    processed_words = set()
 
     for token in doc:
 
@@ -121,6 +121,7 @@ def extract_abstract_words(text: str, threshold: float = 3.0):
 
         # usar lema
         lemma = token.lemma_.lower().strip()
+        word = token.text.lower().strip()
 
         # ignorar cosas raras
         if len(lemma) < 2:
@@ -130,10 +131,10 @@ def extract_abstract_words(text: str, threshold: float = 3.0):
             continue
 
         # evitar repetidos
-        if lemma in processed_lemmas:
+        if word in processed_words:
             continue
 
-        processed_lemmas.add(lemma)
+        processed_words.add(word)
 
         # score
         abstractness = predict_word(lemma)
@@ -144,6 +145,6 @@ def extract_abstract_words(text: str, threshold: float = 3.0):
         # aplicar threshold
         if abstractness >= threshold:
 
-            results.append(token.text)
+            results.append(word)
 
     return results
