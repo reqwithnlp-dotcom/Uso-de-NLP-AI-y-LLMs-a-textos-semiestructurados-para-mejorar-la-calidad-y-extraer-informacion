@@ -30,16 +30,34 @@ venv\Scripts\activate
 
 # 2. Install Dependencies
 
-Install all required libraries:
+The project requires the following third-party packages (calculated from imports in the `abstract_words` package):
+
+- pandas
+- numpy
+- scikit-learn
+- xgboost
+- gensim
+- spacy
+- joblib
+- sentence-transformers
+- fastapi
+- pydantic
+- uvicorn
+
+Install with pip:
 
 ```powershell
-pip install pandas scikit-learn xgboost gensim spacy joblib numpy
+pip install pandas numpy scikit-learn xgboost gensim spacy joblib sentence-transformers fastapi pydantic uvicorn
 ```
 
-Download spaCy English model:
+Notes:
+- `sentence-transformers` typically requires a deep-learning backend such as `torch`; install `torch` if needed for your platform.
+- `sentence-transformers` may also pull `transformers` as a dependency.
+- Download recommended spaCy English models:
 
 ```powershell
 python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_md
 ```
 
 ---
@@ -116,6 +134,35 @@ The script will:
 2. Analyze the text linguistically and semantically
 3. Detect abstract words
 4. Return a unique list of detected abstract words
+
+---
+
+## HTTP invocation example
+
+Request (POST) to the `/predict` endpoint:
+
+```http
+POST http://localhost:8000/predict
+Content-Type: application/json
+
+{
+    "text": "Love and freedom are important concepts in philosophy. The dog is sitting next to the table."
+}
+```
+
+Expected response (JSON):
+
+```json
+{
+  "results": [
+    "love",
+    "freedom",
+    "important",
+    "concepts",
+    "philosophy"
+  ]
+}
+```
 
 ---
 
