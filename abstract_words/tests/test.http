@@ -1,0 +1,6 @@
+POST http://localhost:8000/predict
+Content-Type: application/json
+
+{
+    "text": "Love and freedom are important concepts in philosophy. The dog is sitting next to the table."
+}
