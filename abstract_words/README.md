@@ -73,8 +73,9 @@ datasets/test.csv
 
 ## Step 2 — Train Model
 
-See config.json. 
-Values: 
+See the config.json file for service configuration. It specifies the embedding provider and the machine learning model used for abstract word detection.
+
+Possible values: 
 ```text
 embedding: spacy || fasttext || mpnet
 model: rf || xgboost
@@ -100,7 +101,7 @@ Notes:
 
 ---
 
-## Step 3 — Predict Abstract Words
+## Step 3 — Run Abstract Words service
 
 Runs the main service.
 
