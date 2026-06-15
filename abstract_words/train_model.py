@@ -7,8 +7,8 @@ BASE_PATH = Path(__file__).resolve().parent
 
 
 def load_datasets():
-    train_df = pd.read_csv(BASE_PATH / "train.csv")
-    test_df = pd.read_csv(BASE_PATH / "test.csv")
+    train_df = pd.read_csv(BASE_PATH  / "datasets" / "train.csv")
+    test_df = pd.read_csv(BASE_PATH / "datasets" / "test.csv")
 
     train_df = train_df.dropna(subset=["Word", "Conc.M"])
     test_df = test_df.dropna(subset=["Word", "Conc.M"])

@@ -134,7 +134,7 @@ def create_embedding_strategy(name: str) -> EmbeddingStrategy:
 def get_default_model_path(base_path: Path, model_name: str, emb_name: str) -> Path:
     model_name = (model_name or "rf").lower()
     filename = f"{emb_name}_{model_name}.joblib"
-    return base_path / filename
+    return base_path / "models" / filename
 
 
 def create_ml_model_strategy(name: str) -> ModelStrategy:

@@ -44,19 +44,6 @@ python -m spacy download en_core_web_sm
 
 ---
 
-# 3. Project Structure
-
-Expected files:
-
-```text
-dataset.csv
-split_dataset.py
-train_xgboost.py
-predict.py
-```
-
----
-
 # 4. Execution Order
 
 The scripts must be executed in the following order.
@@ -78,8 +65,8 @@ python split_dataset.py
 Expected output:
 
 ```text
-train.csv
-test.csv
+datasets/train.csv
+datasets/test.csv
 ```
 
 ---
@@ -88,21 +75,23 @@ test.csv
 
 See config.json. 
 Values: 
-embedding: spacy, fasttext, mpnet
-model: rf, xgboost
+```text
+embedding: spacy || fasttext || mpnet
+model: rf || xgboost
+```
 
 Generates semantic embeddings and trains the machine learning model.
 
 Run:
 
 ```powershell
-python train_xgboost.py
+python train_model.py
 ```
 
 Expected output:
 
 ```text
-xgboost_fasttext_model.joblib
+fasttext_xgboost.joblib
 ```
 
 Notes:
@@ -113,7 +102,7 @@ Notes:
 
 ## Step 3 — Predict Abstract Words
 
-Runs the interactive prediction pipeline.
+Runs the main service.
 
 Run:
 
@@ -125,6 +114,12 @@ The script will:
 1. Receive a text as input
 2. Analyze the text linguistically and semantically
 3. Detect abstract words
-4. Return a unique list of detected abstract words and their abstraction score
+4. Return a unique list of detected abstract words
 
 ---
+
+## Unit tests
+
+```powershell
+pytest abstract_words/tests -v
+```

@@ -8,10 +8,10 @@ BASE_PATH = Path(__file__).resolve().parent
 # CONFIG
 # -----------------------------
 
-INPUT_FILE = BASE_PATH / "Concreteness_ratings_Brysbaert_et_al_BRM.txt"
+INPUT_FILE = BASE_PATH / "datasets" / "Concreteness_ratings_Brysbaert_et_al_BRM.txt"
 
-TRAIN_OUTPUT = BASE_PATH / "train.csv"
-TEST_OUTPUT = BASE_PATH / "test.csv"
+TRAIN_OUTPUT = BASE_PATH / "datasets" / "train.csv"
+TEST_OUTPUT = BASE_PATH / "datasets" / "test.csv"
 
 TEST_SIZE = 0.2
 RANDOM_STATE = 42
