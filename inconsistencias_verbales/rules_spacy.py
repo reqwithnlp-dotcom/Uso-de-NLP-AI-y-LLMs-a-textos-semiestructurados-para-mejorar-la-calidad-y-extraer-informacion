@@ -10,18 +10,23 @@ VBZ	Presente 3ª persona singular	she eats, he goes
 
 
 TEMP_VERB_RULES = {
-    ("will","have","been","VBG"):"cont perf fut",
-    ("will","have","VBN"):"perf fut",
-    ("will","be","VBG"):"cont fut",
-    ("will","VB"):"simp fut",
-    ("have" or "has","been","VBG"):"cont perf pres",
-    ("have" or "has","VBN"):"perf pres",
-    ("had","been","VBG"):"cont perf past",
-    ("had","VBN"):"perf past",
-    ("was" or "were","VBG"):"cont past",
-    ("am" or "are" or "is", "VBG"):"cont pres",
-    ("VB" or "VBP" or "VBZ",):"simp pres",
-    ("VBD",):"simp past",
+    ("will","have","been","VBG"):"cont_perf_fut",
+    ("will","have","VBN"):"perf_fut",
+    ("will","be","VBG"):"cont_fut",
+    ("will","VB"):"simp_fut",
+    ("have" or "has","been","VBG"):"cont_perf_pres",
+    ("have" or "has","VBN"):"perf_pres",
+    ("had","been","VBG"):"cont_perf_past",
+    ("had","VBN"):"perf_past",
+    ("was","VBG"):"cont_past",
+    ("were","VBG"):"cont_past",
+    ("am" or "are" or "is", "VBG"):"cont_pres",
+    ("are" , "VBG"):"cont_pres",
+    ("is", "VBG"):"cont_pres",
+    ("VB" or "VBP" or "VBZ",):"simp_pres",
+    ("VBP",):"simp_pres",
+    ("VBZ",):"simp_pres",
+    ("VBD",):"simp_past",
 }
 
 
@@ -81,7 +86,7 @@ def detect_aux_mismatch():
             aux_word = token.tag_
             aux_list.append(aux_word)    
             aux_tuple = tuple(aux_list)
-            print(aux_tuple)
+            print(aux_tuple , type(aux_tuple))
             temp_verb = TEMP_VERB_RULES.get(aux_tuple)
             if temp_verb != None:
                 verb_times.append(f"{token.text} -> {temp_verb}")
@@ -89,9 +94,12 @@ def detect_aux_mismatch():
                 verb_times.append(f"{token.text} -> aux_mismatch")
             
             aux_list.clear()
-    print(verb_times)
+    for v in verb_times:
+        print(v)
     return verb_times
 
+
+detect_aux_mismatch()
 
 
 
