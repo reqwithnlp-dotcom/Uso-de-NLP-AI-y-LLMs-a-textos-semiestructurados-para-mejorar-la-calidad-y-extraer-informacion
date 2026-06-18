@@ -1,13 +1,29 @@
 import spacy
+"""
+VB	Verbo base	eat, go, study
+VBD	Pasado simple	ate, went, studied
+VBG	Gerundio / participio presente	eating, going, studying
+VBN	Participio pasado	eaten, gone, studied
+VBP	Presente (excepto 3ª persona singular)	I eat, they go
+VBZ	Presente 3ª persona singular	she eats, he goes
+"""
 
-AUX_RULES = {
-    "did": "VB",
-    "does": "VB",
-    "do": "VB",
-    "have": "VBN",
-    "has": "VBN",
-    "had": "VBN",
+
+TEMP_VERB_RULES = {
+    ("will","have","been","VBG"):"cont perf fut",
+    ("will","have","VBN"):"perf fut",
+    ("will","be","VBG"):"cont fut",
+    ("will","VB"):"simp fut",
+    ("have" or "has","been","VBG"):"cont perf pres",
+    ("have" or "has","VBN"):"perf pres",
+    ("had","been","VBG"):"cont perf past",
+    ("had","VBN"):"perf past",
+    ("was" or "were","VBG"):"cont past",
+    ("am" or "are" or "is", "VBG"):"cont pres",
+    ("VB" or "VBP" or "VBZ",):"simp pres",
+    ("VBD",):"simp past",
 }
+
 
 
 
@@ -29,17 +45,8 @@ nlp = spacy.load("en_core_web_md")
 
 
 
-
-
-
-def detect_aux_mismatch(text): # ESTA
-
-
-    for i, token in enumerate(text):
-
-        if token.pos_ == "AUX":
-
-            if token.text.lower() in AUX_RULES:
+"""
+if token.text.lower() in AUX_RULES:
                 #
                 expected_tag = AUX_RULES[token.text.lower()]
 
@@ -52,10 +59,40 @@ def detect_aux_mismatch(text): # ESTA
                             return "aux_missmatch"
 
                         break
+"""
 
-    return None
 
-    
+
+
+
+def detect_aux_mismatch():
+    text = "By the time she arrived, I had been working for three hours, I have completed the report, and I will have been waiting for the manager for more than an hour before the meeting starts."
+    doc = nlp(text)
+    aux_list= []
+    verb_times = []
+    for token in doc:
+        if token.text == "not":
+            continue
+        if token.pos_ == "AUX":
+            aux_word = token.text.strip().lower()
+            aux_list.append(aux_word)
+
+        if token.pos_ == "VERB":
+            aux_word = token.tag_
+            aux_list.append(aux_word)    
+            aux_tuple = tuple(aux_list)
+            print(aux_tuple)
+            temp_verb = TEMP_VERB_RULES.get(aux_tuple)
+            if temp_verb != None:
+                verb_times.append(f"{token.text} -> {temp_verb}")
+            else:
+                verb_times.append(f"{token.text} -> aux_mismatch")
+            
+            aux_list.clear()
+    print(verb_times)
+    return verb_times
+
+
 
 
 

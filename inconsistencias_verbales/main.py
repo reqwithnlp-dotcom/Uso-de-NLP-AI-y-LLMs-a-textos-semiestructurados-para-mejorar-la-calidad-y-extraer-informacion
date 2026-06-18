@@ -1,6 +1,7 @@
 from rules_spacy import *
 import pandas as pd
 import spacy
+import numpy as np
 
 
 RULES = [
@@ -21,8 +22,6 @@ def analyze_text(text):
 
     doc = nlp(text)
 
-    results = []
-
     for sent in doc.sents:
 
         sentence_errors = [0]*5
@@ -39,7 +38,7 @@ def analyze_text(text):
 
 def create_errors_column():
 
-    dataset = pd.read_csv("df_limpio.csv")
+    dataset = pd.read_csv("df_limpio.csv") # toma el dataset que ya esté sin vacios y previamente con las etiquetas de error
     for index, row in dataset.iterrows():
         text = row["Original_Sentence"]
         print(text)
@@ -50,19 +49,26 @@ def create_errors_column():
     dataset.to_csv("df_1_with_errors.csv", index=False)
 
 
-def limpiarDf():
-    df = pd.read_csv("prueba1Mezcla.csv")
-
-    columna = "Original_Sentence"
-
-    df = df[
-        df[columna].apply(
-            lambda x: isinstance(x, str) and x.strip() != ""
-        )
-    ]
-
-    df.to_csv("df_limpio.csv", index=False)
 
 
 
-create_errors_column()
+
+
+
+def weigh_data():
+    df = pd.read_csv("df_1_with_errors.csv") 
+    matriz = np.zeros((2, 5))
+    ultimas_6 = df.iloc[:, -6:]
+    for fila_idx,fila in ultimas_6.iterrows():
+        for indice,(columna, valor) in enumerate(fila.iloc[1:].items()):
+            valor_referencia = fila.iloc[0]
+            if valor_referencia == 1 and valor == 1.0:
+                matriz[0,indice] += 1
+            else:
+                if valor_referencia == 0 and valor == 1.0:
+                    matriz[1,indice] += 1
+    print(matriz)
+
+weigh_data()
+
+#create_errors_column()
