@@ -31,3 +31,19 @@ COPULAR_VERBS = frozenset({"be", "seem", "appear", "look", "happen", "turn"})
 
 
 CLAUSAL_DEPS = frozenset({"xcomp", "ccomp", "advcl", "csubj", "acl"})
+
+
+# ---------------------------------------------------------------------------
+# Capa 1 - evidencia PERSONAL
+# ---------------------------------------------------------------------------
+
+# Pronombres personales referenciales en función de sujeto.
+# reglas impersonales o, si nada dispara, la capa 2.
+PERSONAL_PRONOUNS = frozenset({"i", "you", "he", "she", "we", "they"})
+
+# Sujetos cuya referencialidad es dudosa a nivel de reglas: no cuentan
+# como evidencia personal NI impersonal por sí mismos. Si además ninguna
+# regla impersonal dispara, la oración cae como caso límite -> capa 2.
+#   - it / there : posibles expletivos ("It is fast" puede ser referencial)
+#   - one        : genérico/impersonal ("One must be careful")
+AMBIGUOUS_SUBJECTS = frozenset({"it", "there", "one"})

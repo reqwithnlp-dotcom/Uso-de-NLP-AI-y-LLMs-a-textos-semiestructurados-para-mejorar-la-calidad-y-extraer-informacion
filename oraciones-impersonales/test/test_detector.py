@@ -148,5 +148,70 @@ class TestBordes:
 
     def test_estructura_del_resultado(self):
         r = _first("It rains.")
-        assert set(r.keys()) == {"sentence", "impersonal", "type"}
+        assert set(r.keys()) == {
+            "sentence", "personal", "impersonal",
+            "ambiguous", "type", "personal_type",
+        }
+        assert isinstance(r["personal"], bool)
         assert isinstance(r["impersonal"], bool)
+        assert isinstance(r["ambiguous"], bool)
+
+
+# ---------------------------------------------------------------------------
+# Capa 1 extendida: detección PERSONAL y casos límite (ambiguous -> capa 2)
+# ---------------------------------------------------------------------------
+class TestDeteccionPersonal:
+    @pytest.mark.parametrize("text,subtipo", [
+        ("I bought a car.", "PRONOUN_SUBJECT"),
+        ("They won the match.", "PRONOUN_SUBJECT"),
+        ("We are ready.", "PRONOUN_SUBJECT"),
+        ("John fixed the engine.", "NOMINAL_SUBJECT"),
+        ("The dog barks.", "NOMINAL_SUBJECT"),
+        ("Someone called you.", "NOMINAL_SUBJECT"),
+        ("Open the door.", "IMPERATIVE"),
+    ])
+    def test_personales_limpias(self, text, subtipo):
+        r = _first(text)
+        assert r["personal"] is True, r
+        assert r["impersonal"] is False, r
+        assert r["ambiguous"] is False, r
+        assert r["personal_type"] == subtipo, r
+
+    @pytest.mark.parametrize("text", [
+        "It rains.",
+        "There are many factors to consider.",
+        "It is said that history repeats itself.",
+        "It is important to remember the guidelines.",
+        "It is cold today.",
+    ])
+    def test_impersonales_limpias_no_son_personales(self, text):
+        r = _first(text)
+        assert r["impersonal"] is True, r
+        assert r["personal"] is False, r
+        assert r["ambiguous"] is False, r
+
+    def test_subordinada_no_contamina_la_raiz(self):
+        # El 'I' subordinado NO debe marcar personal la raíz impersonal
+        r = _first("It is known that I was late.")
+        assert r["impersonal"] is True, r
+        assert r["personal"] is False, r
+        assert r["ambiguous"] is False, r
+
+
+class TestCasosAmbiguos:
+    @pytest.mark.parametrize("text", [
+        "It is fast.",            # 'it' referencial: ni personal ni impersonal por regla
+        "It belongs to my brother.",
+        "One must be careful.",   # 'one' genérico: dudoso a propósito
+    ])
+    def test_ambos_false_es_ambiguo(self, text):
+        r = _first(text)
+        assert r["personal"] is False, r
+        assert r["impersonal"] is False, r
+        assert r["ambiguous"] is True, r
+
+    def test_contrato_ambiguous(self):
+        # ambiguous siempre equivale a (personal == impersonal)
+        for text in ["I bought a car.", "It rains.", "It is fast."]:
+            r = _first(text)
+            assert r["ambiguous"] == (r["personal"] == r["impersonal"]), r

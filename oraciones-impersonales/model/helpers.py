@@ -5,6 +5,9 @@ from model.lexicons import CLAUSAL_DEPS
 # Roles de sujeto bajo los que puede aparecer "it"
 _SUBJECT_DEPS = ("nsubj", "nsubjpass", "expl")
 
+# Roles de sujeto (incluye sujetos clausales) para la detección personal
+_SUBJECT_DEPS_FULL = ("nsubj", "nsubjpass", "csubj", "csubjpass", "expl")
+
 
 def find_subject_it(sent):
     """Devuelve el token 'it' que funciona como sujeto, o None."""
@@ -36,5 +39,24 @@ def has_extraposed_clause(anchor):
 def get_acomp_or_attr(verb):
     for child in verb.children:
         if child.dep_ in ("acomp", "attr", "oprd") and child.pos_ in ("ADJ", "NOUN"):
+            return child
+    return None
+
+
+def find_root(sent):
+    """Devuelve el token raíz (ROOT) de la oración."""
+    for tok in sent:
+        if tok.dep_ == "ROOT":
+            return tok
+    return sent.root
+
+
+def get_subject(verb):
+    """Devuelve el sujeto sintáctico del verbo (incluye sujetos clausales y
+    expletivos), o None. La regla que lo use decide qué hacer con él."""
+    if verb is None:
+        return None
+    for child in verb.children:
+        if child.dep_ in _SUBJECT_DEPS_FULL:
             return child
     return None
