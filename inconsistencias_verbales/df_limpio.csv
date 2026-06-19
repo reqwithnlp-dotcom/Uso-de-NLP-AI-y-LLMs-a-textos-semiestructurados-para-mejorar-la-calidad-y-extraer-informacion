@@ -1,0 +1,651 @@
+Original_Sentence,tense_error_tag
+She will be traveling to Paris next summer.           ,0
+Next month they moved to Canada.,1
+Haven't they been addressing climate change effectively on a global scale,0
+How has the recent technological advancement changed the way we explore the world,0
+How long hadn't the travelers been researching this destination before they decided to visit,0
+They will be dancing at the party tomorrow night.                                ,0
+"While I cooked dinner, the children played outside.",1
+She said she doesn't know the answer.,1
+I goes to the store everyday.,1
+I never saw such a beautiful place before.,1
+The train was delay due to bad weather.,1
+I am living here since 2020.,1
+I had lived in that city before.                            ,0
+"He said that he is coming to the party, but he never showed up.",1
+"If they had left earlier, they will have arrived on time.",1
+They weren't playing football when it started raining,0
+He is going to propose to his girlfriend tomorrow.           ,0
+She has eaten breakfast and went to work.,1
+She had already left when I reached her house. ,0
+They plants a tree in the garden.,1
+"By the time you arrive, I leave.",1
+How long will it take to eradicate poverty worldwide,0
+She didn't dance all night at the party,0
+I am currently collaborating with international partners on a global health initiative.  ,0
+He won't have graduated from college by then,0
+How long had the chefs been experimenting with these new cooking techniques before they introduced them to the menu,0
+They were sailing on the lake when it started raining. ,0
+She usually is studying at night.,1
+She has been creating art for hours. ,0
+Last night I eat pizza with my friends.,1
+"By 2040, we will have achieved sustainable living for all. ",0
+She will have completed her master's degree by the end of the year. ,0
+Won't we have created new culinary masterpieces by 2040,0
+She will have been working for five years by December. ,0
+They worked all day and goes home tired.,1
+We are planning a trip to the mountains. ,0
+She is dance at the party last night.,1
+They were dancing at the wedding when I arrived.,0
+I will have prepared dinner by the time you arrive. ,0
+I am savoring a delicious meal right now. ,0
+I will be vacationing in Hawaii next spring. ,0
+The company has just launched a new product.                                       ,0
+"If he has more time last week, he would have visited us.",1
+They will be hiking in the mountains next weekend. ,0
+"As a child, I played soccer every day and love it.",1
+The researcher had been collecting data in the field for weeks,0
+I am learning to play the piano.                         ,0
+I used to live in a small village. ,0
+I didn't use to love chocolate,0
+I will have completed all the tasks by the end of the week. ,0
+Last year we travel to Brazil.,1
+We will visit the art gallery this weekend. ,0
+The house was quiet because everyone goes to bed.,1
+The train leaves at 9 AM.                              ,0
+The students were study for their exams.,1
+What strategies are we using to protect endangered cultural heritage sites,0
+The children has fun at the amusement park.,1
+I will be going shopping this weekend. ,0
+I hadn't just started cooking when the guests arrived,0
+They promised they can fix the car by Friday.,1
+Last weekend I swim in the lake.,1
+He watched a movie last night. ,0
+We are going to have a picnic in the park. ,0
+She has been make dinner for the family.,1
+The dog was chase the squirrel.,1
+I called customer service and speak with a representative.,1
+She buy a new dress for the party.,1
+I am currently working on a new project. ,0
+He don't know the answer.,1
+I am currently studying for my exams.                         ,0
+We will be skiing in the mountains next weekend. ,0
+I am sipping a refreshing glass of lemonade. ,0
+They won't be attending a conference next month,0
+He said that he is tired yesterday.,1
+The children are playing in the yard. ,0
+They completed the task and receive positive feedback.,1
+The birds was flying south for the winter.,1
+The sun sets behind the mountains in the evening. ,0
+He woke up early and goes for a run.,1
+"I have been practicing the piano for years, and I still enjoy it.                           ",0
+She will goes to the party tonight.,1
+"While I studied, my brother plays video games.",1
+I will have finished reading the novel by tomorrow.         ,0
+The birds sings in the morning.,1
+They will arrive at the airport in two hours. ,0
+"If I am you, I would take that job.",1
+I will have achieved my fitness goals by the time I complete my training program.           ,0
+How don't you plan to improve your cooking skills,0
+"Before she arrived, we eat lunch.",1
+I am writing a report for the client. ,0
+I am writing an essay for my class. ,0
+"In 1914, the assassination of Archduke Franz Ferdinand triggered World War I.",0
+I will have saved enough money for a house by next year. ,0
+The delivery driver brings the package yesterday.,1
+We packed our bags and leave for the airport.,1
+Yesterday I went to the store and I buy a new jacket.,1
+The tourists visit the museum yesterday.,1
+He was reading when his friend was calling him.,1
+The teacher walked into the classroom and tells us to sit down.,1
+I had finished my assignments before the due date. ,0
+I used to work in that company. ,0
+She has been creating art for hours. ,0
+The weather forecast say it will rain tomorrow.,1
+She didn't recognize him because he changes so much.,1
+She called me and asks for help.,1
+He will be giving a presentation tomorrow. ,0
+They will be sailing to the Caribbean next summer. ,0
+I am creating a presentation for the meeting. ,0
+The sun will set in the evening. ,0
+We were eating dinner when the lights go out.,1
+She worked here since January.,1
+They hadn't already left when I arrived,0
+Isn't the recent technological advancement changing the way we explore the world,0
+She will completed the task tomorrow.,1
+I am savoring a cup of hot chocolate at the moment. ,0
+Right now I work on a new project.,1
+They were having a barbecue when it started raining. ,0
+"Next year, she will be exploring the Amazon rainforest with a research team. ",0
+I am eating breakfast. ,0
+She is working here since 2015.,1
+"If I will see him, I will tell him.",1
+She has been renovating her house for weeks. ,0
+They will be dancing at the party tomorrow night.          ,0
+I am currently reading a novel about history. ,0
+I met her last week and become her friend.,1
+I am heading to the gym later today. ,0
+I will finish this project by tomorrow. ,0
+The students was taking a test in the classroom.,1
+How long had the chefs been experimenting with these new cooking techniques before they introduced them to the menu,0
+The concert begins in an hour.,1
+The sun will rise in a few hours.                       ,0
+What will be the influence of molecular gastronomy on the culinary world in the coming years,0
+I won't have saved enough money by the end of the year,0
+He entered the room and sits down.,1
+They played football yesterday. ,0
+We are going to have lunch in a few minutes.            ,0
+The photographer take a picture of the sunset.,1
+He used to be a professional athlete. ,0
+"Last year, we explored the Amazon rainforest.           ",0
+The flowers is blooming in spring.,1
+Will we have documented the cultural practices of remote communities by 2040,0
+I am watching a documentary about nature.              ,0
+I am diving into a challenging research project that requires extensive data analysis.       ,0
+I hadn't lived in that city before,0
+The cat catch the mouse yesterday.,1
+Won't technological innovations lead to more memorable celebrations in the future,0
+She will join a yoga class next week. ,0
+I will have saved enough money for a down payment by next year. ,0
+How long had the research team been studying this phenomenon before they understood it,0
+They will be dancing at the party tomorrow night        ,0
+The phone is charge on the table.,1
+He teaches art at the local community center. ,0
+The movie was great; it has a twist ending that shocks everyone last night.,1
+"If she studied harder, she will pass the exam.",1
+What will be the influence of smart travel applications on the tourism industry in the coming years,0
+We will visit the museum on Saturday afternoon.         ,0
+The team were working on the project.,1
+She finished her homework and goes to bed.,1
+"After they signed the contract, they start the project.",1
+How has the recent technology revolution impacted cultural exchange,0
+I had completed the entire puzzle before lunchtime. ,0
+They were sailing on the lake when it started raining. ,0
+Had you ever observed such a rare celestial event before,0
+I will be moving to a new city next month. ,0
+The farmer has plant the seeds in the field.,1
+I haven't seen him yesterday.,1
+I will have met my career goals by the end of the decade.                            ,0
+They arrived at the restaurant and orders food.,1
+Yesterday the teacher gives us homework.,1
+I am knowing the answer.,1
+The dogs barks at the mail carrier.,1
+I will have dinner in an hour. ,0
+She had already left when I arrived at her house. ,0
+She told me that she will come the next day.,1
+He told me the answer and leaves.,1
+The waiter serve the food to the customers.,1
+They will be skiing in the mountains next weekend.                                   ,0
+He teaches mathematics at the local college. ,0
+Won't we have discovered new and exciting travel destinations by 2050,0
+I am not working on a project,0
+What steps are we taking to combat poverty and inequality globally,0
+The airplane fly over the city.,1
+She will be developing cutting-edge technology in the upcoming year,0
+He wrote a letter yesterday. ,0
+They know each other for ten years.,1
+We weren't watching a movie when the power went out,0
+I had finished my homework before dinner.                                            ,0
+I had just started cooking when the doorbell rang. ,0
+"At this time tomorrow, I work in the office.",1
+He finished the race and wins a medal.,1
+The volunteers was helping at the event.,1
+We are planning a family vacation to the beach. ,0
+She has been practicing the piano for hours.                                        ,0
+She is going to the gym later this evening. ,0
+They hadn't already left when I arrived,0
+She had already left when I reached her house. ,0
+She will be traveling to South America next year. ,0
+"Last year, we go to Italy for our summer vacation.",1
+I study math every evening. ,0
+The students is studying in the library.,1
+I had lived in that city before                         ,0
+Won't we have developed more efficient language learning methods by 2040,0
+The meeting started at nine and ends at ten.,1
+We will be hiking in the forest next weekend. ,0
+She will have been working for 5 years in December ,0
+I had visited that museum before               ,0
+I am meeting my colleague for lunch.                                                 ,0
+She will be heading to the gym later this evening. ,0
+We are waiting since noon.,1
+"In 1954, the landmark Brown v. Board of Education decision was handed down by the U.S. Supreme Court.",0
+She isn't writing a novel,0
+I have been study for the test for two weeks.,1
+They takes a vacation every summer.,1
+The orchestra will perform a concert tonight. ,0
+They are excited because they won tomorrow.,1
+"By 2035, we will have eradicated several deadly diseases. ",0
+She danced all night at the party. ,0
+How amazing that the team had been working on this project for months before they succeeded,0
+She saw the mistake and fixes it.,1
+She make a cake for her friend's birthday.,1
+She won't have been working for 5 years in December,0
+He do his homework every evening.,1
+I will be going to the concert. ,0
+The weather forecast predicted that it is going to rain.,1
+"By next year, I finish my degree.",1
+He wrote a short story last week. ,0
+I had finished my homework and then go outside.,1
+The company is launching a new product next week.      ,0
+John explained that he loses his keys.,1
+I have been managing this project for a year. ,0
+The sun sets in the west every evening. ,0
+I am watching an intriguing documentary on space exploration. ,0
+The baby cry when it's hungry.,1
+We visited the museum and learn a lot.,1
+The dog was dig a hole in the yard.,1
+The train doesn't leave at 9 AM,0
+The cake was bake in the oven.,1
+The cat was lay on the sofa.,1
+"By the time he called, I finish the report.",1
+We were watching a movie when the power went out  ,0
+"If they will arrive early, we can start the meeting.",1
+The birds are singing melodious tunes in the garden. ,0
+He will be giving a presentation tomorrow. ,0
+We heard the news and become worried.,1
+The athlete is train for the competition.,1
+Yesterday I go to school.,1
+She will go to the beach. ,0
+I am going to the doctor this afternoon.                   ,0
+She has been learning Spanish for a year.                ,0
+The children was playing in the park.,1
+We will be camping in the mountains this weekend. ,0
+The conference isn't starting in an hour,0
+They were dancing at the club when it began to snow. ,0
+Last month they buy a new computer.,1
+"If she studies harder, she would pass the exam.",1
+I would have helped you if you ask me.,1
+The musician perform at the concert.,1
+Isn't the recent advancement in event management influencing the industry,0
+The complexity of the mathematical equation is daunting,0
+He won't have written the report by the end of the day,0
+"Next month, she will be presenting her innovative startup idea at a conference. ",0
+She will be presenting her findings in the conference next month. ,0
+"In the upcoming summer, I will be traveling to Asia to explore diverse cultures. ",0
+How long hadn't the chefs been experimenting with these new cooking techniques before they introduced them to the menu,0
+I will have breakfast in an hour. ,0
+She listened to the lecture and takes notes.,1
+I will be visiting my grandparents next weekend       ,0
+The manager gives a speech at the meeting.,1
+I will be visiting my family next weekend.                                          ,0
+They were snorkeling in the ocean when it started raining. ,0
+They arrived at the hotel and find out their reservation was canceled.,1
+I am not taking a break now,0
+They were sunbathing when it suddenly rained. ,0
+She has been playing the piano for an hour.               ,0
+How don't you plan to make your next travel adventure unforgettable,0
+He reads the newspaper every morning. ,0
+I hadn't forgotten my keys at home,0
+They will have completed the construction by the end of the month. ,0
+The ongoing debate about genetic engineering is thought-provoking,0
+"By 2035, we will have eradicated several deadly diseases",0
+I knew that you are going to say that.,1
+"By the time she was thirty, she published three books.",1
+We will have our family reunion next week.                  ,0
+She is going to the gym later in the day. ,0
+The train leave at 6 PM.,1
+"In the 19th century, the Industrial Revolution transformed society. ",0
+"Next month, she will be presenting her research findings at a symposium. ",0
+Will we have found life on other planets by 2050,0
+I had never been to that city before. ,0
+What strategies aren't we implementing to make language learning accessible to everyone,0
+"Next week, I visited my grandmother.",1
+"Recently, they are buying a new car.",1
+What will be the implications of climate change on coastal cities in the coming years,0
+She cleaned the house and prepares dinner.,1
+She will be write a book next year.,1
+I had finished my work by the end of the day. ,0
+They played soccer and then take a shower.,1
+I was sleeping when my alarm rings.,1
+I will have met my career goals by the end of the decade  ,0
+The computer not working properly.,1
+He played football yesterday.                               ,0
+They explored ancient ruins in Greece last summer. ,0
+The cake is frost with chocolate icing.,1
+I am reading an intriguing mystery novel now. ,0
+I will have saved enough money to buy a new car by the end of the year.                   ,0
+I am sipping on a cup of coffee at the moment. ,0
+"She believed that honesty was the best policy, but now she changed her mind.",1
+She told me that she never sees a whale before.,1
+I am watching a documentary about wildlife. ,0
+The sun will rise in a few hours. ,0
+"If I had won the lottery, I will buy a mansion.",1
+I am enjoying a cup of tea at this moment. ,0
+The chef cook dinner for the guests.,1
+They watched TV when the power was going out.,1
+We will visit the museum on Sunday. ,0
+He is take a break from work.,1
+They were swimming in the pool when it started raining. ,0
+Yesterday they come late to class.,1
+I will have completed my degree by next year.           ,0
+He wrote a story last week. ,0
+"I'm currently working on an exciting project for an international client, creating a unique marketing campaign. ",0
+The train departs at 9 AM every day. ,0
+I was work on the project all day.,1
+She will go to the park.                                 ,0
+I am planting a forest to combat deforestation. ,0
+He wrote a poem last week. ,0
+She will call me after she will arrive.,1
+The computer running slow today.,1
+"Yesterday, they played a thrilling basketball game and emerged victorious. ",0
+She has been renovating her house for weeks. ,0
+The sun will set in the evening. ,0
+Won't advancements in language learning technology revolutionize education in the future,0
+I will go shopping after work. ,0
+I saw him yesterday and tell him the news.,1
+He wrote the report and sends it to his manager.,1
+She is swimming in the pool right now. ,0
+How do you plan to make your next travel adventure unforgettable,0
+He will have written the report by the end of the day. ,0
+He opened the window and sees a bird.,1
+I opened the document and notices an error.,1
+The train departs at 9 AM sharp. ,0
+I have been working on this project for months. ,0
+He eats breakfast and then went to work.,1
+I will have been working at this company for 10 years by June. ,0
+I had finished my work before dinner. ,0
+Won't we have organized more sustainable and inclusive events by 2050,0
+She will be swimming in the pool tomorrow.                                            ,0
+Will advancements in language learning technology revolutionize education in the future,0
+The team hasn't won the championship,0
+I won't have completed the project by the end of the week,0
+The movie start at 8 PM.,1
+"They found the keys and put them away, then lose them again.",1
+She won't have painted the room by the weekend,0
+Will it be wonderful when we have eradicated poverty worldwide,0
+I have seen that movie yesterday.,1
+She is going to shopping after work.,1
+They discussed the project and makes a decision.,1
+She have completed her homework.,1
+The package is deliver yesterday.,1
+She will be presenting her findings in the conference next month. ,0
+I has been to Paris three times.,1
+The birds are singing in the garden              ,0
+He watched a movie last night. ,0
+The car has been wash this morning.,1
+I am currently studying for exams.                    ,0
+How long will it take to eliminate poverty worldwide,0
+They had already left when I arrived.                   ,0
+"At the Constitutional Convention in 1787, the United States Constitution was drafted.",0
+They said they finish the project last week.,1
+I am meeting my friends for lunch.                   ,0
+The kids plays video games after school.,1
+We will be having a barbecue this weekend.            ,0
+The car need to be repaired.,1
+Had you ever tasted such an exotic dish before,0
+The flowers was watered by the gardener.,1
+What strategies are we implementing to mitigate the effects of climate change,0
+He used to be a professional athlete. ,0
+I am watching a documentary.                         ,0
+I hoped that you will change your mind.,1
+Had you ever participated in such a vibrant cultural festival before,0
+The company is launching a new product next week.                                     ,0
+The gardener is plant flowers in the garden.,1
+The sun will set in the evening. ,0
+Is the recent technological advancement changing the way we live,0
+"He woke up late, grabs his keys, and rushed out the door.",1
+They were talking on the phone when I called   ,0
+They are owning a large house.,1
+"If you mix red and blue, you would get purple.",1
+We will have our family reunion next week.             ,0
+We would go to the beach if the weather will be nice.,1
+The birds aren't singing in the garden,0
+I will be exploring the art museum this weekend. ,0
+I am eating lunch right now. ,0
+The player scores a goal during the match.,1
+They were playing board games last night. ,0
+What will be the influence of smart travel applications on the tourism industry in the coming years,0
+Is the recent technological revolution affecting our daily lives,0
+I am not meeting my friends for lunch,0
+We were watching a movie when the lights go out.,1
+He cooked a delicious meal last night. ,0
+She graduated in 2020 and starts working immediately.,1
+"In 1492, Columbus has arrived in America.",1
+The concert was cancel due to rain.,1
+I will have saved enough money for a car by next year.       ,0
+They were dancing at the wedding when I arrived. ,0
+I am going to the gym later.                            ,0
+He is giving a speech at the conference today.        ,0
+She drove home when she was seeing the accident.,1
+The flowers are blooming in the garden. ,0
+I will eat dinner in an hour                   ,0
+She will be giving a presentation at the conference tomorrow. ,0
+"In an hour, I will be enjoying a delicious meal with my family at home. ",0
+I am taking a stroll in the park. ,0
+The complexities of quantum mechanics have baffled scientists for decades,0
+"I have been managing a successful online business for years, selling handmade crafts. ",0
+She asked me where I am living at that time.,1
+We'll be touring historical sites in the city this weekend. ,0
+They were singing when I entered the room        ,0
+She had already left when I arrived at her place. ,0
+How have international trade policies evolved over the years,0
+"I found the book and read it, then return it.",1
+"After we finish dinner, we went for a walk.",1
+They were playing football when it started raining.   ,0
+He cooked a gourmet meal for us last night. ,0
+He has been playing the guitar for years. ,0
+The athlete wins the gold medal in the race.,1
+The recent advancements in space exploration have expanded our knowledge of the universe,0
+I have been working on this project for months. ,0
+I thought you will help me with this project.,1
+He has been writing a book for a year.                 ,0
+They were talking on the phone when I called.          ,0
+He is going to propose to his girlfriend tomorrow       ,0
+She will be presenting her findings at the conference next month. ,0
+She told us that she has finished the report.,1
+What will be the impact of artificial intelligence on the job market,0
+He reads a book before bedtime every night. ,0
+He will be playing soccer this afternoon. ,0
+I am not reading a fascinating book,0
+"When I arrived at the station, the train already leaves.",1
+I have been living in this neighborhood for a decade.       ,0
+I didn't went to the party.,1
+I am living in this house for five years now.,1
+The car was wash by the teenager.,1
+I am currently working on a new project.               ,0
+Will technological innovations lead to more memorable celebrations in the future,0
+Does she studied English?,1
+She will call you later in the evening. ,0
+I am watching a documentary about wildlife conservation. ,0
+The sun will set in the evening. ,0
+I am currently proofreading a document. ,0
+The waitress is take our order.,1
+She has been learning French for a year. ,0
+He will finish the race in an hour.,1
+The company launch a new product next month.,1
+I will have saved enough money by the end of the year,0
+The birds are chirping in the garden.                   ,0
+The employee is work late tonight.,1
+The sun sets in the west.                               ,0
+He used to write poetry in his free time. ,0
+I had completed my homework before dinner. ,0
+He has been sculpting for years. ,0
+I am currently working on a new project.                                             ,0
+I will have saved enough money for a new car by next year. ,0
+He had been traveling for weeks                       ,0
+I couldn't buy the book because I forget my wallet at home.,1
+He wrote a letter last week.                            ,0
+We are planning to have a picnic in the park this weekend. ,0
+He will have written the report by the end of the day  ,0
+The party was organize by the event planner.,1
+I am reading a magazine right now. ,0
+They have arrived an hour ago.,1
+The author has been write a new book.,1
+I had already eaten breakfast before I had woken up.,1
+He is working on a new project at the moment. ,0
+The sun isn't setting in the west,0
+They was listening to music.,1
+We were watching a movie when the power went out. ,0
+They were playing soccer when it began to rain. ,0
+He prepared a delicious meal for us last night. ,0
+They were skiing in the mountains last winter. ,0
+Have they been addressing climate change effectively on a global scale,0
+"When I called, they were swimming in the pool, celebrating a warm summer day. ",0
+What strategies aren't we using to protect endangered cultural heritage sites,0
+I will be flying to Japan in a few weeks. ,0
+She has finished her homework last night.,1
+She will be exploring the rainforest next year. ,0
+How do you plan to enhance your language skills,0
+"If it rains tomorrow, we would cancel the picnic.",1
+They was at the concert last night.,1
+The engine is make a strange noise.,1
+They will arrive at the airport in two hours. ,0
+He used to live in a bustling city. ,0
+She danced all night at the party last night. ,0
+I will have saved enough money for a car by next year.    ,0
+The sun is setting in the west                ,0
+I will have lunch in an hour. ,0
+He confessed that he steals the money last month.,1
+I walk to work every day last month.,1
+The students are prepare for their presentations.,1
+She will be traveling to Europe next summer. ,0
+She will be presenting her research at the conference tomorrow  ,0
+They watches the movie together.,1
+We are planning a trip to the mountains. ,0
+Shakespeare has written many famous plays.,1
+She has learned French for years. ,0
+They were camping in the forest when it began to rain. ,0
+He swims in the pool every day last summer.,1
+I am going to the doctor this afternoon.                   ,0
+They will be dancing and celebrating at the wedding reception tonight.                    ,0
+Have they been promoting multilingualism for years now,0
+I am enjoying a quiet evening at home. ,0
+I had finished my homework before dinner. ,0
+The mechanic was fixing the car.,1
+I am reading a fascinating book                ,0
+She had completed her thesis before graduation. ,0
+How long hadn't the anthropologists been studying this indigenous community before they recorded their traditions,0
+I will be traveling to Europe next year.                                            ,0
+We will be skiing in the mountains next weekend. ,0
+Isn't the recent culinary innovation changing the way we dine,0
+The flowers are blooming in the garden. ,0
+She will call you later in the day. ,0
+"After he finished dinner, he is going to bed.",1
+The store is open late on Fridays.,1
+The sun rise in the east.,1
+He will have graduated from college next spring. ,0
+I visited my grandmother and bring her flowers.,1
+He had sleep for ten hours.,1
+She danced all night at the concert. ,0
+She isn't playing the piano at the moment,0
+The sun will set on the horizon. ,0
+"As soon as he came, we start the meeting.",1
+She is speak at the conference tomorrow.,1
+He teaches chemistry at the local school. ,0
+I will have lunch in an hour. ,0
+He is read a book before going to bed.,1
+She isn't running for an hour,0
+The research team had been deciphering ancient manuscripts for years,0
+Isn't the recent technological innovation transforming language education,0
+She has bake cookies for the bake sale.,1
+They arrived home and watch TV.,1
+I hadn't ever been to that city before,0
+I will eat lunch in an hour. ,0
+He doesn't likes coffee.,1
+She will have painted the room by the weekend   ,0
+I will have lunch in an hour. ,0
+We finished the game and celebrates the victory.,1
+She was writing an email when the computer crashes.,1
+The teacher was grading the papers all night.,1
+I have seen that movie three days ago.,1
+We arrived at the station and catch the train.,1
+She is drawing a beautiful picture. ,0
+The store close at 9 PM tonight.,1
+Will we have created new culinary masterpieces by 2040,0
+We are going to the beach this weekend         ,0
+Isn't the recent advancement in event management influencing the industry,0
+I have been writing articles for weeks. ,0
+She will be joining a humanitarian mission in Africa next month. ,0
+"In 2040, I will be traveling the world.                ",0
+I know him for ten years.,1
+"If I knew the answer, I will tell you.",1
+I had never been to that country before. ,0
+The teacher realized that someone steals the exam papers.,1
+He will have written the report by the end of the day. ,0
+They had visited the historical museum before it closed. ,0
+"If it rains tomorrow, we stayed home.",1
+She bought a new car and drives it home.,1
+They was playing soccer last night.,1
+She was driving when she sees the accident.,1
+They had a picnic by the river last summer. ,0
+The intricacies of the legal system are challenging to comprehend,0
+The scientist perform experiments in the lab.,1
+The pilot was fly the plane during the storm.,1
+We went to Paris several times this year.,1
+I study French every evening. ,0
+I have been programming innovative software for a tech company for years. ,0
+The pizza is deliver to the wrong address.,1
+I will have been working at this company for 10 years by next summer. ,0
+My team has been developing groundbreaking technology for years. ,0
+We are going to the beach this weekend. ,0
+She used to live in a small town. ,0
+The children build a sandcastle on the beach.,1
+The students studies for the exam.,1
+I will be exploring ancient ruins next summer. ,0
+She has been practicing the piano for hours.          ,0
+I am reading a novel about science. ,0
+"When the alarm rang, nobody moves for a few seconds.",1
+The sun will shine brightly tomorrow. ,0
+We will explore the nearby forest this weekend. ,0
+She was cooking dinner when the phone rings.,1
+They played soccer yesterday. ,0
+We are having a picnic in the park. ,0
+He has been working here since five years.,1
+The artist was draw a portrait of the model.,1
+He took the bus and arrives on time.,1
+I am taking a nap right now. ,0
+The recent political upheaval in the region has had far-reaching consequences,0
+I study Spanish every evening. ,0
+They were sailing on the lake when it started raining. ,0
+He was tired because he works all day.,1
+She was singing when I entered the room.                   ,0
+I had already finished my Ph.D. when I decided to pursue postdoctoral research. ,0
+He used to work as a chef. ,0
+The doctor was examine the patient.,1
+I was reading when somebody knocks on the door.,1
+"I had visited that museum before, but I still enjoy going there.                              ",0
+We will be touring art museums this weekend. ,0
+I am enjoying my vacation on the beach.                                          ,0
+How do you envision the future of transportation in urban areas,0
+She think she can finish the project.,1
+I am watching a documentary                           ,0
+I am going to the gym later in the day. ,0
+I have been studying for hours.                                                       ,0
+The train departs at 9 AM. ,0
+The tree was falling during the storm.,1
+The conference commences in an hour. ,0
+Will advancements in culinary technology transform the restaurant industry in the future,0
+The teacher teach the students in the classroom.,1
+I have been developing software for years. ,0
+They played soccer in the local park yesterday. ,0
+I slept when the phone was ringing.,1
+The sun rises in the east. ,0
+She is having breakfast at the moment. ,0
+The project is complete by the deadline.,1
+We were talking when he suddenly leaves.,1
+He used to work in the tech industry. ,0
+She has been baking a cake for hours. ,0
+I am eat pizza for lunch.,1
+Isn't the recent technology revolution impacting cultural exchange,0
+She has paint her room last week.,1
+The conference starts in an hour. ,0
+I used to work as a teacher. ,0
+I am watching a documentary.                                                           ,0
+Won't artificial intelligence replace traditional jobs in the near future,0
+I will have completed my work by the end of the day. ,0
+He has lived in London for five years before he moved to New York.,1
+Did they finished the report?,1
+We will have a picnic in the park on Saturday. ,0
+"When I reached the station, the train leaves.",1
+They were having a barbecue when it began to rain. ,0
+They were singing when I entered the room. ,0
+The neighbors was moving out yesterday.,1
+I had finished my work before dinner was served. ,0
+"If you don't leave now, you would miss the train.",1
+"By 2030, we will have encountered numerous environmental challenges",0
+I have breakfast yesterday morning.,1
+Look! The dog runs across the street.,1
+"I lived in Paris for a year, where I meet so many interesting people.",1
+He will be launching a new business venture next month.                                      ,0
+The sun rises in the east.                            ,0
+She was driving to work when suddenly a deer runs across the road.,1
