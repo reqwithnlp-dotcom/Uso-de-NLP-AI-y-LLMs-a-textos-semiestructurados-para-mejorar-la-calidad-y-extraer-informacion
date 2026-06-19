@@ -1,6 +1,6 @@
 import spacy
 
-from model.rules import RULES, DEFAULT_TYPE
+from model.rules import IMPERSONAL_RULES, PERSONAL_RULES, DEFAULT_TYPE
 
 _MODEL_NAME = "en_core_web_sm"
 _nlp = None
@@ -20,20 +20,37 @@ def _get_nlp():
     return _nlp
 
 
-def analyze_sentence(sent):
-    
-    for rule in RULES:
+def _first_match(rules, sent):
+    """Devuelve el subtipo de la primera regla que matchea, o None."""
+    for rule in rules:
         detected = rule(sent)
         if detected is not None:
-            return {
-                "sentence": sent.text.strip(),
-                "impersonal": True,
-                "type": detected,
-            }
+            return detected
+    return None
+
+
+def analyze_sentence(sent):
+    """Capa 1 del pipeline. Corre dos baterías de reglas INDEPENDIENTES y
+    devuelve dos booleanos: «es personal» y «es impersonal».
+
+    - Caso limpio: exactamente uno es True (sin dudas).
+    - Caso límite / contradictorio: ambos True o ambos False -> `ambiguous`
+      queda en True y la oración debe escalar a la capa 2 (LLM).
+    """
+    impersonal_type = _first_match(IMPERSONAL_RULES, sent)
+    personal_type = _first_match(PERSONAL_RULES, sent)
+
+    is_impersonal = impersonal_type is not None
+    is_personal = personal_type is not None
+
     return {
         "sentence": sent.text.strip(),
-        "impersonal": False,
-        "type": DEFAULT_TYPE,
+        "personal": is_personal,        # «Es personal»
+        "impersonal": is_impersonal,    # «Es impersonal»
+        # Caso límite: misma respuesta en ambos detectores -> capa 2
+        "ambiguous": is_personal == is_impersonal,
+        "type": impersonal_type or DEFAULT_TYPE,   # subtipo impersonal
+        "personal_type": personal_type,            # subtipo personal o None
     }
 
 

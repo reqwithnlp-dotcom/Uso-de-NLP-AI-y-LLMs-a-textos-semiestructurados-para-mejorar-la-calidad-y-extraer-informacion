@@ -31,3 +31,10 @@ COPULAR_VERBS = frozenset({"be", "seem", "appear", "look", "happen", "turn"})
 
 
 CLAUSAL_DEPS = frozenset({"xcomp", "ccomp", "advcl", "csubj", "acl"})
+
+
+
+PERSONAL_PRONOUNS = frozenset({"i", "you", "he", "she", "we", "they"})
+
+
+AMBIGUOUS_SUBJECTS = frozenset({"it", "there", "one"})

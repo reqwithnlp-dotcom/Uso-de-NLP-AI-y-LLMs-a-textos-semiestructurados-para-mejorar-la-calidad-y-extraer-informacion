@@ -13,19 +13,33 @@ from model.detector import analyze_text
 INPUT_FILE = Path(__file__).parent / "input.txt"
 
 
+def _label(r):
+    """Etiqueta legible a partir de los dos booleanos de la capa 1."""
+    if r["ambiguous"]:
+        return "AMBIGUO->capa2"
+    return "PERSONAL" if r["personal"] else "IMPERSONAL"
+
+
 def main():
     text = INPUT_FILE.read_text(encoding="utf-8")
     results = analyze_text(text)
 
-    impersonales = 0
-    print(f"{'#':<4}{'¿Impersonal?':<14}{'Tipo':<22}Oración")
-    print("-" * 90)
+    personales = impersonales = ambiguas = 0
+    print(f"{'#':<4}{'Pers':<6}{'Imp':<6}{'Decisión':<16}{'Tipo':<22}Oración")
+    print("-" * 100)
     for i, r in enumerate(results, 1):
-        flag = "True" if r["impersonal"] else "False"
+        personales += r["personal"]
         impersonales += r["impersonal"]
-        print(f"{i:<4}{flag:<14}{r['type']:<22}{r['sentence']}")
-    print("-" * 90)
-    print(f"Total: {len(results)} oraciones | Impersonales: {impersonales}")
+        ambiguas += r["ambiguous"]
+        print(
+            f"{i:<4}{str(r['personal']):<6}{str(r['impersonal']):<6}"
+            f"{_label(r):<16}{r['type']:<22}{r['sentence']}"
+        )
+    print("-" * 100)
+    print(
+        f"Total: {len(results)} | Personales: {personales} | "
+        f"Impersonales: {impersonales} | Ambiguas (a capa 2): {ambiguas}"
+    )
 
 
 if __name__ == "__main__":

@@ -6,13 +6,16 @@ reglas y el contrato de la capa model.
 """
 
 from model import lexicons
-from model.rules import RULES, DEFAULT_TYPE
+from model.rules import RULES, IMPERSONAL_RULES, PERSONAL_RULES, DEFAULT_TYPE
 from model.rules import (
     rule_there_existential,
     rule_weather_it,
     rule_weather_adjective,
     rule_impersonal_passive,
     rule_it_extraposition,
+    rule_personal_pronoun_subject,
+    rule_personal_nominal_subject,
+    rule_imperative,
 )
 
 
@@ -42,11 +45,23 @@ class TestLexicons:
     def test_sin_solapamiento_verbos_clima_y_reporte(self):
         assert not lexicons.WEATHER_VERBS & lexicons.REPORTING_VERBS
 
+    def test_pronombres_personales_en_minuscula_y_sin_it_there(self):
+        assert all(p == p.lower() for p in lexicons.PERSONAL_PRONOUNS)
+        for p in ("i", "you", "he", "she", "we", "they"):
+            assert p in lexicons.PERSONAL_PRONOUNS
+        # it/there NO son evidencia personal: son candidatos a expletivo
+        assert "it" not in lexicons.PERSONAL_PRONOUNS
+        assert "there" not in lexicons.PERSONAL_PRONOUNS
+
+    def test_sujetos_ambiguos_incluyen_it_there_one(self):
+        for s in ("it", "there", "one"):
+            assert s in lexicons.AMBIGUOUS_SUBJECTS
+
 
 class TestPipelineOrder:
-    def test_orden_de_reglas_especifica_a_general(self):
+    def test_orden_de_reglas_impersonales(self):
         """El orden es parte del contrato: corte temprano correcto."""
-        assert RULES == (
+        assert IMPERSONAL_RULES == (
             rule_there_existential,
             rule_weather_it,
             rule_weather_adjective,
@@ -54,8 +69,20 @@ class TestPipelineOrder:
             rule_it_extraposition,
         )
 
+    def test_orden_de_reglas_personales(self):
+        assert PERSONAL_RULES == (
+            rule_personal_pronoun_subject,
+            rule_personal_nominal_subject,
+            rule_imperative,
+        )
+
+    def test_rules_es_alias_de_impersonal(self):
+        # Retrocompatibilidad: histórico `RULES` == reglas impersonales
+        assert RULES is IMPERSONAL_RULES
+
     def test_default_conservador_es_personal(self):
         assert DEFAULT_TYPE == "PERSONAL"
 
-    def test_hay_cinco_reglas(self):
-        assert len(RULES) == 5
+    def test_cantidad_de_reglas(self):
+        assert len(IMPERSONAL_RULES) == 5
+        assert len(PERSONAL_RULES) == 3

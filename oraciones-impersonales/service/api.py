@@ -20,11 +20,13 @@ from service.schemas import AnalyzeRequest, AnalyzeResponse, SentenceResult
 app = FastAPI(
     title="Detector de Oraciones Impersonales",
     description=(
-        "Microservicio que detecta oraciones impersonales en inglés "
-        "(there-existenciales, meteorológicas, pasivas impersonales y "
-        "extraposición con 'it') mediante análisis de dependencias con spaCy."
+        "Microservicio que clasifica oraciones en inglés (capa 1 a base de "
+        "reglas sobre dependencias de spaCy). Para cada oración devuelve dos "
+        "booleanos independientes —«personal» e «impersonal»— y marca como "
+        "`ambiguous` los casos límite (ambos True o ambos False) que deben "
+        "escalar a una capa 2 basada en un modelo de lenguaje."
     ),
-    version="1.0.0",
+    version="2.0.0",
 )
 
 
@@ -40,7 +42,7 @@ def analyze(request: AnalyzeRequest):
     try:
         raw_results = analyze_text(request.text)
     except RuntimeError as exc:
-        # Modelo spaCy no instalado u otro error de inicialización
+        
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     results = [SentenceResult(**r) for r in raw_results]
@@ -48,4 +50,6 @@ def analyze(request: AnalyzeRequest):
         results=results,
         total=len(results),
         impersonal_count=sum(1 for r in results if r.impersonal),
+        personal_count=sum(1 for r in results if r.personal),
+        ambiguous_count=sum(1 for r in results if r.ambiguous),
     )
