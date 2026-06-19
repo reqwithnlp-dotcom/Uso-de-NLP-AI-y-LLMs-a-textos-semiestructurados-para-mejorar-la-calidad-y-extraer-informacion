@@ -50,21 +50,7 @@ nlp = spacy.load("en_core_web_md")
 
 
 
-"""
-if token.text.lower() in AUX_RULES:
-                #
-                expected_tag = AUX_RULES[token.text.lower()]
 
-                # Buscar el siguiente verbo
-                for next_token in text[i+1:]:
-
-                    if next_token.pos_ == "VERB":
-
-                        if next_token.tag_ != expected_tag:
-                            return "aux_missmatch"
-
-                        break
-"""
 
 
 
@@ -98,8 +84,6 @@ def detect_aux_mismatch():
         print(v)
     return verb_times
 
-
-detect_aux_mismatch()
 
 
 
