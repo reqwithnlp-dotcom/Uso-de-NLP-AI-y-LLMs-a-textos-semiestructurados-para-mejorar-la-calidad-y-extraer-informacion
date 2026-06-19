@@ -2,10 +2,7 @@
 
 from model.lexicons import CLAUSAL_DEPS
 
-# Roles de sujeto bajo los que puede aparecer "it"
 _SUBJECT_DEPS = ("nsubj", "nsubjpass", "expl")
-
-# Roles de sujeto (incluye sujetos clausales) para la detección personal
 _SUBJECT_DEPS_FULL = ("nsubj", "nsubjpass", "csubj", "csubjpass", "expl")
 
 

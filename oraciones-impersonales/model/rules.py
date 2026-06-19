@@ -18,10 +18,6 @@ from model.helpers import (
 )
 
 
-# ===========================================================================
-# Reglas IMPERSONALES: evidencia de oración impersonal.
-# Devuelven un subtipo (str) si matchean, o None.
-# ===========================================================================
 
 
 def rule_there_existential(sent):
@@ -98,14 +94,8 @@ IMPERSONAL_RULES = (
 )
 
 
-# ===========================================================================
-# Reglas PERSONALES: evidencia POSITIVA de sujeto referencial.
-# Devuelven un subtipo (str) si detectan rasgo personal, o None.
-#
-# Diseño: miran SIEMPRE el sujeto de la raíz (ROOT), no cualquier sujeto de
-# la oración. Así "It is known that I was late" no se marca personal por el
-# "I" subordinado: su raíz es el pasivo impersonal con sujeto "It".
-# ===========================================================================
+# ////////////////////////////////////////////////////
+
 
 def rule_personal_pronoun_subject(sent):
     """Sujeto raíz = pronombre personal referencial (I/you/he/she/we/they)."""
@@ -147,8 +137,8 @@ PERSONAL_RULES = (
 )
 
 
-# Alias retrocompatible: histórico `RULES` == reglas impersonales.
+
 RULES = IMPERSONAL_RULES
 
-# Etiqueta por defecto del subtipo impersonal cuando ninguna regla matchea
+
 DEFAULT_TYPE = "PERSONAL"

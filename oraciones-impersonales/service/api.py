@@ -42,7 +42,7 @@ def analyze(request: AnalyzeRequest):
     try:
         raw_results = analyze_text(request.text)
     except RuntimeError as exc:
-        # Modelo spaCy no instalado u otro error de inicialización
+        
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     results = [SentenceResult(**r) for r in raw_results]
