@@ -215,5 +215,71 @@ class TestDetectarClichesFase2(unittest.TestCase):
         self.assertEqual(resultado, [])
 
 
+class TestDetectarClichesIntegracionFases(unittest.TestCase):
+    """Tests de integración que combinan Fase 1 y Fase 2 en distintos escenarios."""
+
+    def test_integracion_ambas_fases_solapamiento(self):
+        """Ambas fases activas: no debe devolver 'it time and time again' si ya coincide 'time and time again'."""
+        texto = "He tried to explain it time and time again."
+        resultado = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True)
+        self.assertIn("time and time again", resultado)
+        self.assertNotIn("it time and time again", resultado)
+
+    def test_exacto_y_semantico_mezclados(self):
+        """Detección combinada de clichés exactos (Fase 1) y semánticos (Fase 2) en el mismo texto."""
+        # 'better late than never' -> exacto (Fase 1)
+        # 'butterflies in her stomach' -> semántico (Fase 2)
+        texto = "It is better late than never to admit that she gets butterflies in her stomach."
+        resultado = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True)
+        self.assertEqual(len(resultado), 2)
+        self.assertEqual(resultado[0], "better late than never")
+        self.assertEqual(resultado[1], "butterflies in her stomach")
+
+    def test_multiples_exactos_y_semanticos(self):
+        """Múltiples clichés de ambas fases intercalados, respetando orden de aparición."""
+        # 'back to square one' -> exacto (Fase 1)
+        # 'butterflies in her stomach' -> semántico (Fase 2)
+        # 'blood is thicker than water' -> exacto (Fase 1)
+        texto = "We had to go back to square one because she got butterflies in her stomach, but blood is thicker than water."
+        resultado = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True)
+        self.assertEqual(len(resultado), 3)
+        self.assertEqual(resultado[0], "back to square one")
+        self.assertEqual(resultado[1], "butterflies in her stomach")
+        self.assertEqual(resultado[2], "blood is thicker than water")
+
+    def test_preencion_fase2_por_exacto_fase1(self):
+        """La coincidencia exacta en Fase 1 debe evitar que Fase 2 evalúe esa misma ventana u otras solapadas."""
+        # 'spitting image' -> exacto. 'the spitting image' o 'spitting image of' no deben ser evaluados por Fase 2.
+        texto = "He is the spitting image of his grandfather."
+        resultado = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True)
+        self.assertEqual(resultado, ["spitting image"])
+
+    def test_cambio_umbral_semantico_con_ambas_fases(self):
+        """El umbral semántico debe controlar la Fase 2 sin alterar las detecciones de Fase 1."""
+        texto = "We must go back to square one and she gets butterflies in her stomach."
+        
+        # Con umbral muy alto (0.99), la variación semántica no se detecta, pero el exacto de Fase 1 sí.
+        resultado_alto = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True, umbral_semantico=0.99)
+        self.assertEqual(resultado_alto, ["back to square one"])
+        
+        # Con umbral estándar (0.75), ambos se detectan.
+        resultado_estandar = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True, umbral_semantico=0.75)
+        self.assertEqual(resultado_estandar, ["back to square one", "butterflies in her stomach"])
+
+    def test_sin_cliches_ambas_fases(self):
+        """Texto limpio sin clichés con ambas fases activas retorna vacío."""
+        texto = "The researchers analyzed the structural properties of the molecule."
+        resultado = detectar_cliches(texto, filtrado_inicial=True, analisis_profundo=True)
+        self.assertEqual(resultado, [])
+
+    def test_casos_borde_ambas_fases(self):
+        """Casos límite (vacío, solo espacios, solo puntuación) con ambas fases activas."""
+        self.assertEqual(detectar_cliches("", filtrado_inicial=True, analisis_profundo=True), [])
+        self.assertEqual(detectar_cliches("   ", filtrado_inicial=True, analisis_profundo=True), [])
+        self.assertEqual(detectar_cliches("...,,, ???", filtrado_inicial=True, analisis_profundo=True), [])
+        self.assertEqual(detectar_cliches("hello", filtrado_inicial=True, analisis_profundo=True), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+

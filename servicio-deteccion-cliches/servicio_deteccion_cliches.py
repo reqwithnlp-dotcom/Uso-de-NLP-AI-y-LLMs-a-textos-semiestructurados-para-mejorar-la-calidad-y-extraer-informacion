@@ -232,8 +232,8 @@ def _fase2_semantico(
             char_start = ventana[0][2]
             char_end = ventana[-1][3]
 
-            # Omitir ventanas ya detectadas por Fase 1
-            ya_cubierta = any(char_start >= s and char_end <= e for s, e in excluir_spans)
+            # Omitir ventanas que se solapen con lo ya detectado por la Fase 1
+            ya_cubierta = any(char_start < e and char_end > s for s, e in excluir_spans)
             if ya_cubierta:
                 continue
 
