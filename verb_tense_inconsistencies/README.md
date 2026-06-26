@@ -1,0 +1,5 @@
+Requeriments: 
+
+spacy
+contractions
+pytest
