@@ -13,7 +13,7 @@ o directamente:
 
 import uvicorn
 
-from service.api import app  # noqa: F401  (reexport para `uvicorn main:app`)
+from service.main import app  # noqa: F401  (reexport para `uvicorn main:app`)
 
 
 if __name__ == "__main__":

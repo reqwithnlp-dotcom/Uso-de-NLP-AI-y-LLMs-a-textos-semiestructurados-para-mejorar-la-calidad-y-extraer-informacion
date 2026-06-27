@@ -5,13 +5,19 @@ from model.lexicons import (
     WEATHER_ADJECTIVES,
     REPORTING_VERBS,
     COPULAR_VERBS,
+    PERSONAL_PRONOUNS,
+    AMBIGUOUS_SUBJECTS,
 )
 from model.helpers import (
     find_subject_it,
     find_existential_there,
     has_extraposed_clause,
     get_acomp_or_attr,
+    find_root,
+    get_subject,
 )
+
+
 
 
 def rule_there_existential(sent):
@@ -79,7 +85,7 @@ def rule_it_extraposition(sent):
 
 
 
-RULES = (
+IMPERSONAL_RULES = (
     rule_there_existential,
     rule_weather_it,
     rule_weather_adjective,
@@ -87,5 +93,52 @@ RULES = (
     rule_it_extraposition,
 )
 
-# Etiqueta por defecto cuando ninguna regla matchea
+
+# ////////////////////////////////////////////////////
+
+
+def rule_personal_pronoun_subject(sent):
+    """Sujeto raíz = pronombre personal referencial (I/you/he/she/we/they)."""
+    subj = get_subject(find_root(sent))
+    if subj is not None and subj.lower_ in PERSONAL_PRONOUNS:
+        return "PRONOUN_SUBJECT"
+    return None
+
+
+def rule_personal_nominal_subject(sent):
+    """Sujeto raíz nominal real: nombre propio, sustantivo, demostrativo,
+    indefinido ('someone', 'this'...) o cláusula sujeto.
+
+    Excluye expletivos y los sujetos dudosos (it/there/one), que se dejan
+    a las reglas impersonales o a la capa 2."""
+    subj = get_subject(find_root(sent))
+    if subj is None or subj.dep_ == "expl":
+        return None
+    if subj.lower_ in AMBIGUOUS_SUBJECTS or subj.lower_ in PERSONAL_PRONOUNS:
+        return None
+    return "NOMINAL_SUBJECT"
+
+
+def rule_imperative(sent):
+    """Imperativo: verbo raíz en forma base, sin sujeto explícito
+    ('Open the door'). El sujeto 'you' está implícito -> oración personal."""
+    root = find_root(sent)
+    if root is None or root.pos_ != "VERB" or root.tag_ != "VB":
+        return None
+    if get_subject(root) is not None:
+        return None
+    return "IMPERATIVE"
+
+
+PERSONAL_RULES = (
+    rule_personal_pronoun_subject,
+    rule_personal_nominal_subject,
+    rule_imperative,
+)
+
+
+
+RULES = IMPERSONAL_RULES
+
+
 DEFAULT_TYPE = "PERSONAL"

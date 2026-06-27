@@ -138,6 +138,30 @@ class TestDetectarRepeticiones(unittest.TestCase):
 
         for item in resultado:
             self.assertEqual(item["count"], len(item["indices"]))
+    
+    def test_mayusculas_y_minusculas_se_agrupan(self):
+    texto = "Good good GOOD"
+    resultado = detectar_repeticiones(texto, ignorar_stopwords=True, lematizacion=False)
+    palabras = {r["word"]: r for r in resultado}
+    self.assertEqual(palabras["good"]["count"], 3)
+
+    def test_puntuacion_no_rompe_repeticiones(self):
+    texto = "hello, hello. hello!"
+    resultado = detectar_repeticiones(texto, ignorar_stopwords=True, lematizacion=False)
+    palabras = {r["word"]: r for r in resultado}
+    self.assertEqual(palabras["hello"]["count"], 3)
+
+    def test_numeros_repetidos(self):
+    texto = "Version 2 is better than version 2"
+    resultado = detectar_repeticiones(texto, ignorar_stopwords=True, lematizacion=False)
+    palabras = {r["word"]: r for r in resultado}
+    self.assertIn("2", palabras)
+
+    def test_lematizacion_verbos(self):
+    texto = "They run every day. He runs every day."
+    resultado = detectar_repeticiones(texto, ignorar_stopwords=True, lematizacion=True)
+    palabras = {r["word"]: r for r in resultado}
+    self.assertIn("run", palabras)
 
 
 if __name__ == "__main__":
