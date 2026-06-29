@@ -15,8 +15,8 @@ from .views import (
     obtener_contenido_documento,
     eliminar_documento,
     api_documentos,
-    lista_documentos, 
-    
+    lista_documentos,
+    word_repetition,
 )
 
 urlpatterns = [
@@ -30,5 +30,7 @@ urlpatterns = [
     path('obtener_contenido_documento/<int:documento_id>/', obtener_contenido_documento, name='obtener_contenido_documento'),
     path('eliminar_documento/<int:documento_id>/', eliminar_documento, name='eliminar_documento'),
     path('api/documentos/', api_documentos, name='api_documentos'),
+    path('api/word-repetition/repeticiones/', word_repetition, name='word_repetition'),
+    path('api/word-repetition/repeticiones', word_repetition, name='word_repetition_no_slash'),
 ]
 

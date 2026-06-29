@@ -7,6 +7,7 @@ from .documentos import (
     renombrar_documento,
     obtener_contenido_documento, 
     eliminar_documento,
-    api_documentos
+    api_documentos,
+    word_repetition,
 
 )

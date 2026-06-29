@@ -1,11 +1,26 @@
+import json
+import re
+import sys
+from pathlib import Path
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404
-import json
-import re
-from django.contrib.auth.decorators import login_required
+
+# Añadir la carpeta del servicio de repetición al path si no está ya accesible
+BASE_DIR = Path(__file__).resolve().parents[3]
+SERVICE_PATH = BASE_DIR / 'servicio-repeticion-palabras'
+SERVICE_PATH = SERVICE_PATH.resolve()
+if str(SERVICE_PATH) not in sys.path:
+    sys.path.insert(0, str(SERVICE_PATH))
+
+servicio_import_error = None
+try:
+    from servicio_repeticion_palabras import detectar_repeticiones
+except Exception as exc:
+    detectar_repeticiones = None
+    servicio_import_error = str(exc)
 
 from req_nlp_app.models import Documento
 
@@ -102,3 +117,38 @@ def eliminar_documento(request, documento_id):
             return JsonResponse({'status': 'ok'})
         except Documento.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Documento no encontrado'}, status=404)
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
+@csrf_exempt
+@login_required
+def word_repetition(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+    if detectar_repeticiones is None:
+        error_payload = {'error': 'Servicio de repetición no disponible'}
+        if servicio_import_error:
+            error_payload['detalle'] = servicio_import_error
+        return JsonResponse(error_payload, status=500)
+
+    try:
+        payload = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'JSON inválido'}, status=400)
+
+    texto = payload.get('texto', '')
+    if not isinstance(texto, str) or texto.strip() == '':
+        return JsonResponse({'error': 'El campo texto es obligatorio'}, status=400)
+
+    ignorar_stopwords = bool(payload.get('sin_palabras_frecuentes', True))
+    lematizacion = bool(payload.get('con_sustantivos_en_singular', False))
+
+    resultado = detectar_repeticiones(
+        texto,
+        ignorar_stopwords=ignorar_stopwords,
+        lematizacion=lematizacion,
+    )
+
+    resumen = {item['word']: item['count'] for item in resultado}
+    return JsonResponse(resumen)

@@ -40,7 +40,8 @@ async function mostrarResultado() {
         promesas.push(p);
     }
     if (word_repetition) {
-        const p = fetch(`${API_WORD_REPETITION_URL}/repeticiones`,     {
+        const wordRepetitionBaseUrl = API_WORD_REPETITION_URL.replace(/\/+$/, '');
+        const p = fetch(`${wordRepetitionBaseUrl}/repeticiones/`, {
             method: "POST",
             headers: {"Content-Type": "application/json" },
             body: JSON.stringify({
