@@ -4,7 +4,7 @@ def entorno_variable(request):
     return {
         'API_INVERTIR_TEXTO_URL': os.environ.get('API_INVERTIR_TEXTO_URL', ''),
         'API_VOZ_PASIVA_URL': os.environ.get('API_VOZ_PASIVA_URL', ''), 
-        'API_WORD_REPETITION_URL': os.environ.get('API_WORD_REPETITION_URL', '/api/word-repetition'),
+        'API_WORD_REPETITION_URL': os.environ.get('API_WORD_REPETITION_URL', ''),
         'API_IMPERSONAL_SENTENCES_URL': os.environ.get('API_IMPERSONAL_SENTENCES_URL', ''),
         'API_NEGATIVE_PHRASE_URL': os.environ.get('API_NEGATIVE_PHRASE_URL', ''),
         'API_OPINION_PERCEPTION_URL': os.environ.get('API_OPINION_PERCEPTION_URL', ''),
