@@ -96,16 +96,52 @@ async function mostrarResultado() {
     }
 
     if (impersonal_sentences) {
-        const p = fetch(`${API_IMPERSONAL_SENTENCES_URL}/detectar`, {
+        const p = fetch(`http://163.10.5.49:8002/analyze`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ texto: texto })
+            body: JSON.stringify({ text: texto })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        })
         .then(data => {
-            agregarResultado("Oraciones Impersonales", data.motivo || "Detectadas");
+            // Verificamos que exista el array results
+            if (Array.isArray(data.results) && data.results.length > 0) {
+                
+                data.results.forEach(item => {
+                    // 1. Obtenemos el texto real usando la propiedad correcta: 'sentence'
+                    const textoOracion = item.sentence || "Texto no disponible";
+                    let mensaje = "";
+
+                    // 2. Lógica para armar el mensaje según el tipo
+                    if (item.type === "WEATHER_IT") {
+                        mensaje = `Impersonal (Clima): "${textoOracion}"`;
+                    } 
+                    else if (item.personal === true) {
+                        // Si es personal, mostramos el subtipo (ej: PRONOUN_SUBJECT)
+                        const subtipo = item.personal_type ? ` (${item.personal_type})` : "";
+                        mensaje = `Personal${subtipo}: "${textoOracion}"`;
+                    } 
+                    else if (item.ambiguous === true) {
+                        mensaje = `Ambigua: "${textoOracion}"`;
+                    } 
+                    else {
+                        // Fallback por si hay otro tipo no contemplado
+                        mensaje = `${item.type || "Desconocido"}: "${textoOracion}"`;
+                    }
+
+                    agregarResultado("Oraciones Impersonales", mensaje);
+                });
+
+            } else {
+                agregarResultado("Oraciones Impersonales", "No se detectaron patrones impersonales.");
+            }
         })
-        .catch(err => agregarResultado("Error", "Error en oraciones impersonales: " + err.message));
+        .catch(err => {
+            console.error("Error en impersonal sentences:", err);
+            agregarResultado("Error", "Error al analizar oraciones: " + err.message);
+        });
         promesas.push(p);
     }
 
