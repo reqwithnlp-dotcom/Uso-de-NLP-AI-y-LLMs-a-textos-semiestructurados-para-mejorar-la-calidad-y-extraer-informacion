@@ -13,7 +13,7 @@ Documentación interactiva automática en:
 """
 
 from fastapi import FastAPI, HTTPException
-
+from fastapi.middleware.cors import CORSMiddleware
 from model.detector import analyze_text
 from service.schemas import AnalyzeRequest, AnalyzeResponse, SentenceResult
 
@@ -28,7 +28,13 @@ app = FastAPI(
     ),
     version="2.0.0",
 )
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # O ["*"] para desarrollo
+    allow_credentials=True,
+    allow_methods=["*"],  # Incluye OPTIONS
+    allow_headers=["*"],
+)
 
 @app.get("/health", tags=["infra"])
 def health():
