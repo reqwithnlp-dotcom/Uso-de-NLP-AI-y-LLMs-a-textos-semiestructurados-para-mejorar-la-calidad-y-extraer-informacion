@@ -10,25 +10,27 @@ VBZ	Presente 3ª persona singular	she eats, he goes
 
 
 TEMP_VERB_RULES = {
-    ("will","have","been","VBG"):"cont_perf_fut",
-    ("will","have","VBN"):"perf_fut",
-    ("will","be","VBG"):"cont_fut",
-    ("will","VB"):"simp_fut",
-    ("have" or "has","been","VBG"):"cont_perf_pres",
-    ("have" or "has","VBN"):"perf_pres",
-    ("had","been","VBG"):"cont_perf_past",
-    ("had","VBN"):"perf_past",
-    ("was","VBG"):"cont_past",
-    ("were","VBG"):"cont_past",
-    ("am" or "are" or "is", "VBG"):"cont_pres",
-    ("are" , "VBG"):"cont_pres",
-    ("is", "VBG"):"cont_pres",
-    ("VB" or "VBP" or "VBZ",):"simp_pres",
-    ("VBP",):"simp_pres",
-    ("VBZ",):"simp_pres",
-    ("VBD",):"simp_past",
+    ("will","have","been","VBG"):"cont_perf_fut-fut",
+    ("will","have","VBN"):"perf_fut-fut",
+    ("will","be","VBG"):"cont_fut-fut",
+    ("will","VB"):"simp_fut-fut",
+    ("has","been","VBG"):"cont_perf_pres-pres",
+    ("have","been","VBG"):"cont_perf_pres-pres",
+    ("have","VBN"):"perf_pres-pres",
+    ("has","VBN"):"perf_pres-pres",
+    ("had","been","VBG"):"cont_perf_past-past",
+    ("had","VBN"):"perf_past-past",
+    ("was","VBG"):"cont_past-past",
+    ("were","VBG"):"cont_past-past",
+    ("am", "VBG"):"cont_pres-pres",
+    ("are" , "VBG"):"cont_pres-pres",
+    ("is", "VBG"):"cont_pres-pres",
+    ("VBP",):"simp_pres-pres",
+    ("VBZ",):"simp_pres-pres",
+    ("VBD",):"simp_past-past",
 }
-
+REFERENCE_PAST_POINT =["yesterday","previous","last","former","past","preceding","prior"] 
+REFERENCE_FUTURE_POINT = ["tomorrow","next","following","upcoming","coming","future","subsequent"]
 
 
 
@@ -38,26 +40,12 @@ CONNECTORS = {
     "after"
 }
 
-PAST_MARKERS = {"yesterday", "ago"}
-FUTURE_MARKERS = {"tomorrow"}
-
 
 print("Loading spaCy...")
 
 nlp = spacy.load("en_core_web_md")
 
-
-
-
-
-
-
-
-
-
-
-def detect_aux_mismatch():
-    text = "By the time she arrived, I had been working for three hours, I have completed the report, and I will have been waiting for the manager for more than an hour before the meeting starts."
+def detect_aux_mismatch(text):
     doc = nlp(text)
     aux_list= []
     verb_times = []
@@ -72,17 +60,70 @@ def detect_aux_mismatch():
             aux_word = token.tag_
             aux_list.append(aux_word)    
             aux_tuple = tuple(aux_list)
-            print(aux_tuple , type(aux_tuple))
             temp_verb = TEMP_VERB_RULES.get(aux_tuple)
             if temp_verb != None:
-                verb_times.append(f"{token.text} -> {temp_verb}")
+                verb_times.append(f"{token.i}, {token.text}, {temp_verb}")
             else:
-                verb_times.append(f"{token.text} -> aux_mismatch")
+                verb_times.append(f"{token.i}, {token.text}, aux_mismatch")
             
             aux_list.clear()
-    for v in verb_times:
-        print(v)
     return verb_times
+
+def detect_advb_mismatch():
+    text = nlp("She has been studying a lot over the last week.") # sacar y colocar el text en parametro para prod
+    all_temporality_list = detect_aux_mismatch(text) # sacar y colocar el temp_list en parametro para prod
+    mismatch_list = []
+    
+    for i in range(len(text) - 1):  
+        actual_word = text[i].text.strip().lower()
+        is_adverb_past = actual_word in REFERENCE_PAST_POINT
+        is_adverb_future = actual_word in REFERENCE_FUTURE_POINT
+        if is_adverb_future or is_adverb_past:
+            temporality = ""
+            specific_temporality = ""
+            head = text[i].head #obtenemos la dependencia padre.
+            if head.pos_ != "VERB": #si el padre no es un verbo, 
+                head = head.head    
+            if head.pos_ == "VERB": #entonces buscamos al padre del padre ej: the last week was ....
+                index_head = head.i # last pertenece a week y week a was
+            else:
+                continue
+
+            for v in all_temporality_list:
+                index_list = int(v[0])
+                if index_list == index_head:#si coincide el indice del padre con el de la lista de temporalidades
+                    temporality = v.split("-")[1] #obtenemos la temporalidad general que esta despues del guion
+                    specific_temporality =  v.split(",")[2].strip().split("-")[0] # obtenemos de paso la especifica para casos de futuro
+
+            past_not_ok = is_adverb_past and temporality != "past"
+            future_not_ok = is_adverb_future and (specific_temporality == "cont_pres" or temporality != "fut") 
+            if (past_not_ok) or (future_not_ok) :
+                mismatch_list.append(f"{head.text} with {actual_word} -> advb_mismatch")
+                continue
+    print(mismatch_list)
+
+
+detect_advb_mismatch()
+
+
+def test_tokenization():
+    text = nlp("She has been studying a lot over the last week")
+    for token in text:
+        print(f"{token.i} {token.text} {token.pos_} {token.tag_} {token.dep_} -HEAD- {token.head}")
+
+
+#test_tokenization()
+
+
+
+
+
+
+
+
+
+
+
 
 
 

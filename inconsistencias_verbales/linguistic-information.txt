@@ -1,0 +1,79 @@
+Clase A
+
+Marcadores de anterioridad
+
+yesterday
+
+last week
+
+last month
+
+ago
+
+Todos dicen:
+
+el evento está antes del punto de referencia.
+
+Clase B
+
+Marcadores de posterioridad
+
+tomorrow
+
+next week
+
+in two days
+
+later
+
+Todos dicen:
+
+el evento está después del punto de referencia.
+
+Clase C
+
+Marcadores de duración
+
+for
+
+all day
+
+for three years
+
+No hablan de pasado.
+
+Hablan de cuánto dura algo.
+
+Clase D
+
+Marcadores de inicio
+
+since
+
+since Monday
+
+since 2010
+
+Hablan del comienzo de una acción.
+
+Clase E
+
+Marcadores de frecuencia
+
+always
+
+usually
+
+often
+
+every day
+
+every week
+
+Hablan de hábitos.
+
+
+-- Forma del verbo copulativo:
+Una manera de usar un verbo para enlazar el sujeto con una caracteristica o evento
+-- Adverbio que no cumple la funcion de sujeto
+Cuando sucede esto, el tiempo del adbervio debe coincidir con el tiempo del verbo
