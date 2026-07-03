@@ -70,49 +70,49 @@ def detect_aux_mismatch(text):
     return verb_times
 
 def detect_advb_mismatch():
-    text = nlp("She has been studying a lot over the last week.") # sacar y colocar el text en parametro para prod
-    all_temporality_list = detect_aux_mismatch(text) # sacar y colocar el temp_list en parametro para prod
+    text = nlp(".") # SACAR Y COLOCAR EL TEXT EN PARAMETRO PARA PROD
+    temp_list = detect_aux_mismatch(text) # SACAR Y COLOCAR EL TEMP_LIST EN PARAMETRO PARA PROD
     mismatch_list = []
     
     for i in range(len(text) - 1):  
         actual_word = text[i].text.strip().lower()
-        is_adverb_past = actual_word in REFERENCE_PAST_POINT
-        is_adverb_future = actual_word in REFERENCE_FUTURE_POINT
-        if is_adverb_future or is_adverb_past:
-            temporality = ""
-            specific_temporality = ""
-            head = text[i].head #obtenemos la dependencia padre.
-            if head.pos_ != "VERB": #si el padre no es un verbo, 
-                head = head.head    
-            if head.pos_ == "VERB": #entonces buscamos al padre del padre ej: the last week was ....
-                index_head = head.i # last pertenece a week y week a was
-            else:
-                continue
-
-            for v in all_temporality_list:
+        is_rpast = actual_word in REFERENCE_PAST_POINT 
+        is_rfut = actual_word in REFERENCE_FUTURE_POINT 
+        if is_rpast or is_rfut:
+            temp = ""
+            for v in temp_list:
                 index_list = int(v[0])
-                if index_list == index_head:#si coincide el indice del padre con el de la lista de temporalidades
-                    temporality = v.split("-")[1] #obtenemos la temporalidad general que esta despues del guion
-                    specific_temporality =  v.split(",")[2].strip().split("-")[0] # obtenemos de paso la especifica para casos de futuro
+                head = text[i].head
+                if head.pos_ != "VERB":
+                    head = head.head
+                if head.pos_ == "VERB":
+                    index_head = head.i
+                if index_list == index_head:
+                    temp = v.split("-")[1]
 
-            past_not_ok = is_adverb_past and temporality != "past"
-            future_not_ok = is_adverb_future and (specific_temporality == "cont_pres" or temporality != "fut") 
-            if (past_not_ok) or (future_not_ok) :
-                mismatch_list.append(f"{head.text} with {actual_word} -> advb_mismatch")
+            if is_rpast and temp != "past":
+                mismatch_list.append(f"{head.text} -> advb_mismatch")
                 continue
-    print(mismatch_list)
+            
+            if is_rfut and temp != "past":
+                mismatch_list.append(f"{head.text} -> advb_mismatch")
+                continue
+        
+        
+            mismatch_list.append(f"{text[i]} -> advb_mismatch")
+        print(mismatch_list)
 
 
-detect_advb_mismatch()
+#detect_advb_mismatch()
 
 
 def test_tokenization():
-    text = nlp("She has been studying a lot over the last week")
+    text = nlp("The last week, I learned that she is pregnant")
     for token in text:
-        print(f"{token.i} {token.text} {token.pos_} {token.tag_} {token.dep_} -HEAD- {token.head}")
+        print(f"{token.text} {token.pos_} {token.tag_} {token.dep_} -HEAD- {token.head}")
 
 
-#test_tokenization()
+test_tokenization()
 
 
 
