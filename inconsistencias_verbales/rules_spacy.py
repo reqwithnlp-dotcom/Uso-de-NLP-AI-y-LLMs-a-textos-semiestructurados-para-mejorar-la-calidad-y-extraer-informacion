@@ -94,12 +94,10 @@ def detect_advb_mismatch():
                 mismatch_list.append(f"{head.text} -> advb_mismatch")
                 continue
             
-            if is_rfut and temp != "past":
+            if is_rfut and temp != "fut":
                 mismatch_list.append(f"{head.text} -> advb_mismatch")
                 continue
         
-        
-            mismatch_list.append(f"{text[i]} -> advb_mismatch")
         print(mismatch_list)
 
 
