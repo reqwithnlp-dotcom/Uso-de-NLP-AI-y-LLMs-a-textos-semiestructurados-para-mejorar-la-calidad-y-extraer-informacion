@@ -17,4 +17,7 @@ TEMP_VERB_RULES = {
     ("VBP",):"simp_pres-pres",
     ("VBZ",):"simp_pres-pres",
     ("VBD",):"simp_past-past",
+    ("do", "VB"): "simp_pres-pres",
+    ("does", "VB"): "simp_pres-pres",
+    ("did", "VB"): "simp_past-past",
 }
