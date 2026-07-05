@@ -12,11 +12,12 @@ def test_should_normalize_and_split_text():
 
     result = analyzer.analyze(text)
 
-    assert result["normalized_text"] == (
+    assert result.normalized_text == (
         "I have submitted the request. "
         "The system does not validate it."
     )
 
-    assert len(result["fragments"]) == 2
+    assert len(result.contexts) == 2
 
-    assert result["issues"] == []
+    assert len(result.contexts[0].issues) == 0
+    assert len(result.contexts[1].issues) == 0

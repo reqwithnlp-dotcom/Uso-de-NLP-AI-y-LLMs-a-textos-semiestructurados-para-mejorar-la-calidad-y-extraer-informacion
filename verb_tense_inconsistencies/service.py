@@ -1,18 +1,53 @@
-import spacy
-import contractions
+from analyzer.text_analyzer import TextAnalyzer
 
-nlp = spacy.load("en_core_web_sm")
+from models.response import (
+    AnalyzeResponse,
+    IssueResponse
+)
 
-def normalize_text(text: str) -> str:
-    text = contractions.fix(text)
-    return text
 
-def split_sentences(text: str) -> list[str]:
-    normalized = normalize_text(text)
+class VerbTenseService:
 
-    doc = nlp(normalized)
+    def __init__(self):
 
-    return [
-        sent.text.strip()
-        for sent in doc.sents
-    ]
+        self.analyzer = TextAnalyzer()
+
+    def analyze(self, text: str) -> AnalyzeResponse:
+
+        result = self.analyzer.analyze(text)
+
+        fragments = []
+
+        issues = []
+
+        for context in result.contexts:
+
+            fragments.append(context.sentence.text)
+
+            for issue in context.issues:
+
+                issues.append(
+
+                    IssueResponse(
+
+                        fragment=issue.fragment,
+
+                        position=issue.position,
+
+                        explanation=issue.explanation,
+
+                        error_code=issue.error_code
+
+                    )
+
+                )
+
+        return AnalyzeResponse(
+
+            normalized_text=result.normalized_text,
+
+            fragments=fragments,
+
+            issues=issues
+
+        )

@@ -3,14 +3,17 @@ import spacy
 from models.sentence_fragment import SentenceFragment
 
 
+nlp = spacy.load("en_core_web_sm")
+
+
 class SentenceSplitter:
 
-    _nlp = spacy.load("en_core_web_sm")
+    @staticmethod
+    def split(text: str):
 
-    @classmethod
-    def split(cls, text: str) -> list[SentenceFragment]:
+        text = text.strip()
 
-        doc = cls._nlp(text)
+        doc = nlp(text)
 
         fragments = []
 
@@ -19,6 +22,7 @@ class SentenceSplitter:
             fragments.append(
                 SentenceFragment(
                     text=sent.text.strip(),
+                    doc=sent,
                     start_char=sent.start_char,
                     end_char=sent.end_char
                 )
