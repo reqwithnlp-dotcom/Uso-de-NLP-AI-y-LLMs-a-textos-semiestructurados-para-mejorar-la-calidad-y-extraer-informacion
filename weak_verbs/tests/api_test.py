@@ -65,6 +65,28 @@ class TestWeakVerbs(unittest.TestCase):
             response.json(),
             {"detail": "Text field is empty"},
         )
+    
+    def test_detect_weak_verbs_with_phrasal_verb(self):
+        response = client.post(
+            "/weak_verbs", 
+            json={"text": "We need to get up early tomorrow."}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            []
+        )
+    
+    def test_detect_weak_verbs_with_complex_phrasal_verb(self):
+        response = client.post(
+            "/weak_verbs", 
+            json={"text": "The teacher gave the difficult exam out to the students. Then, she made a cup of coffee."}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            ["made"]
+        )
 
 
 if __name__ == "__main__":

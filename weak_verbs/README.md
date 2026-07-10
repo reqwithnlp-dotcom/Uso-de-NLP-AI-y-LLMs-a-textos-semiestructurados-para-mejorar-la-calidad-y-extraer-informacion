@@ -66,3 +66,4 @@ python tests/api_test.py
 
 - Weak verbs are detected using spaCy lemmatization and POS tagging.
 - The current weak verb list includes common forms such as `do`, `make`, `have`, `get`, `take`, `give`, `go`, `run`, `keep`, `play`, `put`, `set`, and `be`.
+- The service also detect and exclude those weaks verbs that are phrasal verbs.
