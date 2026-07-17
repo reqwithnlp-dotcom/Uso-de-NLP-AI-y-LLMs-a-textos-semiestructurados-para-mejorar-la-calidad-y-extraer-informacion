@@ -1,13 +1,17 @@
-from typing import List, Tuple
+from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from servicio import detect_modal_verbs, MODAL_VERBS
+from servicio import extract_modal_actions, find_consistencies_and_inconsistencies
 
 app = FastAPI(
-    title="Detección de inconsistencias de verbos modales",
-    description="Servicio que detecta verbos modales en un texto y las frases entre ellos.",
+    title="Deteccion de inconsistencias de verbos modales",
+    description=(
+        "Servicio que detecta si una misma accion es descrita en el texto "
+        "con verbos modales de categorias semanticas distintas (por ejemplo, "
+        "obligacion en un lugar y posibilidad/permiso en otro)."
+    ),
     version="1.0.0",
 )
 
@@ -16,20 +20,34 @@ class TextoRequest(BaseModel):
     texto: str
 
 
-class DeteccionResponse(BaseModel):
-    modals: List[Tuple[str, str]]
-    phrases: List[str]
+class Caso(BaseModel):
+    modal: str
+    category: str
+    action: str
+    sentence: str
+
+
+class Par(BaseModel):
+    shared_action: str
+    case_1: Caso
+    case_2: Caso
+
+
+class AnalisisResponse(BaseModel):
+    consistencies: List[Par]
+    inconsistencies: List[Par]
 
 
 @app.get("/")
 def root():
-    return {"mensaje": "Servicio de detección de inconsistencias de verbos modales activo"}
+    return {"mensaje": "Servicio de deteccion de inconsistencias de verbos modales activo"}
 
 
-@app.post("/detectar", response_model=DeteccionResponse)
-def detectar_modales(request: TextoRequest):
-    modals, phrases = detect_modal_verbs(request.texto, MODAL_VERBS)
-    return {"modals": modals, "phrases": phrases}
+@app.post("/analizar", response_model=AnalisisResponse)
+def analizar_texto(request: TextoRequest):
+    modal_actions = extract_modal_actions(request.texto)
+    consistencies, inconsistencies = find_consistencies_and_inconsistencies(modal_actions)
+    return {"consistencies": consistencies, "inconsistencies": inconsistencies}
 
 
 if __name__ == "__main__":

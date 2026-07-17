@@ -1,10 +1,12 @@
 # Detección de inconsistencias de verbos modales
 
-Servicio que detecta verbos modales en un texto en inglés, clasifica su tipo semántico (obligación, posibilidad, permiso, etc.) y devuelve las frases que quedan entre cada verbo modal detectado.
+Servicio que analiza un texto en inglés y detecta **inconsistencias** en el uso de verbos modales: cuando una misma acción es descrita en distintas partes del texto con modales de categorías semánticas diferentes (por ejemplo, en un párrafo se presenta como *posibilidad/permiso* — "you **can** submit the report" — y en otro como *obligación* — "you **must** submit the report").
+
+La idea de fondo: contar o juzgar un "exceso" de verbos modales no tiene sentido por sí solo, ya que depende del tipo de texto (legal vs. general, etc.). Lo que sí es un problema real es la **inconsistencia**: tratar la misma acción de formas contradictorias a lo largo del texto.
 
 ## Instalación
 
-1. Cloná el repositorio y ubicate en la carpeta del servicio:
+1. Ubicate en la carpeta del servicio:
    ```bash
    cd deteccion_verbos_modales
    ```
@@ -26,8 +28,7 @@ Levantá el servidor con:
 ```bash
 python main.py
 ```
-
-o alternativamente:
+o:
 ```bash
 uvicorn main:app --reload
 ```
@@ -41,62 +42,99 @@ http://localhost:8000/docs
 
 ## Uso
 
-### Endpoint: `POST /detectar`
+### Endpoint: `POST /analizar`
 
-Detecta los verbos modales presentes en un texto y las frases que quedan entre ellos.
+Analiza un texto y devuelve dos listas:
 
-**Parámetros esperados** (body, formato JSON):
+- **`consistencies`**: pares de menciones de una misma acción usando modales de la **misma** categoría (uso coherente).
+- **`inconsistencies`**: pares de menciones de una misma acción usando modales de **distinta** categoría (posible inconsistencia a revisar).
 
-| Campo   | Tipo   | Requerido | Descripción                              |
-|---------|--------|-----------|-------------------------------------------|
-| `texto` | string | Sí        | Texto en inglés a analizar               |
+**Parámetros esperados** (body, JSON):
 
-**Verbos modales reconocidos:**
+| Campo   | Tipo   | Requerido | Descripción                |
+|---------|--------|-----------|------------------------------|
+| `texto` | string | Sí        | Texto en inglés a analizar   |
 
-| Verbo modal | Tipo                    |
-|-------------|--------------------------|
-| can         | ability                  |
-| could       | ability/possibility      |
-| may         | permission/possibility   |
-| might       | possibility              |
-| must        | obligation               |
-| shall       | future/obligation        |
-| should      | recommendation           |
-| ought to    | obligation               |
-| have to     | obligation               |
-| need to     | necessity                |
-| will        | future                   |
-| would       | conditional              |
-| used to     | past habit               |
+**Categorías de verbos modales reconocidas:**
 
-### Ejemplo de uso
+| Categoría                | Ejemplos                                                    |
+|----------------------------|-----------------------------------------------------------------|
+| `prohibition`               | cannot, can't, must not, may not, is forbidden                  |
+| `obligation`                 | has to, have to, needs to, must, is required to                 |
+| `recommendation`             | should, ought to, is recommended, it is advisable to            |
+| `possibility/permission`     | can, could, might, may, is allowed to                           |
+
+### Ejemplo de uso: texto con inconsistencia
 
 **Request:**
 ```bash
-curl -X POST "http://localhost:8000/detectar" \
+curl -X POST "http://localhost:8000/analizar" \
   -H "Content-Type: application/json" \
-  -d '{"texto": "You should call her because she might need help."}'
+  -d '{"texto": "You can submit the report by Friday. However, you must submit the report before the deadline."}'
+```
+
+**Response real (verificada):**
+```json
+{
+  "consistencies": [],
+  "inconsistencies": [
+    {
+      "shared_action": "report, submit",
+      "case_1": {
+        "modal": "can",
+        "category": "possibility/permission",
+        "action": "submit the report by Friday.",
+        "sentence": "You can submit the report by Friday."
+      },
+      "case_2": {
+        "modal": "must",
+        "category": "obligation",
+        "action": "submit the report before the deadline.",
+        "sentence": "However, you must submit the report before the deadline."
+      }
+    }
+  ]
+}
+```
+
+El servicio detecta que la acción "submit the report" se describe primero como **posible/permitida** ("can") y luego como **obligatoria** ("must") — una inconsistencia que conviene revisar en el texto original.
+
+### Ejemplo de uso: texto consistente (sin inconsistencias)
+
+**Request:**
+```json
+{
+  "texto": "Employees can request time off through the online portal. Employees can also request time off through the online portal for medical reasons."
+}
 ```
 
 **Response esperada:**
 ```json
 {
-  "modals": [
-    ["should", "recommendation"],
-    ["might", "possibility"],
-    ["need to", "necessity"]
+  "consistencies": [
+    {
+      "shared_action": "off, online, portal, request, through, time",
+      "case_1": {
+        "modal": "can",
+        "category": "possibility/permission",
+        "action": "request time off through the online portal.",
+        "sentence": "Employees can request time off through the online portal."
+      },
+      "case_2": {
+        "modal": "can",
+        "category": "possibility/permission",
+        "action": "request time off through the online portal for medical reasons.",
+        "sentence": "Employees can also request time off through the online portal for medical reasons."
+      }
+    }
   ],
-  "phrases": [
-    "you",
-    "call her because she",
-    "help"
-  ]
+  "inconsistencies": []
 }
 ```
 
-> **Nota:** las frases devueltas se normalizan a minúsculas y sin signos de puntuación, ya que el texto pasa por una función de normalización antes de la detección.
+Acá ambas menciones usan modales de la **misma** categoría (`possibility/permission`), por lo que se reporta como consistencia y no como inconsistencia.
 
-### Ejemplo sin verbos modales
+### Ejemplo de uso: texto sin acciones relacionadas
 
 **Request:**
 ```json
@@ -108,47 +146,30 @@ curl -X POST "http://localhost:8000/detectar" \
 **Response esperada:**
 ```json
 {
-  "modals": [],
-  "phrases": ["the dog runs in the park"]
+  "consistencies": [],
+  "inconsistencies": []
 }
 ```
 
-### Ejemplo con verbo modal compuesto ("have to")
+No hay verbos modales en el texto, por lo que no hay nada para comparar.
 
-**Request:**
-```json
-{
-  "texto": "I have to finish this today."
-}
-```
+## Cómo funciona (resumen técnico)
 
-**Response esperada:**
-```json
-{
-  "modals": [
-    ["have to", "obligation"]
-  ],
-  "phrases": [
-    "i",
-    "finish this today"
-  ]
-}
-```
+1. **`extract_modal_actions`**: recorre el texto oración por oración, detecta cada verbo/expresión modal presente y extrae la "acción" asociada (el resto de la oración después del modal).
+2. **`normalize_action`**: convierte cada acción en un conjunto de palabras clave, descartando stopwords y palabras muy cortas.
+3. **`find_consistencies_and_inconsistencies`**: compara cada par de acciones detectadas; si comparten suficientes palabras clave (es decir, describen esencialmente la misma acción) pero fueron etiquetadas con modales de **categorías distintas**, se marca como inconsistencia; si son de la **misma categoría**, se marca como consistencia.
 
 ## Tests
 
-El servicio incluye un script de tests (`test.py`) para verificar el correcto funcionamiento de la detección de verbos modales. Para ejecutarlo:
+El servicio incluye 10 tests (`test.py`) que verifican: detección de modales simples y compuestos, distinción entre prohibición y obligación (ej. "must not" vs "must"), detección de consistencias e inconsistencias, y manejo de textos sin modales o sin acciones relacionadas.
 
+Ejecutalos con:
 ```bash
-pytest test.py
+pytest test.py -v
 ```
 
-o, si no usás pytest:
-
-```bash
-python -m unittest test.py
-```
+Salida esperada: `10 passed`.
 
 ## Dependencias
 
-Ver `requirements.txt`. El servicio se expone mediante **FastAPI** y se ejecuta con **uvicorn**. La lógica de detección utiliza únicamente el módulo estándar `re` de Python.
+Ver `requirements.txt`. El servicio se expone mediante **FastAPI** y se ejecuta con **uvicorn**. La lógica de detección utiliza únicamente los módulos estándar `re` e `itertools` de Python (sin dependencias externas de NLP).
