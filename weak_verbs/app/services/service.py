@@ -35,7 +35,8 @@ WEAK_VERBS = [
 
 def detect_weak_verbs(text: str) -> List[str]:
     """Detect weak verbs in 'text'
-    Return a list with verbs in case that 'text' contains weak_verbs, otherwise return an empty list.
+    Return a list with verbs in case that 'text' contains weak_verbs,
+    excluding those that are part of a phrasal verb.
     """
     weak_verbs_found = []
 
@@ -44,6 +45,11 @@ def detect_weak_verbs(text: str) -> List[str]:
     
     doc = nlp(text)
     for token in doc:
-        if token.pos_ == "VERB" and token.lemma_ in WEAK_VERBS:
-            weak_verbs_found.append(token.text)
+        if token.pos_ in ("VERB", "AUX") and token.lemma_ in WEAK_VERBS:
+
+            # Verify if it has a particle child (prt) to exclude phrasal verbs (dep_ == "prt")
+            is_phrasal = any(child.dep_ == "prt" for child in token.children)
+
+            if not is_phrasal:
+                weak_verbs_found.append(token.text)
     return weak_verbs_found
