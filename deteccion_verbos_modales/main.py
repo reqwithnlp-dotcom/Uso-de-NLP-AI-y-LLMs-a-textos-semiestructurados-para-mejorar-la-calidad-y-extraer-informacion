@@ -3,7 +3,7 @@ from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from servicio import extract_modal_actions, find_consistencies_and_inconsistencies
+from servicio import extract_modal_actions, find_inconsistencies
 
 app = FastAPI(
     title="Deteccion de inconsistencias de verbos modales",
@@ -34,7 +34,6 @@ class Par(BaseModel):
 
 
 class AnalisisResponse(BaseModel):
-    consistencies: List[Par]
     inconsistencies: List[Par]
 
 
@@ -46,8 +45,8 @@ def root():
 @app.post("/analizar", response_model=AnalisisResponse)
 def analizar_texto(request: TextoRequest):
     modal_actions = extract_modal_actions(request.texto)
-    consistencies, inconsistencies = find_consistencies_and_inconsistencies(modal_actions)
-    return {"consistencies": consistencies, "inconsistencies": inconsistencies}
+    inconsistencies = find_inconsistencies(modal_actions)
+    return {"inconsistencies": inconsistencies}
 
 
 if __name__ == "__main__":
