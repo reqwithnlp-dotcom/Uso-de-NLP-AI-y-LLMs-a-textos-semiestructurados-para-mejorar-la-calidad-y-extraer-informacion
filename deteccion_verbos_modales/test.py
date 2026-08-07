@@ -1,6 +1,6 @@
 from servicio import (
     extract_modal_actions,
-    find_consistencies_and_inconsistencies,
+    find_inconsistencies,
     analyze_text,
     MODAL_CATEGORIES,
 )
@@ -49,26 +49,20 @@ def test_detects_inconsistency_between_permission_and_obligation():
         "Employees can request time off through the online portal. "
         "Employees must request time off through the online portal at least three days in advance."
     )
-    consistencies, inconsistencies = find_consistencies_and_inconsistencies(
-        extract_modal_actions(text)
-    )
+    inconsistencies = find_inconsistencies(extract_modal_actions(text))
     assert len(inconsistencies) == 1
     categories = {inconsistencies[0]["case_1"]["category"], inconsistencies[0]["case_2"]["category"]}
     assert categories == {"possibility/permission", "obligation"}
 
 
-def test_detects_consistency_between_same_category():
+def test_same_category_is_not_reported():
+    # Mismos modales/categoría -> no es una inconsistencia, no se reporta
     text = (
         "Employees can request time off through the online portal. "
         "Employees can also request time off through the online portal for medical reasons."
     )
-    consistencies, inconsistencies = find_consistencies_and_inconsistencies(
-        extract_modal_actions(text)
-    )
-    assert len(consistencies) == 1
+    inconsistencies = find_inconsistencies(extract_modal_actions(text))
     assert inconsistencies == []
-    assert consistencies[0]["case_1"]["category"] == "possibility/permission"
-    assert consistencies[0]["case_2"]["category"] == "possibility/permission"
 
 
 def test_unrelated_actions_produce_no_matches():
@@ -76,23 +70,18 @@ def test_unrelated_actions_produce_no_matches():
         "Employees can request time off through the online portal. "
         "The office is located on the third floor of the building."
     )
-    consistencies, inconsistencies = find_consistencies_and_inconsistencies(
-        extract_modal_actions(text)
-    )
-    assert consistencies == []
+    inconsistencies = find_inconsistencies(extract_modal_actions(text))
     assert inconsistencies == []
 
 
-def test_analyze_text_returns_two_lists():
+def test_analyze_text_returns_inconsistencies_list():
     text = (
         "Employees can request time off through the online portal. "
         "Employees must request time off through the online portal at least three days in advance."
     )
-    consistencies, inconsistencies = analyze_text(text)
-    assert isinstance(consistencies, list)
+    inconsistencies = analyze_text(text)
     assert isinstance(inconsistencies, list)
     assert len(inconsistencies) == 1
-    assert len(consistencies) == 0
 
 
 def test_modal_categories_structure():

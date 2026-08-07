@@ -1,24 +1,3 @@
-"""
-Modal Verb Inconsistency Detector (English)
-
-Idea (per discussion with Giu):
-Counting or judging an "excess" of modal verbs doesn't make sense on its
-own -- it depends on the type of text (legal text vs. general text, etc.).
-What IS a real problem is INCONSISTENCY: the same action described in one
-part of the text with a modal from one category ("You can submit X" ->
-possibility/permission) and in another part with a modal from a
-different category for that same action ("You must submit X" ->
-obligation).
-
-This script:
-1. Finds every occurrence of a modal verb/expression in the text.
-2. Extracts the "action" associated with each modal (whatever follows it
-   until the end of that sentence).
-3. Compares actions against each other to find pairs that describe the
-   same thing but were tagged with modals from different categories.
-4. Reports those inconsistencies.
-"""
-
 import re
 from itertools import combinations
 
@@ -117,59 +96,46 @@ def normalize_action(action: str) -> set:
     return {w for w in words if w not in STOPWORDS and len(w) > 2}
 
 
-def find_consistencies_and_inconsistencies(
+def find_inconsistencies(
     modal_actions: list, min_shared_words: int = 2, min_overlap: float = 0.5
 ):
     """
     Compares every action against every other action that shares enough
     keywords (i.e. describes essentially the same action).
 
-    - If both actions were tagged with modals from the SAME category ->
-      it's a "consistency" (the text treats that action the same way
-      everywhere).
-    - If they were tagged with modals from DIFFERENT categories ->
-      it's an "inconsistency".
+    If two actions describing (roughly) the same thing were tagged with
+    modals from DIFFERENT categories, that's an "inconsistency" (e.g. one
+    part of the text says an action is prohibited, another says it's
+    recommended).
 
-    Returns a tuple: (consistencies, inconsistencies), each a list of
-    dicts with {shared_action, case_1, case_2}.
+    Returns a list of dicts with {shared_action, case_1, case_2}.
     """
     for item in modal_actions:
         item["_keywords"] = normalize_action(item["action"])
 
-    consistencies = []
     inconsistencies = []
 
     for a, b in combinations(modal_actions, 2):
+        if a["category"] == b["category"]:
+            continue  # same treatment -> not an inconsistency
+
         shared = a["_keywords"] & b["_keywords"]
         smaller = min(len(a["_keywords"]), len(b["_keywords"])) or 1
         overlap = len(shared) / smaller
 
         if len(shared) < min_shared_words or overlap < min_overlap:
-            continue  # not the same action -> not relevant either way
+            continue  # not the same action -> not relevant
 
-        pair = {
+        inconsistencies.append({
             "shared_action": ", ".join(sorted(shared)),
             "case_1": a,
             "case_2": b,
-        }
+        })
 
-        if a["category"] == b["category"]:
-            consistencies.append(pair)
-        else:
-            inconsistencies.append(pair)
-
-    return consistencies, inconsistencies
+    return inconsistencies
 
 
-def report(consistencies: list, inconsistencies: list):
-    print(f"Detected {len(consistencies)} consistent pair(s):\n")
-    for i, con in enumerate(consistencies, 1):
-        c1, c2 = con["case_1"], con["case_2"]
-        print(f"--- Consistency {i} (shared keywords: {con['shared_action']}) ---")
-        print(f'  [{c1["category"]}] "{c1["modal"]}" in: "{c1["sentence"]}"')
-        print(f'  [{c2["category"]}] "{c2["modal"]}" in: "{c2["sentence"]}"')
-        print()
-
+def report(inconsistencies: list):
     if not inconsistencies:
         print("No modal verb inconsistencies were detected.\n")
         return
@@ -185,12 +151,12 @@ def report(consistencies: list, inconsistencies: list):
 
 def analyze_text(text: str):
     """
-    Runs the full pipeline and returns (consistencies, inconsistencies).
+    Runs the full pipeline and returns only the list of inconsistencies.
     """
     modal_actions = extract_modal_actions(text)
-    consistencies, inconsistencies = find_consistencies_and_inconsistencies(modal_actions)
-    report(consistencies, inconsistencies)
-    return consistencies, inconsistencies
+    inconsistencies = find_inconsistencies(modal_actions)
+    report(inconsistencies)
+    return inconsistencies
 
 
 if __name__ == "__main__":
