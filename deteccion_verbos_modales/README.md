@@ -48,7 +48,7 @@ Analiza un texto y devuelve una única lista:
 
 - **`inconsistencies`**: pares de menciones de una misma acción usando modales de **distinta** categoría (posible inconsistencia a revisar).
 
-El servicio ya no devuelve una lista de "consistencias" (pares que comparten la misma categoría): esos casos simplemente no se reportan, porque no representan un problema a revisar.
+
 
 **Parámetros esperados** (body, JSON):
 
