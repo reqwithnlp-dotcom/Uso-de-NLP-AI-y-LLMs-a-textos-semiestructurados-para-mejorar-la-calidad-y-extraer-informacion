@@ -44,10 +44,11 @@ http://localhost:8000/docs
 
 ### Endpoint: `POST /analizar`
 
-Analiza un texto y devuelve dos listas:
+Analiza un texto y devuelve una única lista:
 
-- **`consistencies`**: pares de menciones de una misma acción usando modales de la **misma** categoría (uso coherente).
 - **`inconsistencies`**: pares de menciones de una misma acción usando modales de **distinta** categoría (posible inconsistencia a revisar).
+
+El servicio ya no devuelve una lista de "consistencias" (pares que comparten la misma categoría): esos casos simplemente no se reportan, porque no representan un problema a revisar.
 
 **Parámetros esperados** (body, JSON):
 
@@ -76,7 +77,6 @@ curl -X POST "http://localhost:8000/analizar" \
 **Response real (verificada):**
 ```json
 {
-  "consistencies": [],
   "inconsistencies": [
     {
       "shared_action": "report, submit",
@@ -111,28 +111,11 @@ El servicio detecta que la acción "submit the report" se describe primero como 
 **Response esperada:**
 ```json
 {
-  "consistencies": [
-    {
-      "shared_action": "off, online, portal, request, through, time",
-      "case_1": {
-        "modal": "can",
-        "category": "possibility/permission",
-        "action": "request time off through the online portal.",
-        "sentence": "Employees can request time off through the online portal."
-      },
-      "case_2": {
-        "modal": "can",
-        "category": "possibility/permission",
-        "action": "request time off through the online portal for medical reasons.",
-        "sentence": "Employees can also request time off through the online portal for medical reasons."
-      }
-    }
-  ],
   "inconsistencies": []
 }
 ```
 
-Acá ambas menciones usan modales de la **misma** categoría (`possibility/permission`), por lo que se reporta como consistencia y no como inconsistencia.
+Acá ambas menciones usan modales de la **misma** categoría (`possibility/permission`), por lo que no hay nada que reportar: no se trata como un caso a revisar.
 
 ### Ejemplo de uso: texto sin acciones relacionadas
 
@@ -146,7 +129,6 @@ Acá ambas menciones usan modales de la **misma** categoría (`possibility/permi
 **Response esperada:**
 ```json
 {
-  "consistencies": [],
   "inconsistencies": []
 }
 ```
@@ -157,18 +139,16 @@ No hay verbos modales en el texto, por lo que no hay nada para comparar.
 
 1. **`extract_modal_actions`**: recorre el texto oración por oración, detecta cada verbo/expresión modal presente y extrae la "acción" asociada (el resto de la oración después del modal).
 2. **`normalize_action`**: convierte cada acción en un conjunto de palabras clave, descartando stopwords y palabras muy cortas.
-3. **`find_consistencies_and_inconsistencies`**: compara cada par de acciones detectadas; si comparten suficientes palabras clave (es decir, describen esencialmente la misma acción) pero fueron etiquetadas con modales de **categorías distintas**, se marca como inconsistencia; si son de la **misma categoría**, se marca como consistencia.
+3. **`find_inconsistencies`**: compara cada par de acciones detectadas; si comparten suficientes palabras clave (es decir, describen esencialmente la misma acción) pero fueron etiquetadas con modales de **categorías distintas**, se agrega a la lista de inconsistencias. Si son de la misma categoría, el par se descarta y no se reporta.
 
 ## Tests
 
-El servicio incluye 10 tests (`test.py`) que verifican: detección de modales simples y compuestos, distinción entre prohibición y obligación (ej. "must not" vs "must"), detección de consistencias e inconsistencias, y manejo de textos sin modales o sin acciones relacionadas.
+El servicio incluye tests (`test.py`) que verifican: detección de modales simples y compuestos, distinción entre prohibición y obligación (ej. "must not" vs "must"), detección de inconsistencias, y manejo de textos sin modales o sin acciones relacionadas.
 
 Ejecutalos con:
 ```bash
 pytest test.py -v
 ```
-
-Salida esperada: `10 passed`.
 
 ## Dependencias
 
