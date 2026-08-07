@@ -24,10 +24,10 @@ Servicio que analiza un texto en inglés y detecta los **conectores lógicos** p
 
 Levantá el servidor con:
 ```bash
-uvicorn main:app --reload
+python main.py.
 ```
 
-El servicio queda disponible en `http://localhost:8000`.
+El servicio queda disponible en `http://localhost:8001`.
 
 La documentación interactiva (Swagger UI), generada automáticamente por FastAPI, está disponible en:
 ```
