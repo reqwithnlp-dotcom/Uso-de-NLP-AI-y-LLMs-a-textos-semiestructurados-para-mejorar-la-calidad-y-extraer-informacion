@@ -4,7 +4,7 @@ Servicio que se encarga de detectar los *adverbios* presentes en un texto en ing
 ### Instalación
 1. Tenés que abrir la carpeta del servicio en la terminal
 ```bash
-cd deteccion_conectores_logicos
+cd detector_adverbios
 ```
 
 2. Crea un entorno virtual con Python 3.12
@@ -34,13 +34,16 @@ python -m spacy download en_core_web_trf
 .\venv\Scripts\activate
 ```
 
-2. Ejecuta el servicio poniendo una oración en inglés entre comillas
+2. Levanta la API con FastAPI para probar el endpoint
 ```bash
-python main.py "See you tomorrow at the library"
+python main.py 
 ```
-Esto devuelve - *[['tomorrow', 'Time']]*
 
-3. Para correr los tests debes ejecutar la siguiente linea
-```bash
-pytest
-```
+3. Para testear el endpoint mediante una interfaz, accede a la siguiente URL
+[http://localhost:8000/docs](http://localhost:8000/docs)
+
+4. Dentro del cuadro del endpoint, debes pulsar el botón "Try it out" para poder ingresar el texto que desees probar reemplazando la palabra "string"
+
+5. Luego presiona el botón "Execute" para que debajo se muestre la salida con la lista de adverbios y sus categorías
+
+6. 

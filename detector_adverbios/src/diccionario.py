@@ -1,7 +1,7 @@
 ADVERB_CATEGORIES = {
     "Place": [
         "here", "there", "everywhere", "nowhere", "somewhere", "anywhere",
-        "inside", "outside", "inside", "outside", "above", "below", "under", "over",
+        "inside", "outside", "above", "below", "under", "over",
         "behind", "ahead", "in front", "opposite", "nearby", "around", "away",
         "far", "near", "aside", "back", "backward", "backwards", "forward", 
         "forwards", "up", "down", "upstairs", "downstairs", "indoors", "outdoors"
@@ -23,15 +23,15 @@ ADVERB_CATEGORIES = {
     "Quantity": [
         "very", "much", "little", "less", "more", "too", "enough", "completely",
         "extremely", "quite", "rather", "fairly", "pretty", "slightly", "barely",
-        "hardly", "scarcely", "almost", "nearly", "partially", "totally", "absolutely",
-        "so", "as", "how", "least", "most", "plenty", "indeed"
+        "scarcely", "almost", "nearly", "partially", "totally", "absolutely",
+        "as", "how", "least", "most", "plenty"
     ],
     "Affirmation": [
-        "yes", "certainly", "definitely", "absolutely", "surely", "indeed",
+        "yes", "certainly", "definitely", "surely", "indeed",
         "undoubtedly", "truly", "clearly", "obviously"
     ],
     "Negation": [
-        "no", "not", "never", "neither", "nor", "barely", "hardly"
+        "no", "not", "neither", "nor", "hardly"
     ],
     "Doubt": [
         "maybe", "perhaps", "possibly", "probably", "apparently", "seemingly",
