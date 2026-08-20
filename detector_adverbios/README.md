@@ -46,4 +46,7 @@ python main.py
 
 5. Luego presiona el botón "Execute" para que debajo se muestre la salida con la lista de adverbios y sus categorías
 
-6. 
+6. Para ejecutar los Tests planteados en el archivo "test_detector.py", tenés que ejecutar la siguiente línea, y en la terminal se mostrará los que hayan pasado
+```bash
+pytest tests/ -v
+```
