@@ -66,6 +66,51 @@ Analiza un texto y devuelve una única lista:
 | `possibility/permission`     | can, could, might, may, is allowed to                           |
 
 ### Ejemplo de uso: texto con inconsistencia
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/analizar" \
+  -H "Content-Type: application/json" \
+  -d '{"texto": "You should try to finish the report because it might be important and you could need it later."}'
+```
+
+
+Detected 2 inconsistencies:
+
+(1) Keywords: later, need → [recommendation] "should" vs [possibility/permission] "could"
+(2) Keywords: could, important, later, need, you → [recommendation] "should" vs [possibility/permission] "might"
+
+
+### Ejemplo de uso: texto con inconsistencia
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/analizar" \
+  -H "Content-Type: application/json" \
+  -d '{"texto": "He might be able to come, but he could also have to stay if something should happen."}'
+```
+Detected 2 inconsistencies:
+(1) Keywords: happen, should, something, stay → [obligation] "have to" vs [possibility/permission] "could"
+(2) Keywords: happen, should, something, stay → [obligation] "have to" vs [possibility/permission] "might
+
+
+### Ejemplo de uso: texto con inconsistencia
+**Request:**
+```bash
+curl -X POST "http://localhost:8000/analizar" \
+  -H "Content-Type: application/json" \
+  -d '{"texto": "We should probably consider that this might not work and we could need another plan."}'
+
+
+--- Inconsistency 1 (shared keywords: another, need, plan) ---
+  [recommendation] "should" in: "We should probably consider that this might not work and we could need another plan."
+  [possibility/permission] "could" in: "We should probably consider that this might not work and we could need another plan."
+
+--- Inconsistency 2 (shared keywords: another, could, need, not, plan, work) ---
+  [recommendation] "should" in: "We should probably consider that this might not work and we could need another plan."
+  [possibility/permission] "might" in: "We should probably consider that this might not work and we could need another plan."
+
+
+
+### Ejemplo de uso: texto con inconsistencia
 
 **Request:**
 ```bash
