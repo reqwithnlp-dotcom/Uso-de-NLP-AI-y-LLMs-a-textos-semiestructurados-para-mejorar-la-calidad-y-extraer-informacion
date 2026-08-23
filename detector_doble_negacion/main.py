@@ -1,41 +1,38 @@
-import spacy
-from diccionario_negacion import PALABRAS_NEGATIVAS, PREFIJOS_NEGATIVOS
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from servicio import detect_double_negation
 
-nlp = spacy.load("en_core_web_trf")
+app = FastAPI(
+    title="Double Negation Detector",
+    description="Recibe un string en inglés y detecta si contiene doble negación.",
+    version="1.0.0",
+)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-def _es_semanticamente_negativo(token) -> bool:
-    return (
-        token.lower_ in PALABRAS_NEGATIVAS
-        or token.lower_.startswith(PREFIJOS_NEGATIVOS)
+class DetectRequest(BaseModel):
+    text: str
+
+class DetectResponse(BaseModel):
+    text: str
+    has_double_negation: bool
+
+@app.post("/detect", response_model=DetectResponse)
+def detect(body: DetectRequest):
+    if not body.text.strip():
+        raise HTTPException(status_code=400, detail="El texto no puede estar vacio.")
+    result = detect_double_negation(body.text)
+    return DetectResponse(
+        text=body.text,
+        has_double_negation=result,
     )
 
-
-def _contar_negaciones(token) -> int:
-  
-    count = 0
-
-    if _es_semanticamente_negativo(token):
-        count += 1
-
-    for hijo in token.children:
-        if hijo.dep_ == "neg":
-            count += 1
-        else:
-            count += _contar_negaciones(hijo)
-
-        if count >= 2:
-            return count
-
-    return count
-
-
-def detect_double_negation(text: str) -> bool:
-
-    doc = nlp(text)
-
-    for sent in doc.sents:
-        if _contar_negaciones(sent.root) >= 2:
-            return True
-
-    return False
+@app.get("/health")
+def health():
+    return {"status": "ok"}
