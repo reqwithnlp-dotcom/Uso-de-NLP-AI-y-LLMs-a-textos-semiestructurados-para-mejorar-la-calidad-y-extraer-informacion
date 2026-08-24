@@ -16,7 +16,7 @@ def custom_adverb_fixer(doc):
 
 class AdverbDetector:
     def __init__(self):
-        self.nlp = spacy.load("en_core_web_sm")
+        self.nlp = spacy.load("en_core_web_trf")
         self.nlp.add_pipe("custom_adverb_fixer", last=True)
 
     def _classify_adverb(self, token) -> str:
