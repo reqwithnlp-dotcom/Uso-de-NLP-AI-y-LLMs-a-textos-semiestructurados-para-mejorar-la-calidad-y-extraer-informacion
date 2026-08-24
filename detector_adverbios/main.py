@@ -2,11 +2,18 @@ from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
 from src.detector import AdverbDetector
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Detección de Adverbios",
     description="Servicio que detecta y clasifica adverbios en un texto en inglés.",
     version="1.0.0",
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 detector = AdverbDetector()
@@ -37,6 +44,3 @@ def analizar_texto(request: TextoRequest):
         
     return {"adverbs": adverbios_formateados}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
