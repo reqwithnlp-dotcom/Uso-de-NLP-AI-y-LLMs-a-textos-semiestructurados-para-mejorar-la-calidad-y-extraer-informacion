@@ -1,0 +1,4 @@
+spacy
+fastapi
+uvicorn
+pydantic

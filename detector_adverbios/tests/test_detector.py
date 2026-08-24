@@ -1,4 +1,5 @@
 import pytest
+
 from src.detector import AdverbDetector
 
 @pytest.fixture
