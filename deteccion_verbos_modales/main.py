@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from fastapi.middleware.cors import CORSMiddleware
 from servicio import extract_modal_actions, find_inconsistencies
 
 app = FastAPI(
@@ -14,7 +14,12 @@ app = FastAPI(
     ),
     version="1.0.0",
 )
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class TextoRequest(BaseModel):
     texto: str
