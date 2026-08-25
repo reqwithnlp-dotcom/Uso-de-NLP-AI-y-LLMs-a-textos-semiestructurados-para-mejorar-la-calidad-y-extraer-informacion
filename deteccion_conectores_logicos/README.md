@@ -159,7 +159,6 @@ Ejecutalos con:
 ```bash
 pytest test.py -v
 ```
-
 Salida esperada: `5 passed`.
 
 ## Dependencias
