@@ -48,5 +48,3 @@ def list_connectors():
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
-
