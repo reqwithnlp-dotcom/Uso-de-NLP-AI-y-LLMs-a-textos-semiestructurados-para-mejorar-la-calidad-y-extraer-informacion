@@ -2,11 +2,12 @@ from analyzer.analysis_context import AnalysisContext
 from models.issue import Issue
 from rules.base_rule import Rule
 from models.error_code import ErrorCode
+from models.verb_classification import VerbClassification
 
 
 class ConnectorMismatchRule(Rule):
     """
-    Detects tense inconsistencies between two verb phrases
+    Detects tense inconsistencies between two verb structures
     connected by temporal or sequential connectors.
 
     Example:
@@ -25,7 +26,7 @@ class ConnectorMismatchRule(Rule):
 
         sentence = context.sentence
 
-        if len(context.verb_phrases) < 2:
+        if len(context.verb_features) < 2:
             return
 
         for token in sentence.doc:
@@ -33,8 +34,8 @@ class ConnectorMismatchRule(Rule):
             if token.text.lower() not in self.CONNECTORS:
                 continue
 
-            left = self._find_left_phrase(token.i, context)
-            right = self._find_right_phrase(token.i, context)
+            left = self._find_left_features(token.i, context)
+            right = self._find_right_features(token.i, context)
 
             if left is None or right is None:
                 continue
@@ -50,12 +51,12 @@ class ConnectorMismatchRule(Rule):
                     )
                 )
 
-    def _find_left_phrase(self, connector_index, context):
+    def _find_left_features(self, connector_index, context):
 
         candidates = [
-            phrase
-            for phrase in context.verb_phrases
-            if phrase.token.i < connector_index
+            features
+            for features in context.verb_features
+            if features.token.i < connector_index
         ]
 
         if not candidates:
@@ -63,12 +64,12 @@ class ConnectorMismatchRule(Rule):
 
         return candidates[-1]
 
-    def _find_right_phrase(self, connector_index, context):
+    def _find_right_features(self, connector_index, context):
 
         candidates = [
-            phrase
-            for phrase in context.verb_phrases
-            if phrase.token.i > connector_index
+            features
+            for features in context.verb_features
+            if features.token.i > connector_index
         ]
 
         if not candidates:
@@ -79,10 +80,23 @@ class ConnectorMismatchRule(Rule):
     @staticmethod
     def _is_mismatch(left, right):
 
-        if left.tense is None or right.tense is None:
+        left_tense = ConnectorMismatchRule._get_tense(left)
+        right_tense = ConnectorMismatchRule._get_tense(right)
+
+        if left_tense is None or right_tense is None:
             return False
 
-        left_family = left.tense.split("-")[-1]
-        right_family = right.tense.split("-")[-1]
+        return left_tense != right_tense
 
-        return left_family != right_family
+    @staticmethod
+    def _get_tense(features):
+
+        for classification in (
+            VerbClassification.PRESENT,
+            VerbClassification.PAST,
+            VerbClassification.FUTURE,
+        ):
+            if features.has_classification(classification):
+                return classification
+
+        return None

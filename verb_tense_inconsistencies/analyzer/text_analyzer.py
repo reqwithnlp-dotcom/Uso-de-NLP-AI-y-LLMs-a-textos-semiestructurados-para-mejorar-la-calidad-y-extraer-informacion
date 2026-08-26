@@ -1,8 +1,8 @@
+from multiprocessing import context
+
 from analyzer.analysis_context import AnalysisContext
 from analyzer.normalizer import TextNormalizer
 from analyzer.sentence_splitter import SentenceSplitter
-
-from extractors.verb_tense_extractor import VerbTenseExtractor
 
 from models.analysis_result import AnalysisResult
 
@@ -11,6 +11,8 @@ from rules.connector_mismatch_rule import ConnectorMismatchRule
 from rules.subject_verb_rule import SubjectVerbRule
 from rules.temporal_adverb_rule import TemporalAdverbRule
 from rules.tense_mismatch_rule import TenseMismatchRule
+from classifiers.verb_tense_classifier import VerbTenseClassifier
+from extractors.verb_features_context_extractor import VerbFeaturesContextExtractor
 
 
 class TextAnalyzer:
@@ -21,7 +23,12 @@ class TextAnalyzer:
         # Shared extractors
         #
         self.extractors = [
-            VerbTenseExtractor()
+            VerbFeaturesContextExtractor()
+        ]
+
+        # Classifiers are executed for each verb
+        self.classifiers = [
+           VerbTenseClassifier()
         ]
 
         #
@@ -39,7 +46,7 @@ class TextAnalyzer:
             SubjectVerbRule(),
             ConnectorMismatchRule(),
             TemporalAdverbRule(),
-            TenseMismatchRule()
+            # TenseMismatchRule()
         ]
 
     def analyze(self, text: str) -> AnalysisResult:
@@ -56,13 +63,15 @@ class TextAnalyzer:
 
             self._run_extractors(context)
 
+            self._run_classifiers(context)
+
             self._run_basic_rules(context)
 
             #
             # Continue only if some verb phrase
             # could be extracted.
             #
-            if context.verb_phrases:
+            if context.verb_features:
 
                 self._run_advanced_rules(context)
 
@@ -92,3 +101,11 @@ class TextAnalyzer:
         for rule in self.advanced_rules:
 
             rule.evaluate(context)
+
+    def _run_classifiers(self, context):
+
+        for features in context.verb_features:
+
+            for classifier in self.classifiers:
+
+                classifier.classify_and_apply(features)

@@ -1,0 +1,240 @@
+
+====================================================================================================
+The system validates the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validates
+ 2 validates       POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=validates
+ 3 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 4 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validates
+ 5 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validates
+
+VERB SUBTREES:
+
+Main verb candidate: 'validates'
+- 'validates' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system does not validate the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validate
+ 2 does            POS=AUX   TAG=VBZ   DEP=aux          HEAD=validate
+ 3 not             POS=PART  TAG=RB    DEP=neg          HEAD=validate
+ 4 validate        POS=VERB  TAG=VB    DEP=ROOT         HEAD=validate
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validate
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validate
+
+VERB SUBTREES:
+
+Main verb candidate: 'validate'
+- 'validate' [POS=VERB, TAG=VB, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'does' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'not' [POS=PART, TAG=RB, DEP=neg]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system has validated the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validated
+ 2 has             POS=AUX   TAG=VBZ   DEP=aux          HEAD=validated
+ 3 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+ 4 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 5 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validated
+ 6 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system has been validating the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validating
+ 2 has             POS=AUX   TAG=VBZ   DEP=aux          HEAD=validating
+ 3 been            POS=AUX   TAG=VBN   DEP=aux          HEAD=validating
+ 4 validating      POS=VERB  TAG=VBG   DEP=ROOT         HEAD=validating
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validating
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validating
+
+VERB SUBTREES:
+
+Main verb candidate: 'validating'
+- 'validating' [POS=VERB, TAG=VBG, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'been' [POS=AUX, TAG=VBN, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The user has submitted the request and the system validates it.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=user
+ 1 user            POS=NOUN  TAG=NN    DEP=nsubj        HEAD=submitted
+ 2 has             POS=AUX   TAG=VBZ   DEP=aux          HEAD=submitted
+ 3 submitted       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=submitted
+ 4 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 5 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=submitted
+ 6 and             POS=CCONJ TAG=CC    DEP=cc           HEAD=submitted
+ 7 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 8 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validates
+ 9 validates       POS=VERB  TAG=VBZ   DEP=conj         HEAD=submitted
+10 it              POS=PRON  TAG=PRP   DEP=dobj         HEAD=validates
+11 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validates
+
+VERB SUBTREES:
+
+Main verb candidate: 'submitted'
+- 'submitted' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'and' [POS=CCONJ, TAG=CC, DEP=cc]
+  - 'validates' [POS=VERB, TAG=VBZ, DEP=conj]
+    - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+    - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+    - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+Main verb candidate: 'validates'
+- 'validates' [POS=VERB, TAG=VBZ, DEP=conj]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+When the user has submitted the request, the system validates it.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 When            POS=SCONJ TAG=WRB   DEP=advmod       HEAD=submitted
+ 1 the             POS=DET   TAG=DT    DEP=det          HEAD=user
+ 2 user            POS=NOUN  TAG=NN    DEP=nsubj        HEAD=submitted
+ 3 has             POS=AUX   TAG=VBZ   DEP=aux          HEAD=submitted
+ 4 submitted       POS=VERB  TAG=VBN   DEP=advcl        HEAD=validates
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=submitted
+ 7 ,               POS=PUNCT TAG=,     DEP=punct        HEAD=validates
+ 8 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 9 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validates
+10 validates       POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=validates
+11 it              POS=PRON  TAG=PRP   DEP=dobj         HEAD=validates
+12 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validates
+
+VERB SUBTREES:
+
+Main verb candidate: 'submitted'
+- 'submitted' [POS=VERB, TAG=VBN, DEP=advcl]
+  - 'When' [POS=SCONJ, TAG=WRB, DEP=advmod]
+  - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+Main verb candidate: 'validates'
+- 'validates' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'submitted' [POS=VERB, TAG=VBN, DEP=advcl]
+    - 'When' [POS=SCONJ, TAG=WRB, DEP=advmod]
+    - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+    - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - ',' [POS=PUNCT, TAG=,, DEP=punct]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+If the user had submitted the request, the system would have validated it.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 If              POS=SCONJ TAG=IN    DEP=mark         HEAD=submitted
+ 1 the             POS=DET   TAG=DT    DEP=det          HEAD=user
+ 2 user            POS=NOUN  TAG=NN    DEP=nsubj        HEAD=submitted
+ 3 had             POS=AUX   TAG=VBD   DEP=aux          HEAD=submitted
+ 4 submitted       POS=VERB  TAG=VBN   DEP=advcl        HEAD=validated
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=submitted
+ 7 ,               POS=PUNCT TAG=,     DEP=punct        HEAD=validated
+ 8 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 9 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validated
+10 would           POS=AUX   TAG=MD    DEP=aux          HEAD=validated
+11 have            POS=AUX   TAG=VB    DEP=aux          HEAD=validated
+12 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+13 it              POS=PRON  TAG=PRP   DEP=dobj         HEAD=validated
+14 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'submitted'
+- 'submitted' [POS=VERB, TAG=VBN, DEP=advcl]
+  - 'If' [POS=SCONJ, TAG=IN, DEP=mark]
+  - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'had' [POS=AUX, TAG=VBD, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'submitted' [POS=VERB, TAG=VBN, DEP=advcl]
+    - 'If' [POS=SCONJ, TAG=IN, DEP=mark]
+    - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+    - 'had' [POS=AUX, TAG=VBD, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - ',' [POS=PUNCT, TAG=,, DEP=punct]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'would' [POS=AUX, TAG=MD, DEP=aux]
+  - 'have' [POS=AUX, TAG=VB, DEP=aux]
+  - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
