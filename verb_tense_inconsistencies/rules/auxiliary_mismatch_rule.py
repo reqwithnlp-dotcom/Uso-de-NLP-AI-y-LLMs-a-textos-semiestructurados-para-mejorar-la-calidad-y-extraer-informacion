@@ -8,43 +8,46 @@ class AuxiliaryMismatchRule(Rule):
     """
     Detects invalid auxiliary verb sequences.
 
-    The VerbTenseExtractor attempts to identify the tense of every verb phrase.
-    If a verb phrase cannot be matched against the known auxiliary patterns,
-    its tense will be None.
+    If a verb phrase cannot be classified into a valid
+    tense/aspect combination, its classifications set
+    will be empty.
     """
 
     ERROR_CODE = ErrorCode.AUXILIARY_MISMATCH
 
     def evaluate(self, context: AnalysisContext) -> None:
 
-        for phrase in context.verb_phrases:
+        for features in context.verb_features:
 
-            if phrase.tense is not None:
+            if features.classifications:
                 continue
 
             context.issues.append(
                 Issue(
-                    fragment=self._build_fragment(phrase),
-                    position=phrase.token.idx,
+                    fragment=self._build_fragment(features),
+                    position=features.token.idx,
                     explanation="Invalid auxiliary verb sequence.",
                     error_code=self.ERROR_CODE
                 )
             )
 
     @staticmethod
-    def _build_fragment(phrase) -> str:
+    def _build_fragment(features) -> str:
         """
-        Builds a readable representation of the verb phrase.
+        Builds a readable representation of the verb structure.
 
         Example:
-            auxiliaries = ["has"]
+            auxiliaries = [Token("has")]
             verb = processed
 
             -> "has processed"
         """
 
-        words = phrase.auxiliaries
+        words = [
+            auxiliary.text
+            for auxiliary in features.auxiliaries
+        ]
 
-        words.append(phrase.token.text)
+        words.append(features.token.text)
 
         return " ".join(words)
