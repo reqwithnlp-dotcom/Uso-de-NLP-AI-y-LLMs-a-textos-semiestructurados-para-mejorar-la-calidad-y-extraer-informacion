@@ -1,3 +1,4 @@
+from detector import is_passive, passive_positions
 def run_tests():
 
     # Test 1
