@@ -3,7 +3,7 @@ import spacy
 from models.sentence_fragment import SentenceFragment
 
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 
 class SentenceSplitter:
