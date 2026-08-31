@@ -1,4 +1,4 @@
 {
-  "embedding": "mpnet",
+  "embedding": "fasttext",
   "model": "xgboost"
 }
