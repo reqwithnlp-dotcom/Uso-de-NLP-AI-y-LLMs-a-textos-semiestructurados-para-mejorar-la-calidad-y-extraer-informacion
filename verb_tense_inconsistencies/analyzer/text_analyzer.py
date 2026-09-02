@@ -3,6 +3,7 @@ from analyzer.normalizer import TextNormalizer
 from analyzer.sentence_splitter import SentenceSplitter
 
 from extractors.verb_tense_extractor import VerbTenseExtractor
+from extractors.adverb_extractor import AdverbExtractor
 
 from models.analysis_result import AnalysisResult
 
@@ -21,7 +22,8 @@ class TextAnalyzer:
         # Shared extractors
         #
         self.extractors = [
-            VerbTenseExtractor()
+            VerbTenseExtractor(),
+            AdverbExtractor()
         ]
 
         #

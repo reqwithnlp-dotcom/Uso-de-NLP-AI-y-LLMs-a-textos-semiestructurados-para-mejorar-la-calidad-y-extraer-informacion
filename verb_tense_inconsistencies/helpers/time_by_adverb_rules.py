@@ -1,9 +1,0 @@
-VERBS_ALLOW_PCONT={
-    "leave",
-    "arrive",
-    "depart",
-    "return",
-    "come", 
-    "go", 
-    "start",
-}
