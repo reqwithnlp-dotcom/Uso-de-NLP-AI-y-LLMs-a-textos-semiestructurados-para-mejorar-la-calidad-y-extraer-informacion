@@ -1,6 +1,0 @@
-POST http://localhost:8000/predict
-Content-Type: application/json
-
-{
-    "text": "The most important thing is to keep our calm."
-}

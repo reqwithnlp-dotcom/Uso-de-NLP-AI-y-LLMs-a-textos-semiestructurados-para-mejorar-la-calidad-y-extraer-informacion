@@ -1,4 +1,0 @@
-{
-  "embedding": "fasttext",
-  "model": "xgboost"
-}
