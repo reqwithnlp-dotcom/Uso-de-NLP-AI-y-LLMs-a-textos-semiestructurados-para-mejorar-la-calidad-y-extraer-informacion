@@ -3,6 +3,7 @@ import spacy
 from extractors.verb_features_extractor import VerbFeaturesExtractor
 from classifiers.verb_tense_classifier import VerbTenseClassifier
 from models.verb_classification import VerbClassification
+from models.verb_classification_type import VerbClassificationType
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -28,6 +29,20 @@ def classify(sentence, verb_text):
     return VerbTenseClassifier.classify(features)
 
 
+def tense(value):
+    return VerbClassification(
+        VerbClassificationType.TENSE,
+        value
+    )
+
+
+def aspect(value):
+    return VerbClassification(
+        VerbClassificationType.ASPECT,
+        value
+    )
+
+
 def test_present_simple():
 
     result = classify(
@@ -36,8 +51,8 @@ def test_present_simple():
     )
 
     assert result == {
-        VerbClassification.PRESENT,
-        VerbClassification.SIMPLE
+        tense("PRESENT"),
+        aspect("SIMPLE")
     }
 
 
@@ -49,8 +64,8 @@ def test_present_simple_negative():
     )
 
     assert result == {
-        VerbClassification.PRESENT,
-        VerbClassification.SIMPLE
+        tense("PRESENT"),
+        aspect("SIMPLE")
     }
 
 
@@ -62,8 +77,8 @@ def test_present_perfect():
     )
 
     assert result == {
-        VerbClassification.PRESENT,
-        VerbClassification.PERFECT
+        tense("PRESENT"),
+        aspect("PERFECT")
     }
 
 
@@ -75,9 +90,9 @@ def test_present_perfect_continuous():
     )
 
     assert result == {
-        VerbClassification.PRESENT,
-        VerbClassification.PERFECT,
-        VerbClassification.CONTINUOUS
+        tense("PRESENT"),
+        aspect("PERFECT"),
+        aspect("CONTINUOUS")
     }
 
 
@@ -89,8 +104,8 @@ def test_past_simple():
     )
 
     assert result == {
-        VerbClassification.PAST,
-        VerbClassification.SIMPLE
+        tense("PAST"),
+        aspect("SIMPLE")
     }
 
 
@@ -102,8 +117,8 @@ def test_past_simple_negative():
     )
 
     assert result == {
-        VerbClassification.PAST,
-        VerbClassification.SIMPLE
+        tense("PAST"),
+        aspect("SIMPLE")
     }
 
 
@@ -115,8 +130,8 @@ def test_past_perfect():
     )
 
     assert result == {
-        VerbClassification.PAST,
-        VerbClassification.PERFECT
+        tense("PAST"),
+        aspect("PERFECT")
     }
 
 
@@ -128,8 +143,8 @@ def test_present_continuous():
     )
 
     assert result == {
-        VerbClassification.PRESENT,
-        VerbClassification.CONTINUOUS
+        tense("PRESENT"),
+        aspect("CONTINUOUS")
     }
 
 
@@ -151,8 +166,8 @@ def test_past_continuous():
     )
 
     assert result == {
-        VerbClassification.PAST,
-        VerbClassification.CONTINUOUS
+        tense("PAST"),
+        aspect("CONTINUOUS")
     }
 
 
@@ -164,9 +179,9 @@ def test_past_perfect_continuous():
     )
 
     assert result == {
-        VerbClassification.PAST,
-        VerbClassification.PERFECT,
-        VerbClassification.CONTINUOUS
+        tense("PAST"),
+        aspect("PERFECT"),
+        aspect("CONTINUOUS")
     }
 
 
@@ -178,8 +193,8 @@ def test_future_simple():
     )
 
     assert result == {
-        VerbClassification.FUTURE,
-        VerbClassification.SIMPLE
+        tense("FUTURE"),
+        aspect("SIMPLE")
     }
 
 
@@ -191,8 +206,8 @@ def test_future_simple_negative():
     )
 
     assert result == {
-        VerbClassification.FUTURE,
-        VerbClassification.SIMPLE
+        tense("FUTURE"),
+        aspect("SIMPLE")
     }
 
 
@@ -204,8 +219,8 @@ def test_future_continuous():
     )
 
     assert result == {
-        VerbClassification.FUTURE,
-        VerbClassification.CONTINUOUS
+        tense("FUTURE"),
+        aspect("CONTINUOUS")
     }
 
 
@@ -217,8 +232,8 @@ def test_future_perfect():
     )
 
     assert result == {
-        VerbClassification.FUTURE,
-        VerbClassification.PERFECT
+        tense("FUTURE"),
+        aspect("PERFECT")
     }
 
 
@@ -230,7 +245,7 @@ def test_future_perfect_continuous():
     )
 
     assert result == {
-        VerbClassification.FUTURE,
-        VerbClassification.PERFECT,
-        VerbClassification.CONTINUOUS
+        tense("FUTURE"),
+        aspect("PERFECT"),
+        aspect("CONTINUOUS")
     }

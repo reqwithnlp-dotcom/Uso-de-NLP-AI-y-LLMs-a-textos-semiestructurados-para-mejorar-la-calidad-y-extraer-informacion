@@ -20,5 +20,16 @@ class VerbFeatures:
     def add_classification(self, classification):
         self.classifications.add(classification)
 
-    def has_classification(self, classification):
-        return classification in self.classifications
+    def has_classification(
+        self,
+        classification_type,
+        value=None
+    ):
+        return any(
+            classification.classification_type == classification_type
+            and (
+                value is None
+                or classification.value == value
+            )
+            for classification in self.classifications
+        )

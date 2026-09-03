@@ -1,12 +1,10 @@
-from enum import Enum
+from dataclasses import dataclass, field
+from typing import Any
+
+from models.verb_classification_type import VerbClassificationType
 
 
-class VerbClassification(Enum):
-
-    PRESENT = "present"
-    PAST = "past"
-    FUTURE = "future"
-
-    SIMPLE = "simple"
-    PERFECT = "perfect"
-    CONTINUOUS = "continuous"
+@dataclass(frozen=True)
+class VerbClassification:
+    classification_type: VerbClassificationType
+    value: str    
