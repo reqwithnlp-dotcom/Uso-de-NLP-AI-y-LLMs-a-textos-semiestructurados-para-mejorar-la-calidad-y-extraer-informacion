@@ -14,7 +14,7 @@ from rules.tense_mismatch_rule import TenseMismatchRule
 from classifiers.verb_tense_classifier import VerbTenseClassifier
 from extractors.verb_features_context_extractor import VerbFeaturesContextExtractor
 from classifiers.verb_form_classifier import VerbFormClassifier
-
+from extractors.adverb_extractor import AdverbExtractor
 
 class TextAnalyzer:
 
@@ -24,7 +24,8 @@ class TextAnalyzer:
         # Shared extractors
         #
         self.extractors = [
-            VerbFeaturesContextExtractor()
+            VerbFeaturesContextExtractor(),
+            AdverbExtractor()
         ]
 
         # Classifiers are executed for each verb
