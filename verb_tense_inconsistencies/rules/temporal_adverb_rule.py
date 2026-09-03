@@ -2,7 +2,8 @@ from analyzer.analysis_context import AnalysisContext
 from models.issue import Issue
 from rules.base_rule import Rule
 from models.error_code import ErrorCode
-
+from verb_tense_inconsistencies.helpers.temporal_adverbials import VERBS_ALLOW_PCONT
+from spacy.tokens import Token
 
 class TemporalAdverbRule(Rule):
     """
@@ -13,102 +14,89 @@ class TemporalAdverbRule(Rule):
         The system validated the request tomorrow.
     """
 
+
+    """
+    CLASS ANALYSIS CONTEXT:
+
+    sentence: Span
+
+    verb_phrases: list[VerbPhrase] = field(default_factory=list)
+
+    issues: list[Issue] = field(default_factory=list)
+    """
+
+    """
+    CLASS ISSUE:
+    Represents a detected verb tense inconsistency.
+        
+    fragment: str
+    position: int
+    explanation: str
+    error_code: str
+    """
+
+    """
+    CLASS VERB_PHRASE:
+
+    token: Token
+
+    auxiliaries: list[str]
+
+    verb_tag: str    
+
+    tense: str | None
+    """
+
+
     ERROR_CODE = ErrorCode.TEMPORAL_ADVERB_MISMATCH
 
-    PAST_MARKERS = {
-        "yesterday",
-        "previous",
-        "last",
-        "former",
-        "past",
-        "preceding",
-        "prior"
-    }
+   
 
-    FUTURE_MARKERS = {
-        "tomorrow",
-        "next",
-        "following",
-        "upcoming",
-        "coming",
-        "future",
-        "subsequent"
-    }
+    def simpleEvaluation(self, context: AnalysisContext) -> None:
+        
+        for adv in context.advberbs:
+            if adv.text == "yet":
+                self.evaluate_adverb(adv[0],context,["simp_pres","cont_pres","cont_past","cont_fut","cont_perf_fut"],)
+            elif adv.text == "since":
+                self.evaluate_adverb(adv[0],context,["cont_perf_fut","cont_fut","simp_fut"])
+            elif adv.text == "now":
+                self.evaluate_adverb(adv[0],context,["perf-past","cont_perf_past","perf_fut","cont_perf_fut"])
+            elif adv.text == "by":
+                self.evaluate_adverb(adv[0],context,["simp_pres","cont_pres","cont_past","cont_fut","cont_perf_fut"])
+            elif adv[0] == "for": #AJUSTAR EL FOR PORQUE ES CONTEXTUAL
+                self.evaluate_adverb(adv[0],context,[])
+            elif adv.text == "while":
+                self.evaluate_adverb(adv[0],context,[])
+            elif adv.text == "when":
+                self.evaluate_adverb(adv[0],context,[])                                                                                                                
+            elif adv.text == "at present":
+                self.evaluate_adverb(adv[0],context,["cont_perf_fut","perf_fut","cont_fut","simp_fut","cont_perf_past","perf-past","cont_past","simp_past"])
+                                 
 
-    def evaluate(self, context: AnalysisContext) -> None:
+    def evaluate_adverb(adv,context: AnalysisContext, incompatible_tenses: list[str]) -> str:
 
-        sentence = context.sentence
+        errors = []
+        current = adv
+        # 1. Subir por el árbol de dependencias
+        #    hasta encontrar un verbo.
+        while current.head != current:
 
-        for token in sentence.doc:
+            current = current.head
 
-            word = token.text.lower()
-
-            if word in self.PAST_MARKERS:
-
-                self._validate_marker(
-                    token,
-                    expected="past",
-                    context=context
-                )
-
-            elif word in self.FUTURE_MARKERS:
-
-                self._validate_marker(
-                    token,
-                    expected="fut",
-                    context=context
-                )
-
-    def _validate_marker(
-        self,
-        marker_token,
-        expected: str,
-        context: AnalysisContext
-    ) -> None:
-
-        verb_phrase = self._find_related_verb(marker_token, context)
-
-        if verb_phrase is None:
-            return
-
-        if verb_phrase.tense is None:
-            return
-
-        detected = verb_phrase.tense.split("-")[-1]
-
-        if detected == expected:
-            return
-
-        context.issues.append(
-            Issue(
-                fragment=f"{marker_token.text} → {verb_phrase.token.text}",
-                position=marker_token.idx,
-                explanation=(
-                    f"Temporal reference '{marker_token.text}' "
-                    f"is inconsistent with the verb tense."
-                ),
-                error_code=self.ERROR_CODE
-            )
-        )
-
-    @staticmethod
-    def _find_related_verb(marker_token, context):
-
-        head = marker_token.head
-
-        while head != head.head:
-
-            if head.pos_ == "VERB":
+            if current.pos_ == "VERB":
                 break
+            # No encontramos ningún verbo
+            else:
+                errors.append ("ERROR: NO VERB WAS FOUND")
 
-            head = head.head
+        # 2. Buscar el VerbPhrase correspondiente
+        #    mediante la posición del token.
+        for verb_phrase in context.verb_phrases:
 
-        if head.pos_ != "VERB":
-            return None
+            if verb_phrase.token.i == current.i:
 
-        for phrase in context.verb_phrases:
+                tense = verb_phrase.tense
 
-            if phrase.token == head:
-                return phrase
-
-        return None
+                # 3. Comprobar compatibilidad
+                if tense in incompatible_tenses:
+                    errors.append(f"error with {adv.text} and {tense}")

@@ -14,6 +14,10 @@ class AnalysisContext:
         default_factory=list
     )
 
+    advberbs: list[Span] = field(default_factory=list)
+    
     issues: list[Issue] = field(
         default_factory=list
     )
+
+    

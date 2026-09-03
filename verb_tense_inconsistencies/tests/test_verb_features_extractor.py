@@ -3,7 +3,7 @@ import spacy
 from extractors.verb_features_extractor import VerbFeaturesExtractor
 
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 
 def get_verb(sentence, text):
