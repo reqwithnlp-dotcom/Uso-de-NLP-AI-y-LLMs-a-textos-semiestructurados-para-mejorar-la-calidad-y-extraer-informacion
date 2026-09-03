@@ -1,8 +1,7 @@
 import spacy
 
 
-nlp = spacy.load("en_core_web_sm")
-
+nlp = spacy.load("en_core_web_md")
 
 sentences1 = [
     # Present Simple
@@ -229,7 +228,7 @@ sentences2 = [
     "Should the request have been validated by the system?",
 ]
 
-sentences = [
+sentences3 = [
     "The system is reliable.",
     "The system has a problem.",
     "The system should validate the request.",
@@ -249,6 +248,21 @@ sentences = [
 "The request should have been validated by the system.",
 ]
 
+sentences4 = [
+    "The system has validate the mandatory fields.",
+    "The system had process all pending transactions.",
+    "The monitoring service is generate diagnostic information.",
+    "The system has validate the request.",
+    "The system has validated the request.",
+    "The system had process the transactions.",
+    "The system had processed the transactions.",
+
+    "The system is generate information.",
+    "The system is generating information.",
+    "The system has load all pending transactions from the repository.",
+    "I have submitted the request.",
+ ]   
+   
 
 def print_dependencies(doc):
     print("\nTOKENS:")
@@ -277,7 +291,7 @@ def print_tree(token, level=0):
         print_tree(child, level + 1)
 
 
-for sentence in sentences:
+for sentence in sentences4:
     print("\n" + "=" * 100)
     print(sentence)
     print("=" * 100)

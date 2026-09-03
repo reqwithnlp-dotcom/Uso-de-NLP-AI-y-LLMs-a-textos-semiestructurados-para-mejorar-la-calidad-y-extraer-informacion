@@ -1,3 +1,5 @@
+import token
+
 from models.verb_features import VerbFeatures
 
 
@@ -26,6 +28,12 @@ class VerbFeaturesExtractor:
             elif child.dep_ == "neg":
                 negated = True
 
+        if (
+            token.dep_ == "xcomp"
+            and token.head.pos_ == "AUX"
+        ):
+            auxiliaries.append(token.head)
+            
         return VerbFeatures(
             token=token,
             auxiliaries=auxiliaries,

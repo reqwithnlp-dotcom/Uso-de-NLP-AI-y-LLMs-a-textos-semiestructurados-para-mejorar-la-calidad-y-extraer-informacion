@@ -13,6 +13,7 @@ from rules.temporal_adverb_rule import TemporalAdverbRule
 from rules.tense_mismatch_rule import TenseMismatchRule
 from classifiers.verb_tense_classifier import VerbTenseClassifier
 from extractors.verb_features_context_extractor import VerbFeaturesContextExtractor
+from classifiers.verb_form_classifier import VerbFormClassifier
 
 
 class TextAnalyzer:
@@ -28,7 +29,8 @@ class TextAnalyzer:
 
         # Classifiers are executed for each verb
         self.classifiers = [
-           VerbTenseClassifier()
+           VerbTenseClassifier(),
+           VerbFormClassifier()
         ]
 
         #
@@ -45,7 +47,7 @@ class TextAnalyzer:
         self.advanced_rules = [
             SubjectVerbRule(),
             ConnectorMismatchRule(),
-            TemporalAdverbRule(),
+            # TemporalAdverbRule(),
             # TenseMismatchRule()
         ]
 

@@ -1,81 +1,105 @@
 from analyzer.analysis_context import AnalysisContext
 from models.issue import Issue
-from rules.base_rule import Rule
 from models.error_code import ErrorCode
-from models.verb_classification import VerbClassification
+from rules.base_rule import Rule
+from models.verb_classification_type import VerbClassificationType
 
 
 class ConnectorMismatchRule(Rule):
     """
-    Detects tense inconsistencies between two verb structures
-    connected by temporal or sequential connectors.
+    Detects tense inconsistencies between coordinated verb structures.
 
-    Example:
-        The user submits the request and the system responded.
+    Initial scope:
+        and
+        or
+        but
+        nor
+        yet
+
+    Temporal/subordinate connectors such as after, before, when,
+    while or because are intentionally excluded because they may
+    legitimately connect different verb tenses.
     """
 
     ERROR_CODE = ErrorCode.CONNECTOR_MISMATCH
 
     CONNECTORS = {
         "and",
-        "then",
-        "after"
+        "or",
+        "but",
+        "nor",
+        "yet",
     }
 
     def evaluate(self, context: AnalysisContext) -> None:
 
-        sentence = context.sentence
-
         if len(context.verb_features) < 2:
             return
 
-        for token in sentence.doc:
+        features_by_token = {
+            features.token.i: features
+            for features in context.verb_features
+        }
 
-            if token.text.lower() not in self.CONNECTORS:
+        for right in context.verb_features:
+
+            #
+            # In a coordinated structure spaCy marks the second
+            # verb as "conj" and points its head to the verb it
+            # is coordinated with.
+            #
+            if right.token.dep_ != "conj":
                 continue
 
-            left = self._find_left_features(token.i, context)
-            right = self._find_right_features(token.i, context)
+            left = features_by_token.get(right.token.head.i)
 
-            if left is None or right is None:
+            if left is None:
                 continue
 
-            if self._is_mismatch(left, right):
+            connector = self._find_connector(
+                left.token,
+                right.token,
+                context
+            )
 
-                context.issues.append(
-                    Issue(
-                        fragment=f"{left.token.text} {token.text} {right.token.text}",
-                        position=token.idx,
-                        explanation="Connected verb phrases use inconsistent tenses.",
-                        error_code=self.ERROR_CODE
-                    )
+            if connector is None:
+                continue
+
+            if not self._is_mismatch(left, right):
+                continue
+
+            context.issues.append(
+                Issue(
+                    fragment=(
+                        f"{left.token.text} "
+                        f"{connector.text} "
+                        f"{right.token.text}"
+                    ),
+                    position=connector.idx,
+                    explanation=(
+                        "Coordinated verb phrases use "
+                        "inconsistent verb tenses."
+                    ),
+                    error_code=self.ERROR_CODE
                 )
+            )
 
-    def _find_left_features(self, connector_index, context):
+    def _find_connector(self, left_token, right_token, context):
+
+        start = min(left_token.i, right_token.i)
+        end = max(left_token.i, right_token.i)
 
         candidates = [
-            features
-            for features in context.verb_features
-            if features.token.i < connector_index
+            token
+            for token in context.sentence.doc
+            if start < token.i < end
+            and token.text.lower() in self.CONNECTORS
         ]
 
         if not candidates:
             return None
 
         return candidates[-1]
-
-    def _find_right_features(self, connector_index, context):
-
-        candidates = [
-            features
-            for features in context.verb_features
-            if features.token.i > connector_index
-        ]
-
-        if not candidates:
-            return None
-
-        return candidates[0]
 
     @staticmethod
     def _is_mismatch(left, right):
@@ -91,12 +115,12 @@ class ConnectorMismatchRule(Rule):
     @staticmethod
     def _get_tense(features):
 
-        for classification in (
-            VerbClassification.PRESENT,
-            VerbClassification.PAST,
-            VerbClassification.FUTURE,
-        ):
-            if features.has_classification(classification):
-                return classification
+        for classification in features.classifications:
+
+            if (
+                classification.classification_type
+                == VerbClassificationType.TENSE
+            ):
+                return classification.value
 
         return None

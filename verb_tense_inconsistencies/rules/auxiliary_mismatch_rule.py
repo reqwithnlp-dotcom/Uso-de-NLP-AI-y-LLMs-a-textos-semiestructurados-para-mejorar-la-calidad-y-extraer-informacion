@@ -1,47 +1,48 @@
 from analyzer.analysis_context import AnalysisContext
 from models.issue import Issue
-from rules.base_rule import Rule
 from models.error_code import ErrorCode
+from models.verb_classification_type import VerbClassificationType
+from rules.base_rule import Rule
 
 
 class AuxiliaryMismatchRule(Rule):
-    """
-    Detects invalid auxiliary verb sequences.
-
-    If a verb phrase cannot be classified into a valid
-    tense/aspect combination, its classifications set
-    will be empty.
-    """
-
     ERROR_CODE = ErrorCode.AUXILIARY_MISMATCH
 
     def evaluate(self, context: AnalysisContext) -> None:
 
         for features in context.verb_features:
 
-            if features.classifications:
+            if not features.auxiliaries:
                 continue
 
-            context.issues.append(
-                Issue(
-                    fragment=self._build_fragment(features),
-                    position=features.token.idx,
-                    explanation="Invalid auxiliary verb sequence.",
-                    error_code=self.ERROR_CODE
-                )
+            if features.passive:
+                continue
+
+            has_tense = features.has_classification(
+                VerbClassificationType.TENSE
             )
+
+            has_valid_form = features.has_classification(
+                VerbClassificationType.FORM,
+                "VALID"
+            )
+
+            if not has_tense or not has_valid_form:
+                self._add_issue(context, features)
+
+    def _add_issue(self, context, features):
+
+        context.issues.append(
+            Issue(
+                fragment=self._build_fragment(features),
+                position=features.token.idx,
+                explanation="Invalid auxiliary verb sequence.",
+                error_code=self.ERROR_CODE
+            )
+        )
 
     @staticmethod
     def _build_fragment(features) -> str:
-        """
-        Builds a readable representation of the verb structure.
-
-        Example:
-            auxiliaries = [Token("has")]
-            verb = processed
-
-            -> "has processed"
-        """
 
         words = [
             auxiliary.text

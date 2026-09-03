@@ -8,9 +8,20 @@ class VerbFeaturesContextExtractor:
 
         for token in context.sentence.doc:
 
-            if token.pos_ != "VERB":
+            if token.pos_ == "VERB":
+                features = VerbFeaturesExtractor.extract(token)
+                context.verb_features.append(features)
                 continue
 
-            features = VerbFeaturesExtractor.extract(token)
+            if VerbFeaturesContextExtractor._is_auxiliary_verb_candidate(token):
+                features = VerbFeaturesExtractor.extract(token)
+                context.verb_features.append(features)
 
-            context.verb_features.append(features)
+    @staticmethod
+    def _is_auxiliary_verb_candidate(token):
+
+        return any(
+            child.pos_ == "AUX"
+            and child.dep_ in ("aux", "auxpass")
+            for child in token.children
+        )
