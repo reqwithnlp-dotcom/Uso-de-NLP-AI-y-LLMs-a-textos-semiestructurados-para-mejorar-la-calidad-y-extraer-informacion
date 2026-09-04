@@ -50,6 +50,12 @@ Install with pip:
 pip install pandas numpy scikit-learn xgboost gensim spacy joblib sentence-transformers fastapi pydantic uvicorn
 ```
 
+or:
+
+```powershell
+pip install -r requirements.txt
+```
+
 Notes:
 - `sentence-transformers` typically requires a deep-learning backend such as `torch`; install `torch` if needed for your platform.
 - `sentence-transformers` may also pull `transformers` as a dependency.

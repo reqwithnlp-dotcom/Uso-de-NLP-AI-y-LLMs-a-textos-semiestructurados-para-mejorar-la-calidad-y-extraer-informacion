@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+xgboost
+gensim
+spacy
+joblib
+sentence-transformers
+fastapi
+pydantic
+uvicorn
