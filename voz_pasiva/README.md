@@ -8,9 +8,7 @@ La idea de fondo: La voz pasiva se utiliza habitualmente en textos formales o ac
 
 
 ├── detector.py      # Lógica principal del analizador lingüístico utilizando spaCy
-
 ├── main.py          # Script interactivo de consola para probar oraciones en tiempo real
-
 └── test.py          # Suite de pruebas unitarias basadas en asserts
 
 # Requisitos Previos
