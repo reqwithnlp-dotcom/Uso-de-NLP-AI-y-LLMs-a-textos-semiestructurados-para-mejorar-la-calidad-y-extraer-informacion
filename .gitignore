@@ -1,0 +1,6 @@
+AppWeb/REQ_NLP/__pycache__/*
+entorno/*
+AppWeb/req_nlp_app/__pycache__/*
+AppWeb/req_nlp_app/migrations/__pycache__/*
+AppWeb/req_nlp_app/views/__pycache__/*
+AppWeb/db.sqlite3
