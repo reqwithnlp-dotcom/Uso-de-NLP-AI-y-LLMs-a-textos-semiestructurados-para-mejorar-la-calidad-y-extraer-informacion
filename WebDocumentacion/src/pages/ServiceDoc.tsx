@@ -14,7 +14,8 @@ export default function ServiceDoc() {
     if (!service) return
     setMarkdown('')
     setError('')
-    fetch(service.markdownPath)
+    const markdownUrl = `${import.meta.env.BASE_URL}${service.markdownPath.replace(/^\/+/, '')}`
+    fetch(markdownUrl)
       .then((response) => {
         if (!response.ok) throw new Error('No se pudo cargar la documentación.')
         return response.text()
