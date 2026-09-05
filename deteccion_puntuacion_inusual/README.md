@@ -36,7 +36,10 @@ deteccion_puntuacion_inusual/
 `-- README.md                   Esta documentacion.
 ```
 
-## API
+## API HTTP
+
+La aplicacion FastAPI se importa como `main:app` y escucha, por defecto, en el
+puerto `8000`.
 
 ### `GET /health`
 
@@ -50,7 +53,8 @@ Respuesta:
 
 ### `POST /detect`
 
-Analiza un texto recibido en formato JSON.
+Analiza un texto recibido en formato JSON. El campo `text` debe ser una cadena
+no vacia.
 
 Solicitud:
 
@@ -69,19 +73,106 @@ Respuesta:
 
 El servicio responde con estado `400` si el campo `text` esta vacio o contiene solo espacios.
 
-## Ejecucion
+Para verificar el contrato completo de la API se pueden usar los siguientes
+endpoints de documentacion:
+
+- `GET /docs`: Swagger UI interactiva.
+- `GET /redoc`: documentacion ReDoc.
+- `GET /openapi.json`: especificacion OpenAPI en JSON.
+
+## Ejecucion local
 
 Desde la carpeta `deteccion_puntuacion_inusual`:
 
 ```bash
-pip install fastapi uvicorn pytest
-uvicorn main:app --reload
+python -m pip install fastapi uvicorn pytest
+python -m uvicorn main:app --reload
 ```
 
-La documentacion interactiva queda disponible en:
+El servidor queda disponible en `http://127.0.0.1:8000`. La documentacion
+interactiva queda disponible en:
 
 - `http://127.0.0.1:8000/docs`
 - `http://127.0.0.1:8000/redoc`
+
+## Ejecucion en servidor
+
+Instalar las dependencias en el entorno del servidor y ejecutar Uvicorn
+escuchando en todas las interfaces de red:
+
+```bash
+python -m pip install fastapi uvicorn
+python -m uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+Para una ejecucion administrada por un proceso de servicio, se recomienda
+usar un supervisor como systemd, Docker o el administrador de procesos de la
+plataforma donde se publique. El puerto externo y HTTPS deben configurarse en
+el proxy inverso o balanceador del servidor.
+
+## Ejemplos de uso
+
+### Comprobar disponibilidad
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+Respuesta:
+
+```json
+{"status":"ok"}
+```
+
+### Texto sin irregularidades
+
+```bash
+curl -X POST http://127.0.0.1:8000/detect \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Hi! Nice to meet you."}'
+```
+
+Respuesta:
+
+```json
+{
+  "unusual_punctuation": false,
+  "positions": 0
+}
+```
+
+### Texto con puntuacion inusual
+
+```bash
+curl -X POST http://127.0.0.1:8000/detect \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Hi!.., Nice to meet you"}'
+```
+
+Respuesta:
+
+```json
+{
+  "unusual_punctuation": true,
+  "positions": ["!", ","]
+}
+```
+
+### Solicitud invalida
+
+```bash
+curl -i -X POST http://127.0.0.1:8000/detect \
+  -H "Content-Type: application/json" \
+  -d '{"text":"   "}'
+```
+
+Respuesta HTTP `400`:
+
+```json
+{
+  "detail": "El texto no puede estar vacio."
+}
+```
 
 ## Pruebas
 
