@@ -1,0 +1,52 @@
+EXPLICACION AMIGABLE
+Detector de puntuacion inusual
+
+QUE HACE?
+Este servicio funciona como un revisor automatico de puntuacion.
+Recibe una frase, analiza sus signos de puntuacion y avisa si encuentra algo
+que conviene revisar.
+
+COMO FUNCIONA?
+1. Le enviamos un texto.
+2. El servicio analiza la puntuacion.
+3. Devuelve un resultado claro y facil de interpretar.
+
+EJEMPLO SIN IRREGULARIDADES
+Texto enviado:
+Hi! Nice to meet you.
+
+Resultado:
+unusual_punctuation: false
+positions: 0
+
+Interpretacion:
+La frase no presenta una puntuacion inusual.
+
+EJEMPLO CON PUNTUACION INUSUAL
+Texto enviado:
+Hi!.., Nice to meet you
+
+Resultado:
+unusual_punctuation: true
+positions: ["!", ","]
+
+Interpretacion:
+El servicio encontro signos consecutivos poco habituales: !..,
+Los signos detectados se muestran en positions para indicar que conviene
+revisarlos.
+
+QUE SIGNIFICA CADA CAMPO?
+- unusual_punctuation: indica si se encontro una irregularidad.
+  false = no se encontro.
+  true = se encontro.
+
+- positions: muestra los signos involucrados.
+  Si no hay irregularidades, devuelve 0.
+
+VALIDACION DE ENTRADA
+Si enviamos un texto vacio o compuesto solo por espacios, el servicio responde
+con un error y solicita ingresar un texto valido.
+
+ENDPOINTS PRINCIPALES
+GET  /health  Comprueba que el servicio este disponible.
+POST /detect  Analiza el texto recibido.
