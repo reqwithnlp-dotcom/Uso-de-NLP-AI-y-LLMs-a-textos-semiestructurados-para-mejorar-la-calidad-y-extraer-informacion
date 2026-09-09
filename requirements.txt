@@ -1,0 +1,78 @@
+# =============================================================================
+# DEPENDENCIAS GENERALES DEL PROYECTO (CONSOLIDADAS)
+# Repositorio: Uso de NLP, AI y LLMs a textos semiestructurados
+# =============================================================================
+
+# --- API y Servidor Web (FastAPI / ASGI) ---
+# Usado por: abstract_words, conectores_logicos, puntuacion_inusual, verbos_modales,
+#            detector_adverbios, detector_doble_negacion, metricas-de-legibilidad,
+#            oraciones-impersonales, deteccion-cliches, repeticion-palabras,
+#            verbos_percepcion_opinion, voz_pasiva, weak_verbs, ejemplo
+# Resolución de conflictos:
+#   * detector_adverbios fijaba fastapi==0.111.0, uvicorn[standard]==0.27.0, pydantic==2.6.1
+#   * voz_pasiva fijaba fastapi==0.141.1, pydantic==2.13.5
+#   * deteccion_conectores_logicos requería uvicorn[standard]>=0.29.0
+#   -> Se unifica en fastapi>=0.111.0, pydantic>=2.6.1,<3.0.0, uvicorn[standard]>=0.29.0
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.6.1,<3.0.0
+
+# --- Procesamiento de Lenguaje Natural (spaCy & Transformers) ---
+# Usado por: voz_pasiva, detector_adverbios, detector_doble_negacion,
+#            servicio-deteccion-cliches, servicio-repeticion-palabras,
+#            metricas-de-legibilidad, oraciones-impersonales, abstract_words, etc.
+# Resolución de conflictos:
+#   * detector_adverbios fijaba spacy==3.8.14
+#   * voz_pasiva fijaba spacy==3.8.16
+#   * servicio-deteccion-cliches y repeticion fijaban spacy>=3.5.0,<4.0.0
+#   * oraciones-impersonales requería spacy>=3.7
+#   -> Se unifica en spacy>=3.8.14,<4.0.0 (compatible con ambos y modelos 3.8.x)
+spacy>=3.8.14,<4.0.0
+spacy-transformers>=1.4.0
+sentence-transformers>=2.2.0
+
+# --- Métricas y Análisis de Textos ---
+# Usado por: metricas-de-legibilidad
+textdescriptives>=2.0.0
+
+# --- Machine Learning, NLP Clásico y Ciencia de Datos ---
+# Usado por: abstract_words, servicio-deteccion-cliches
+# Resolución de conflictos:
+#   * textdescriptives>=2.0.0 requiere estrictamente numpy<2.0.0,>=1.20.0
+#   * numpy 2.x rompe la compatibilidad con textdescriptives
+#   -> Se acota a numpy>=1.20.0,<2.0.0 (ej. 1.26.4) para permitir funcionamiento conjunto
+numpy>=1.20.0,<2.0.0
+pandas>=1.0.0
+scikit-learn>=1.1.0
+xgboost>=1.7.0
+gensim>=4.3.0
+joblib>=1.2.0
+
+# --- Aplicación Web Django (AppWeb) ---
+# Usado por: AppWeb
+Django>=3.2,<4.0
+djangorestframework>=3.12.4,<3.13.0
+django-cors-headers>=3.10.1
+django-crispy-forms>=1.13.0
+whitenoise>=5.3.0
+gunicorn>=20.1.0
+python-dotenv>=1.0.0
+mysqlclient>=2.1.0
+
+# --- Testing y Calidad de Código ---
+# Usado por: suites de pruebas de los microservicios, FastAPI TestClient y linter
+# Resolución de conflictos:
+#   * detector_adverbios fijaba pytest==9.1.1
+#   * oraciones-impersonales requería pytest>=8.0
+#   * verbos_percepcion_opinion y weak_verbs requerían pytest>=6.0
+#   -> Se unifica en pytest>=8.0.0
+pytest>=8.0.0
+httpx>=0.27.0
+flake8>=7.0.0
+
+# =============================================================================
+# MODELOS DE SPACY REQUERIDOS:
+# Para instalar los modelos necesarios por los diferentes servicios, ejecutar:
+#   python -m spacy download en_core_web_sm
+#   python -m spacy download en_core_web_trf
+# =============================================================================
