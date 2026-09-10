@@ -32,7 +32,7 @@ def setup():
     parser.add_argument("--embedding", default=None, help="Embedding strategy: spacy|mpnet|fasttext")
     parser.add_argument("--model", default=None, help="Model strategy or filename. If omitted, inferred from embedding")
     parser.add_argument("--config", default=str(BASE_PATH / "config.json"), help="Path to JSON config file")
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
 
     # load config if present
     import json

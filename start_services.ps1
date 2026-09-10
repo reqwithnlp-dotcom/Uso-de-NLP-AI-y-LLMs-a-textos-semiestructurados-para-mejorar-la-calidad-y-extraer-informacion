@@ -347,6 +347,20 @@ if ($checkFastAPI -ne "OK") {
     Write-Host "    & '$pythonExe' -m pip install -r requirements.txt`n" -ForegroundColor White
 }
 
+# Verificar si los modelos de spaCy estan descargados
+$checkSpacyModels = & $pythonExe -c "import importlib.util; sm = bool(importlib.util.find_spec('en_core_web_sm')); trf = bool(importlib.util.find_spec('en_core_web_trf')); print(f'{sm},{trf}')" 2>$null
+if ($checkSpacyModels) {
+    $smInstalled, $trfInstalled = $checkSpacyModels.Trim().Split(',')
+    if ($smInstalled -ne "True") {
+        Write-Host "[!] ADVERTENCIA: Falta descargar el modelo spaCy 'en_core_web_sm'." -ForegroundColor Yellow
+        Write-Host "    Ejecuta: & '$pythonExe' -m spacy download en_core_web_sm`n" -ForegroundColor White
+    }
+    if ($trfInstalled -ne "True") {
+        Write-Host "[!] ADVERTENCIA: Falta descargar el modelo spaCy 'en_core_web_trf'." -ForegroundColor Yellow
+        Write-Host "    Ejecuta: & '$pythonExe' -m spacy download en_core_web_trf`n" -ForegroundColor White
+    }
+}
+
 # Asegurar carpeta de logs
 if (-not (Test-Path $LogsDir)) {
     New-Item -Path $LogsDir -ItemType Directory | Out-Null
@@ -427,8 +441,9 @@ foreach ($svc in $Services) {
 # Guardar estado para poder detenerlos posteriormente
 $launchedState | ConvertTo-Json | Set-Content -Path $StateFile -Force
 
-# Pausa breve para permitir que los servicios abran sus sockets
-Start-Sleep -Seconds 2
+# Pausa para permitir que los servicios inicialicen sus modelos y abran sus sockets
+Write-Host "Esperando a que los servicios completen su inicio (cargando modelos NLP)..." -ForegroundColor Gray
+Start-Sleep -Seconds 6
 
 # =============================================================================
 # MOSTRAR TABLA FINAL CON SERVICIOS Y PUERTOS

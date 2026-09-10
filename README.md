@@ -28,13 +28,29 @@ Para permitir la ejecución simultánea en desarrollo local sin conflictos ni co
 
 ---
 
-## ⚙️ Instalación y Configuración del Entorno
+### 🚀 Instalación Rápida Automática (Recomendada)
 
-### 1. Requisitos Previos
+Para configurar todo el proyecto en una sola orden en cualquier computadora con Windows (detecta Python, crea el entorno virtual, instala dependencias, descarga los modelos de spaCy y SBERT, y aplica migraciones):
+
+**Opción A (PowerShell):**
+```powershell
+powershell -ExecutionPolicy Bypass -File .\instalar_entorno.ps1
+```
+
+**Opción B (Doble clic en Windows):**
+Simplemente haz doble clic sobre el archivo **`instalar_entorno.bat`**.
+
+---
+
+### 🛠️ Instalación Manual Paso a Paso
+
+Si prefieres realizar el proceso manualmente:
+
+#### 1. Requisitos Previos
 - **Python:** 3.10, 3.11 o 3.12 (64-bit recomendado).
 - **Node.js:** (opcional, solo necesario para ejecutar `WebDocumentacion`).
 
-### 2. Creación y Activación del Entorno Virtual
+#### 2. Creación y Activación del Entorno Virtual
 
 En PowerShell:
 ```powershell
@@ -45,15 +61,15 @@ python -m venv entorno
 .\entorno\Scripts\Activate.ps1
 ```
 
-### 3. Instalación de Dependencias
+#### 3. Instalación de Dependencias
 
-Se consolidaron todas las dependencias de todos los microservicios en el archivo `requirements.txt` de la raíz, resolviendo de antemano incompatibilidades de versiones:
+Se consolidaron todas las dependencias de todos los microservicios en el archivo `requirements.txt` de la raíz:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-### 4. Descarga de Modelos de spaCy
+#### 4. Descarga de Modelos de spaCy
 
 Los servicios requieren los modelos de idioma en inglés de spaCy:
 

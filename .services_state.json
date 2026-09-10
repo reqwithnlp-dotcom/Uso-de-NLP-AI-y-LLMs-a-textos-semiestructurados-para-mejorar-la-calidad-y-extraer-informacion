@@ -1,0 +1,100 @@
+[
+    {
+        "Id":  "appweb",
+        "Name":  "AppWeb (Portal Django)",
+        "Port":  8000,
+        "PID":  1752,
+        "Url":  "http://127.0.0.1:8000"
+    },
+    {
+        "Id":  "cliches",
+        "Name":  "Deteccion de Cliches",
+        "Port":  8001,
+        "PID":  19080,
+        "Url":  "http://127.0.0.1:8001/docs"
+    },
+    {
+        "Id":  "repeticion",
+        "Name":  "Repeticion de Palabras",
+        "Port":  8002,
+        "PID":  15024,
+        "Url":  "http://127.0.0.1:8002/docs"
+    },
+    {
+        "Id":  "conectores_logicos",
+        "Name":  "Conectores Logicos",
+        "Port":  8003,
+        "PID":  18480,
+        "Url":  "http://127.0.0.1:8003/docs"
+    },
+    {
+        "Id":  "doble_negacion",
+        "Name":  "Doble Negacion",
+        "Port":  8004,
+        "PID":  18072,
+        "Url":  "http://127.0.0.1:8004/docs"
+    },
+    {
+        "Id":  "puntuacion_inusual",
+        "Name":  "Puntuacion Inusual",
+        "Port":  8005,
+        "PID":  19484,
+        "Url":  "http://127.0.0.1:8005/docs"
+    },
+    {
+        "Id":  "verbos_modales",
+        "Name":  "Verbos Modales",
+        "Port":  8006,
+        "PID":  12564,
+        "Url":  "http://127.0.0.1:8006/docs"
+    },
+    {
+        "Id":  "detector_adverbios",
+        "Name":  "Detector de Adverbios",
+        "Port":  8007,
+        "PID":  15284,
+        "Url":  "http://127.0.0.1:8007/docs"
+    },
+    {
+        "Id":  "metricas_legibilidad",
+        "Name":  "Metricas de Legibilidad",
+        "Port":  8008,
+        "PID":  10432,
+        "Url":  "http://127.0.0.1:8008/docs"
+    },
+    {
+        "Id":  "oraciones_impersonales",
+        "Name":  "Oraciones Impersonales",
+        "Port":  8009,
+        "PID":  2564,
+        "Url":  "http://127.0.0.1:8009/docs"
+    },
+    {
+        "Id":  "verbos_percepcion_opinion",
+        "Name":  "Verbos Percepcion / Opinion",
+        "Port":  8010,
+        "PID":  3980,
+        "Url":  "http://127.0.0.1:8010/docs"
+    },
+    {
+        "Id":  "voz_pasiva",
+        "Name":  "Voz Pasiva",
+        "Port":  8011,
+        "PID":  7280,
+        "Url":  "http://127.0.0.1:8011/docs"
+    },
+    {
+        "Id":  "weak_verbs",
+        "Name":  "Verbos Debiles (Weak Verbs)",
+        "Port":  8012,
+        "PID":  18592,
+        "Url":  "http://127.0.0.1:8012/docs"
+    },
+    {
+        "Id":  "abstract_words",
+        "Name":  "Palabras Abstractas",
+        "Port":  8013,
+        "PID":  6248,
+        "Url":  "http://127.0.0.1:8013/docs"
+    }
+]
