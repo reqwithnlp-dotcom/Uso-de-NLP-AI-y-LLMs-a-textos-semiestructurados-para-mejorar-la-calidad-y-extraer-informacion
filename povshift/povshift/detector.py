@@ -80,6 +80,7 @@ class POVShiftDetector:
     def detect_internal_states(self, clauses: list[Clause]) -> list[Clause]:
         cognitive_verbs = {"wonder", "know", "believe", "remember", "realize", "think", "suspect", "decide"}
         emotional_verbs = {"feel", "fear", "hope", "love", "hate", "worry", "regret"}
+        perception_verbs = {"see", "hear", "notice", "observe", "watch", "look", "smell", "taste"}
 
         enriched: list[Clause] = []
         for clause in clauses:
@@ -92,6 +93,10 @@ class POVShiftDetector:
             elif verb in emotional_verbs:
                 clause.internal_state = True
                 clause.state_type = "emotion"
+                clause.experiencer = subject
+            elif verb in perception_verbs:
+                clause.internal_state = True
+                clause.state_type = "perception"
                 clause.experiencer = subject
             else:
                 clause.internal_state = False

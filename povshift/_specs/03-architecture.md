@@ -48,7 +48,66 @@ The detector must not place all linguistic and narrative logic inside a single m
 
 ---
 
-## 2. Main Component: `POVShiftDetector`
+## 2. HTTP Service Layer
+
+The project also includes a lightweight FastAPI application that exposes the detector as a service.
+
+### `main.py`
+
+The module `main.py` contains the HTTP entry point and is responsible for:
+
+- exposing the `POST /detect` endpoint;
+- validating the request body with Pydantic;
+- reading the `texto` field from the JSON payload;
+- invoking the detector pipeline;
+- serializing the resulting `POVShift` objects as JSON.
+
+The service listens on `localhost:8014` when started with:
+
+```bash
+python main.py
+```
+
+### Request/response contract
+
+Request body:
+
+```json
+{
+  "texto": "John wondered where Mary was. Mary knew he was waiting."
+}
+```
+
+Response body:
+
+```json
+[
+  {
+    "from_character": {
+      "id": 1,
+      "canonical_name": "John",
+      "mentions": ["John"]
+    },
+    "to_character": {
+      "id": 7,
+      "canonical_name": "Mary",
+      "mentions": ["Mary"]
+    },
+    "sentence_index": 1,
+    "confidence": 0.85,
+    "evidence": [
+      "previous focus on John",
+      "new focalization on Mary"
+    ]
+  }
+]
+```
+
+This service layer does not replace the detector pipeline. It is an adapter around the existing core logic and should remain thin.
+
+---
+
+## 3. Main Component: `POVShiftDetector`
 
 `POVShiftDetector` is the main public application/service component.
 
@@ -74,7 +133,7 @@ The caller should not need to know about:
 
 ---
 
-## 3. Main Pipeline
+## 4. Main Pipeline
 
 The complete processing pipeline is:
 
@@ -114,7 +173,7 @@ Each stage consumes the structured information produced by the previous stage.
 
 ---
 
-## 4. `detect()`
+## 5. `detect()`
 
 **Objective:** Orchestrate the complete POV shift detection process.
 
@@ -153,7 +212,7 @@ return shifts
 
 ---
 
-## 5. `analyze()`
+## 6. `analyze()`
 
 **Objective:** Convert raw English text into structured linguistic information using spaCy.
 
@@ -202,7 +261,7 @@ A change of subject or character detected during linguistic analysis must not au
 
 ---
 
-## 6. `resolve_coreference()`
+## 7. `resolve_coreference()`
 
 **Objective:** Determine which textual mentions refer to the same narrative entity.
 

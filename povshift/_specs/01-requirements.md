@@ -19,7 +19,56 @@ The system must distinguish a POV shift from:
 
 ---
 
-## 2. Definition of POV Shift
+## 2. Service Interface
+
+The project exposes the detector through an HTTP API built with FastAPI.
+
+### API contract
+
+Endpoint:
+
+```http
+POST /detect
+```
+
+Request JSON body:
+
+```json
+{
+  "texto": "John wondered where Mary was. Mary knew he was waiting."
+}
+```
+
+Response:
+
+```json
+[
+  {
+    "from_character": {
+      "id": 1,
+      "canonical_name": "John",
+      "mentions": ["John"]
+    },
+    "to_character": {
+      "id": 7,
+      "canonical_name": "Mary",
+      "mentions": ["Mary"]
+    },
+    "sentence_index": 1,
+    "confidence": 0.85,
+    "evidence": [
+      "previous focus on John",
+      "new focalization on Mary"
+    ]
+  }
+]
+```
+
+This interface is intended to expose the same detector output already produced by the Python API, but in an HTTP format suitable for local integration or lightweight applications.
+
+---
+
+## 3. Definition of POV Shift
 
 A POV Shift occurs when the narrative focus changes from one character's internal experience to another character's internal experience across narrative sentences.
 
@@ -56,7 +105,7 @@ POV Shift = True
 
 ---
 
-## 3. What Is NOT a POV Shift
+## 4. What Is NOT a POV Shift
 
 ### 3.1 Change of Subject
 
@@ -123,7 +172,7 @@ The detector may use the clauses to analyze the sentence, but the POV shift deci
 
 ---
 
-## 4. Internal State
+## 5. Internal State
 
 An internal state represents an experience that provides evidence about a character's internal perspective.
 
@@ -186,7 +235,7 @@ The system must consider contextual evidence before determining whether this est
 
 ---
 
-## 5. Coreference
+## 6. Coreference
 
 Coreference resolution is a required component.
 

@@ -131,6 +131,34 @@ class TestAnalyzeStage(unittest.TestCase):
         self.assertEqual(shifts[0].from_character.canonical_name, "I")
         self.assertEqual(shifts[0].to_character.canonical_name, "You")
 
+    def test_tc_18_complete_pipeline_shift(self):
+        shifts = self.detector.detect("John wondered where Mary was. Mary knew he was waiting.")
+
+        self.assertEqual(len(shifts), 1)
+        self.assertEqual(shifts[0].from_character.canonical_name, "John")
+        self.assertEqual(shifts[0].to_character.canonical_name, "Mary")
+
+    def test_tc_19_complete_pipeline_no_shift(self):
+        shifts = self.detector.detect("John wondered where Mary was. He felt nervous. He remembered their conversation.")
+
+        self.assertEqual(shifts, [])
+
+    def test_tc_20_multiple_shifts(self):
+        shifts = self.detector.detect("John wondered where Mary was. Mary knew he was waiting. John remembered the conversation.")
+
+        self.assertEqual(len(shifts), 2)
+        self.assertEqual(shifts[0].from_character.canonical_name, "John")
+        self.assertEqual(shifts[0].to_character.canonical_name, "Mary")
+        self.assertEqual(shifts[1].from_character.canonical_name, "Mary")
+        self.assertEqual(shifts[1].to_character.canonical_name, "John")
+
+    def test_tc_21_coreference_prevents_false_shift(self):
+        shifts = self.detector.detect("John wondered where Mary was. He felt nervous. Mary knew he was waiting.")
+
+        self.assertEqual(len(shifts), 1)
+        self.assertEqual(shifts[0].from_character.canonical_name, "John")
+        self.assertEqual(shifts[0].to_character.canonical_name, "Mary")
+
     def test_tc_22_multiple_clauses_same_sentence(self):
         clauses = self.detector.analyze("John opened the door and Mary felt afraid.")
 
@@ -141,6 +169,21 @@ class TestAnalyzeStage(unittest.TestCase):
         self.assertEqual(clauses[1].subject.canonical_name, "Mary")
         self.assertFalse(clauses[0].internal_state)
         self.assertFalse(clauses[1].internal_state)
+
+    def test_tc_23_perception_state(self):
+        clauses = self.detector.analyze("John saw Mary leaving the room.")
+        enriched = self.detector.detect_internal_states(clauses)
+
+        self.assertTrue(enriched[0].internal_state)
+        self.assertEqual(enriched[0].state_type, "perception")
+        self.assertEqual(enriched[0].experiencer.canonical_name, "John")
+
+    def test_tc_24_confidence(self):
+        shifts = self.detector.detect("John wondered where Mary was. Mary knew he was waiting.")
+
+        self.assertEqual(len(shifts), 1)
+        self.assertGreaterEqual(shifts[0].confidence, 0.0)
+        self.assertLessEqual(shifts[0].confidence, 1.0)
 
 
 if __name__ == "__main__":

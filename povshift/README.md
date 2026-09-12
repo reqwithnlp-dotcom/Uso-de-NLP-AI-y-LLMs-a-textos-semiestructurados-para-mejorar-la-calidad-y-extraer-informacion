@@ -1,70 +1,69 @@
 # POV Shift Detector
 
-A Python system for detecting **narrative Point of View (POV) shifts** in English text.
+Quick start for the detector and the local API.
 
-The system identifies when the narrative focus changes from one character's **internal experience** to another character's internal experience.
+## Run the API
 
-## Objective
-
-The detector distinguishes a real POV shift from changes that may look similar but do not necessarily represent a change in narrative perspective:
-
-- grammatical subject changes;
-- character changes;
-- grammatical person changes;
-- pronoun changes;
-- observable actions;
-- ambiguous coreference;
-- changes between clauses within the same sentence.
-
-The central principle is:
-
-```text
-Internal Experience
-        ↓
-Narrative Focus
-        ↓
-Focus Change
-        ↓
-POV Shift
+```bash
+cd /home/carlos/Documentos/trabajo/proyectoSpacy/Uso-de-NLP-AI-y-LLMs-a-textos-semiestructurados-para-mejorar-la-calidad-y-extraer-informacion/povshift
+.venv/bin/python main.py
 ```
 
-A change of subject or character alone is **not** considered a POV shift.
-
----
-
-## How It Works
-
-The detector processes text through a modular pipeline:
+The service runs at:
 
 ```text
-Raw Text
-   ↓
-Linguistic Analysis
-   ↓
-Coreference Resolution
-   ↓
-Internal-State Detection
-   ↓
-Narrative Focus Tracking
-   ↓
-POV Shift Detection
-   ↓
-POVShift[]
+http://localhost:8014
 ```
 
-The public interface is:
+## Test a sentence
+
+```bash
+curl -X POST http://localhost:8014/detect \
+  -H "Content-Type: application/json" \
+  -d '{"texto":"John wondered where Mary was. Mary knew he was waiting."}'
+```
+
+Example response:
+
+```json
+[
+  {
+    "from_character": {
+      "id": 1,
+      "canonical_name": "John",
+      "mentions": ["John"]
+    },
+    "to_character": {
+      "id": 7,
+      "canonical_name": "Mary",
+      "mentions": ["Mary"]
+    },
+    "sentence_index": 1,
+    "confidence": 0.85,
+    "evidence": [
+      "previous focus on John",
+      "new focalization on Mary"
+    ]
+  }
+]
+```
+
+## Python usage
 
 ```python
-detector = POVShiftDetector()
+from povshift.detector import POVShiftDetector
 
+text = "John wondered where Mary was. Mary knew he was waiting."
+detector = POVShiftDetector()
 shifts = detector.detect(text)
+print(shifts)
 ```
 
-The caller only needs to provide the text. The internal processing stages are handled by the detector.
+## Notes
 
----
-
-## Example
+- The service expects a JSON body with a `texto` field.
+- The detector is conservative: it avoids false positives caused by subject changes, observable actions, or ambiguous pronouns.
+- The project is still an MVP focused on English narrative text and simple, well-formed examples.
 
 Input:
 
