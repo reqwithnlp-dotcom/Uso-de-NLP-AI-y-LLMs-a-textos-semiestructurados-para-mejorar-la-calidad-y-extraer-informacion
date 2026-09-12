@@ -154,10 +154,15 @@ I opened the door.
 You closed it.
 ```
 
-The grammatical person changes, but this alone does not establish a POV shift.
+The narration shifts from first person to second person here, but grammatical
+person is not, on its own, evidence of a change in narrative focus — and it
+is not a field the detector tracks or outputs (there is no `person` or
+`person_shift` attribute anywhere in the domain model). This example is purely
+descriptive of the *input*, not of anything the system reports.
+
+Result:
 
 ```text
-Person Shift = True
 POV Shift = False
 ```
 

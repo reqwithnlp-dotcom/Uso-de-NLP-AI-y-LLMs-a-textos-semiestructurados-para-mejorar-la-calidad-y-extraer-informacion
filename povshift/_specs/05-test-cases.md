@@ -238,7 +238,7 @@ Expected:
 
 Reason:
 
-The change from first person to second person is a grammatical person shift, but there is no sufficient evidence of a change in narrative focus based on internal experience.
+The change from first person to second person is a grammatical person shift, but there is no sufficient evidence of a change in narrative focus based on internal experience. Note: grammatical person is not tracked as a formal field in the domain model; this description is contextual, not a checked value.
 
 ---
 

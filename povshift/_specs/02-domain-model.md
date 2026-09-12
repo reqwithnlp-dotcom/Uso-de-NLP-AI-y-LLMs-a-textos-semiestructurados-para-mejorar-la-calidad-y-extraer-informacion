@@ -120,6 +120,32 @@ An ambiguous or unresolved reference must not be arbitrarily assigned to a `Char
 
 ---
 
+### Deictic Pronouns (`I` / `You`) — Decision
+
+First-person and second-person pronouns (`I`, `You`) are represented as their
+own `Character`, using the literal pronoun as `canonical_name`:
+
+```python
+Character(id=..., canonical_name="I", mentions=["I"])
+Character(id=..., canonical_name="You", mentions=["You"])
+```
+
+This is a deliberate simplification, adopted specifically to support
+`TC-17` (Person Shift With Internal-State Evidence), and it comes with a
+known limitation that is recorded here rather than solved:
+
+> **Known limitation:** this approach does not generalize to texts with
+> multiple speakers (e.g. dialogue with several distinct "I" referents).
+> In such texts, every occurrence of "I" would incorrectly resolve to the
+> same `Character`, even if spoken by different people. The current
+> specification and test suite do not include multi-speaker dialogue
+> scenarios, so this limitation is accepted for now. If multi-speaker
+> dialogue support is required in the future, this decision must be
+> revisited (e.g. by scoping deictic `Character` resolution to a
+> quotation/speaker context, which is out of scope today).
+
+
+
 ## 3. Clause
 
 `Clause` represents a linguistic unit extracted and analyzed from the text.

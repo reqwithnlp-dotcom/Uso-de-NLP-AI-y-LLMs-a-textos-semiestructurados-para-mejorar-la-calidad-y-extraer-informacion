@@ -396,18 +396,25 @@ It must obtain, when available:
 - verbs;
 - entities.
 
+Clause extraction must use the dependency structure produced by spaCy rather than simple text splitting rules such as splitting on the word `and`.
+
 The analysis must preserve the original textual order of sentences and clauses.
-The analysis must preserve the relationship between sentences and their constituent clauses.
+
 
 ### FR-02 — Clause Extraction
 
 The system must represent relevant linguistic units as Clause objects.
 
-Clauses must preserve their original order within the text.
+A clause is a syntactic unit with its own verbal or predicative head that can be identified from spaCy's dependency structure.
+
+Clause extraction must be based on the dependency structure of the original sentence. The system must not re-parse each extracted clause as an independent document, because doing so can discard syntactic context from the original sentence.
+
+Clauses must preserve their original order within the text and retain the sentence index of the sentence from which they were extracted. Multiple clauses belonging to the same sentence therefore have the same sentence index.
 
 The clause representation must retain enough information to support subject detection, internal-state detection, experiencer identification, and narrative-focus analysis.
 
 A clause is an analysis unit; it must not independently produce a POV shift when it occurs within the same sentence as another clause.
+
 
 ### FR-03 — Character Representation
 
@@ -510,6 +517,13 @@ Higher confidence must indicate stronger supporting evidence according to the de
 The confidence value must be reproducible for the same input and configuration.
 
 ---
+## FR-11 — Input Validation
+
+The system must validate the input text before performing any linguistic analysis.
+
+Empty input must not be silently processed. If the input text is empty, the system must raise a ValueError.
+
+This validation must occur before analyze() and any subsequent pipeline stage.
 
 ## 11. Non-Functional Requirements
 
@@ -641,22 +655,3 @@ Focus Change
 POV Shift
 
 ---
-
-## 15. Success Criteria
-
-The implementation will be considered successful if it can:
-
-1. detect clear POV shifts;
-2. reject simple subject changes;
-3. reject simple character changes;
-4. distinguish grammatical person shifts from POV shifts;
-5. correctly resolve and use coreference information when possible;
-6. avoid false shifts caused by pronouns;
-7. avoid false shifts caused by ambiguous coreference;
-8. track narrative focus across multiple sentences;
-9. distinguish focus establishment from focus shift;
-10. avoid reporting a POV shift caused only by clauses within the same sentence;
-11. identify multiple POV shifts in the same text;
-12. explain why each shift was detected;
-13. handle ambiguous coreference without inventing information;
-14. pass the defined unit and integration test cases.
