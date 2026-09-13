@@ -92,6 +92,40 @@ class VerbTenseClassifier:
                 )
             }
 
+        # Present Simple Passive
+        if (
+            features.passive
+            and auxiliaries in (["am"], ["is"], ["are"])
+            and verb_tag == "VBN"
+        ):
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "PRESENT"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "SIMPLE"
+                )
+            }
+
+        # Past Simple Passive
+        if (
+            features.passive
+            and auxiliaries in (["was"], ["were"])
+            and verb_tag == "VBN"
+        ):
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "PAST"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "SIMPLE"
+                )
+            }
+
         # Present Continuous
         if auxiliaries in (["am"], ["is"], ["are"]) and verb_tag == "VBG":
             return {
@@ -118,6 +152,26 @@ class VerbTenseClassifier:
                 )
             }
 
+        # Present Perfect Passive
+        if (
+            features.passive
+            and auxiliaries in (
+                ["has", "been"],
+                ["have", "been"],
+            )
+            and verb_tag == "VBN"
+        ):
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "PRESENT"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "PERFECT"
+                )
+            }
+
         # Present Perfect Continuous
         if (
             auxiliaries in (["has", "been"], ["have", "been"])
@@ -135,6 +189,23 @@ class VerbTenseClassifier:
                 VerbClassification(
                     VerbClassificationType.ASPECT,
                     "CONTINUOUS"
+                )
+            }
+
+        # Past Perfect Passive
+        if (
+            features.passive
+            and auxiliaries == ["had", "been"]
+            and verb_tag == "VBN"
+        ):
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "PAST"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "PERFECT"
                 )
             }
 
@@ -168,6 +239,23 @@ class VerbTenseClassifier:
                 )
             }
 
+        # Future Simple Passive
+        if (
+            features.passive
+            and auxiliaries == ["will", "be"]
+            and verb_tag == "VBN"
+        ):
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "FUTURE"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "SIMPLE"
+                )
+            }
+
         # Future Continuous
         if auxiliaries == ["will", "be"] and verb_tag == "VBG":
             return {
@@ -183,6 +271,23 @@ class VerbTenseClassifier:
 
         # Future Perfect
         if auxiliaries == ["will", "have"] and verb_tag == "VBN":
+            return {
+                VerbClassification(
+                    VerbClassificationType.TENSE,
+                    "FUTURE"
+                ),
+                VerbClassification(
+                    VerbClassificationType.ASPECT,
+                    "PERFECT"
+                )
+            }
+
+        # Future Perfect Passive
+        if (
+            features.passive
+            and auxiliaries == ["will", "have", "been"]
+            and verb_tag == "VBN"
+        ):
             return {
                 VerbClassification(
                     VerbClassificationType.TENSE,
