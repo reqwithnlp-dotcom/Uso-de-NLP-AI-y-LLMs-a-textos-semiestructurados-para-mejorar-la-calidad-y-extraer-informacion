@@ -10,14 +10,10 @@ class AnalysisContext:
 
     sentence: Span
 
-    verb_features: list[VerbFeatures] = field(
-        default_factory=list
-    )
+    verb_features: list[VerbFeatures] = field(default_factory=list)
 
     advberbs: list[Span] = field(default_factory=list)
     
-    issues: list[Issue] = field(
-        default_factory=list
-    )
+    issues: list[Issue] = field(default_factory=list)
 
     
