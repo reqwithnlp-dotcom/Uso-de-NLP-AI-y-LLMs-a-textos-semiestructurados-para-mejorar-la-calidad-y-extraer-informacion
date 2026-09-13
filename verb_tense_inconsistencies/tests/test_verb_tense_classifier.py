@@ -6,7 +6,7 @@ from models.verb_classification import VerbClassification
 from models.verb_classification_type import VerbClassificationType
 
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 
 def get_verb(sentence, text):
