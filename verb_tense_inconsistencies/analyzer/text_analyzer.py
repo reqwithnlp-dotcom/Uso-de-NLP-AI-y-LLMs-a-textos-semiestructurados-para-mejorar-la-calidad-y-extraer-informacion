@@ -48,7 +48,7 @@ class TextAnalyzer:
         self.advanced_rules = [
             SubjectVerbRule(),
             ConnectorMismatchRule(),
-            # TemporalAdverbRule(),
+            TemporalAdverbRule(),
             # TenseMismatchRule()
         ]
 
