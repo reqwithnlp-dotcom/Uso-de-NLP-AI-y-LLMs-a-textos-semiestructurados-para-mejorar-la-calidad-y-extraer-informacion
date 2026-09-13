@@ -1,28 +1,38 @@
-from helpers.temporal_adverbials_helper import TEMPORAL_ADBS, FUTURE_ADBS, PAST_ADBS
 import re
+
+from helpers.temporal_adverbials_helper import (
+    FUTURE_ADBS,
+    PAST_ADBS,
+    TEMPORAL_ADBS,
+    TEMPORAL_COMP_ADVBS,
+)
+
+
 class AdverbExtractor:
 
     @staticmethod
     def extract(context):
+        for token in context.sentence.doc:
+            if token.text.lower() in (
+                TEMPORAL_ADBS + FUTURE_ADBS + PAST_ADBS
+            ):
+                context.advberbs.append(
+                    context.sentence.doc[
+                        token.i - context.sentence.doc.start
+                        : token.i - context.sentence.doc.start + 1
+                    ]
+                )
 
-        pattern = r"\b(?:for duration|at present)\b"
-
-        temporal_expressions = []
-
-        for match in re.finditer(pattern, context.sentence.text, re.IGNORECASE):
-            start_char = match.start()
-            end_char = match.end()
-
-            span = context.sentence.char_span(start_char, end_char)
-
-            if span is not None:
-                temporal_expressions.append(span)
-                
-        for token in context.sentence:
-
-            if  (
-                token.text in TEMPORAL_ADBS or
-                token.text in FUTURE_ADBS or
-                token.text in PAST_ADBS
-                ):
-                context.adverbs.append(context.sentence[token.i : token.i + 1])
+        for expression in TEMPORAL_COMP_ADVBS:
+            pattern = rf"\b{re.escape(expression)}\b"
+            for match in re.finditer(
+                pattern,
+                context.sentence.text,
+                re.IGNORECASE,
+            ):
+                span = context.sentence.doc.char_span(
+                    match.start(),
+                    match.end(),
+                )
+                if span is not None:
+                    context.advberbs.append(span)

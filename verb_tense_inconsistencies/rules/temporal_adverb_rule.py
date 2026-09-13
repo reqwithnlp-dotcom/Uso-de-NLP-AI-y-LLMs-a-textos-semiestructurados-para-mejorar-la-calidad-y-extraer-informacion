@@ -1,102 +1,145 @@
-from analyzer.analysis_context import AnalysisContext
 from models.issue import Issue
-from rules.base_rule import Rule
+from models.verb_classification_type import VerbClassificationType
 from models.error_code import ErrorCode
-from verb_tense_inconsistencies.helpers.temporal_adverbials import VERBS_ALLOW_PCONT
-from spacy.tokens import Token
+from rules.base_rule import Rule
+from helpers.temporal_adverbials_helper import INCOMPATIBLE_TENSES
 
 class TemporalAdverbRule(Rule):
-    """
-    Detects inconsistencies between temporal adverbs and verb tenses.
-
-    Examples:
-        The system validates the request yesterday.
-        The system validated the request tomorrow.
-    """
-
-
-    """
-    CLASS ANALYSIS CONTEXT:
-
-    sentence: Span
-
-    verb_phrases: list[VerbPhrase] = field(default_factory=list)
-
-    issues: list[Issue] = field(default_factory=list)
-    """
-
-    """
-    CLASS ISSUE:
-    Represents a detected verb tense inconsistency.
-        
-    fragment: str
-    position: int
-    explanation: str
-    error_code: str
-    """
-
-    """
-    CLASS VERB_PHRASE:
-
-    token: Token
-
-    auxiliaries: list[str]
-
-    verb_tag: str    
-
-    tense: str | None
-    """
-
 
     ERROR_CODE = ErrorCode.TEMPORAL_ADVERB_MISMATCH
 
-   
 
-    def simpleEvaluation(self, context: AnalysisContext) -> None:
-        
-        for adv in context.advberbs:
-            if adv.text == "yet":
-                self.evaluate_adverb(adv[0],context,["simp_pres","cont_pres","cont_past","cont_fut","cont_perf_fut"],)
-            elif adv.text == "since":
-                self.evaluate_adverb(adv[0],context,["cont_perf_fut","cont_fut","simp_fut"])
-            elif adv.text == "now":
-                self.evaluate_adverb(adv[0],context,["perf-past","cont_perf_past","perf_fut","cont_perf_fut"])
-            elif adv.text == "by":
-                self.evaluate_adverb(adv[0],context,["simp_pres","cont_pres","cont_past","cont_fut","cont_perf_fut"])
-            elif adv[0] == "for": #AJUSTAR EL FOR PORQUE ES CONTEXTUAL
-                self.evaluate_adverb(adv[0],context,[])
-            elif adv.text == "while":
-                self.evaluate_adverb(adv[0],context,[])
-            elif adv.text == "when":
-                self.evaluate_adverb(adv[0],context,[])                                                                                                                
-            elif adv.text == "at present":
-                self.evaluate_adverb(adv[0],context,["cont_perf_fut","perf_fut","cont_fut","simp_fut","cont_perf_past","perf-past","cont_past","simp_past"])
-                                 
+    def evaluate(self, context) -> None:
+        features_by_token = {}
 
-    def evaluate_adverb(adv,context: AnalysisContext, incompatible_tenses: list[str]) -> str:
+        for verbFeature in context.verb_features:
+            features_by_token[verbFeature.token.i] = verbFeature
 
-        errors = []
-        current = adv
-        # 1. Subir por el árbol de dependencias
-        #    hasta encontrar un verbo.
+        for adverb in context.advberbs:
+            verb = self._find_governing_verb(adverb.root)
+
+            if verb is None:
+                continue
+
+            features = features_by_token.get(verb.i)
+
+            if features is None:
+                continue
+
+            adverb_text = adverb.text.lower()
+
+            incompatible_tenses = self.INCOMPATIBLE_TENSES.get(
+                adverb_text
+            )
+
+            if incompatible_tenses is None:
+                continue
+
+            tense_name = self._get_full_tense(features)
+
+            if tense_name is None:
+                continue
+
+            if tense_name in incompatible_tenses:
+                context.issues.append(
+                    Issue(
+                        fragment=f"{verb.text} {adverb.text}",
+                        position=adverb.start_char,
+                        explanation=(
+                            f"Temporal adverb '{adverb.text}' is "
+                            f"incompatible with {tense_name.lower().replace('_', ' ')}."
+                        ),
+                        error_code=self.ERROR_CODE,
+                    )
+                )
+
+    @staticmethod
+    def _find_governing_verb(token):
+        current = token
+
         while current.head != current:
-
             current = current.head
 
-            if current.pos_ == "VERB":
-                break
-            # No encontramos ningún verbo
-            else:
-                errors.append ("ERROR: NO VERB WAS FOUND")
+            if current.pos_ in ("VERB", "AUX"):
+                return current
 
-        # 2. Buscar el VerbPhrase correspondiente
-        #    mediante la posición del token.
-        for verb_phrase in context.verb_phrases:
+        return None
 
-            if verb_phrase.token.i == current.i:
+    @staticmethod
+    def _get_full_tense(features):
 
-                tense = verb_phrase.tense
+        tense = None
+        aspects = set()
 
-                # 3. Comprobar compatibilidad
-                if tense in incompatible_tenses:
-                    errors.append(f"error with {adv.text} and {tense}")
+        for classification in features.classifications:
+
+            if classification.classification_type == VerbClassificationType.TENSE:
+                tense = classification.value
+
+            elif classification.classification_type == VerbClassificationType.ASPECT:
+                aspects.add(classification.value)
+
+        if tense is None:
+            return None
+
+        # =========================================================
+        # SIMPLE
+        # =========================================================
+
+        if aspects == {"SIMPLE"}:
+
+            if tense == "PRESENT":
+                return "PRESENT_SIMPLE"
+
+            if tense == "PAST":
+                return "PAST_SIMPLE"
+
+            if tense == "FUTURE":
+                return "FUTURE_SIMPLE"
+
+        # =========================================================
+        # CONTINUOUS
+        # =========================================================
+
+        if aspects == {"CONTINUOUS"}:
+
+            if tense == "PRESENT":
+                return "PRESENT_CONTINUOUS"
+
+            if tense == "PAST":
+                return "PAST_CONTINUOUS"
+
+            if tense == "FUTURE":
+                return "FUTURE_CONTINUOUS"
+
+        # =========================================================
+        # PERFECT
+        # =========================================================
+
+        if aspects == {"PERFECT"}:
+
+            if tense == "PRESENT":
+                return "PRESENT_PERFECT"
+
+            if tense == "PAST":
+                return "PAST_PERFECT"
+
+            if tense == "FUTURE":
+                return "FUTURE_PERFECT"
+
+        # =========================================================
+        # PERFECT CONTINUOUS
+        # =========================================================
+
+        if aspects == {"PERFECT", "CONTINUOUS"}:
+
+            if tense == "PRESENT":
+                return "PRESENT_PERFECT_CONTINUOUS"
+
+            if tense == "PAST":
+                return "PAST_PERFECT_CONTINUOUS"
+
+            if tense == "FUTURE":
+                return "FUTURE_PERFECT_CONTINUOUS"
+
+        return None
