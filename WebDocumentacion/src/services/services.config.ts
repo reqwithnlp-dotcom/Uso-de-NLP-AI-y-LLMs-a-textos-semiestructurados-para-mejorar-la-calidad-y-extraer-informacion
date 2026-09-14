@@ -78,4 +78,10 @@ export const services: ServiceConfig[] = [
     shortDescription: 'Detecta acciones asociadas con categorías modales diferentes.',
     markdownPath: '/content/deteccion_verbos_modales/README.md',
   },
+  {
+    id: 'deteccion_puntuacion_inusual',
+    name: 'API Detección de Puntuación Inusual',
+    shortDescription: 'Identifica usos potencialmente inusuales de signos de puntuación.',
+    markdownPath: '/content/deteccion_puntuacion_inusual/README.md',
+  },
 ]
