@@ -1,21 +1,21 @@
-# POV Shift Detector
+# Detector de cambio de POV
 
-Quick start for the detector and the local API.
+Inicio rápido para el detector y la API local.
 
-## Run the API
+## Ejecutar la API
 
 ```bash
 cd /home/carlos/Documentos/trabajo/proyectoSpacy/Uso-de-NLP-AI-y-LLMs-a-textos-semiestructurados-para-mejorar-la-calidad-y-extraer-informacion/povshift
 .venv/bin/python main.py
 ```
 
-The service runs at:
+El servicio queda disponible en:
 
 ```text
 http://localhost:8014
 ```
 
-## Test a sentence
+## Probar una frase
 
 ```bash
 curl -X POST http://localhost:8014/detect \
@@ -23,7 +23,7 @@ curl -X POST http://localhost:8014/detect \
   -d '{"texto":"John wondered where Mary was. Mary knew he was waiting."}'
 ```
 
-Example response:
+Ejemplo de respuesta:
 
 ```json
 [
@@ -48,7 +48,7 @@ Example response:
 ]
 ```
 
-## Python usage
+## Uso en Python
 
 ```python
 from povshift.detector import POVShiftDetector
@@ -59,40 +59,40 @@ shifts = detector.detect(text)
 print(shifts)
 ```
 
-## Notes
+## Notas
 
-- The service expects a JSON body with a `texto` field.
-- The detector is conservative: it avoids false positives caused by subject changes, observable actions, or ambiguous pronouns.
-- The project is still an MVP focused on English narrative text and simple, well-formed examples.
+- El servicio espera un cuerpo JSON con el campo `texto`.
+- El detector es conservador: evita falsos positivos causados por cambios de sujeto, acciones observables o pronombres ambiguos.
+- El proyecto sigue siendo un MVP centrado en textos narrativos en inglés y ejemplos simples y bien formados.
 
-Input:
+Entrada:
 
 ```text
 John wondered where Mary was.
 Mary knew he was waiting.
 ```
 
-The system identifies:
+El sistema identifica:
 
 ```text
 John → internal experience
 Mary → internal experience
 ```
 
-Therefore:
+Por lo tanto:
 
 ```text
 Narrative Focus:
 John → Mary
 ```
 
-Result:
+Resultado:
 
 ```text
 POV Shift = True
 ```
 
-Conceptually:
+Conceptualmente:
 
 ```python
 POVShift(
@@ -104,80 +104,81 @@ POVShift(
 
 ---
 
-## What Is Not a POV Shift?
+## ¿Qué no es un cambio de POV?
 
-### Subject change
+### Cambio de sujeto
 
 ```text
 John opened the door.
 Mary entered.
 ```
 
-Result:
+Resultado:
 
 ```text
 POV Shift = False
 ```
 
-Both sentences describe observable actions.
+Ambas oraciones describen acciones observables.
 
-### Coreference
+### Coreferencia
 
 ```text
 John wondered where Mary was.
 He felt nervous.
 ```
 
-After resolution:
+Después de la resolución:
 
 ```text
 He → John
 ```
 
-Focus:
+Enfoque:
 
 ```text
 John → John
 ```
 
-Result:
+Resultado:
 
 ```text
 POV Shift = False
 ```
 
-### Grammatical person change
+### Cambio de persona gramatical
 
 ```text
 I opened the door.
 You closed it.
 ```
 
-The narration shifts from first person to second person here, but grammatical
-person is not, on its own, evidence of a change in narrative focus — and it
-is not a field the detector tracks or outputs (there is no `person` or
-`person_shift` attribute anywhere in the domain model). This example is purely
-descriptive of the *input*, not of anything the system reports.
+La narración pasa de primera persona a segunda persona aquí, pero la persona
+gramatical no es, por sí sola, evidencia de un cambio en el enfoque narrativo;
+tampoco es un campo que el detector siga o devuelva (no existe ningún atributo
+`person` o `person_shift` en el modelo de dominio). Este ejemplo es solo
+descriptivo de la *entrada*, no de algo que el sistema reporte.
 
-Result:
+Resultado:
 
 ```text
 POV Shift = False
 ```
 
-### Clauses within the same sentence
+### Cláusulas dentro de la misma oración
 
 ```text
 John opened the door and Mary felt afraid.
 ```
 
-The sentence contains two clauses, but the POV decision is evaluated across **sentences**, not simply between clauses.
+La oración contiene dos cláusulas, pero la decisión sobre POV se evalúa a nivel de
+**oraciones**, no simplemente entre cláusulas.
 
 ---
 
-## Domain Model
+## Modelo de dominio
 
-The system uses four main domain objects:
+El sistema usa cuatro objetos principales del dominio:
 
 ```text
 Character
@@ -188,7 +189,7 @@ POVShift
 
 ### Character
 
-Represents a narrative entity.
+Representa una entidad narrativa.
 
 ```text
 Character
@@ -199,7 +200,7 @@ Character
 
 ### Clause
 
-Represents analyzed linguistic information.
+Representa información lingüística analizada.
 
 ```text
 Clause
@@ -214,7 +215,7 @@ Clause
 
 ### FocusState
 
-Represents the narrative focus associated with a sentence.
+Representa el enfoque narrativo asociado a una oración.
 
 ```text
 FocusState
@@ -225,7 +226,7 @@ FocusState
 
 ### POVShift
 
-Represents a detected change in narrative focus.
+Representa un cambio detectado en el enfoque narrativo.
 
 ```text
 POVShift
@@ -238,9 +239,9 @@ POVShift
 
 ---
 
-## Internal States
+## Estados internos
 
-Internal-state evidence is classified into three categories:
+La evidencia de estado interno se clasifica en tres categorías:
 
 ```text
 cognition
@@ -248,7 +249,7 @@ emotion
 perception
 ```
 
-Examples:
+Ejemplos:
 
 ```text
 John wondered where Mary was.
@@ -261,49 +262,49 @@ John saw Mary leaving.
 → perception
 ```
 
-Internal-state detection provides evidence for narrative focus, but an internal state alone does not automatically constitute a POV shift.
+La detección de estados internos aporta evidencia sobre el enfoque narrativo, pero un estado interno por sí solo no constituye automáticamente un cambio de POV.
 
 ---
 
-## Coreference
+## Coreferencia
 
-Coreference resolution is used to maintain character identity across different textual mentions.
+La resolución de coreferencia se usa para mantener la identidad del personaje a lo largo de diferentes menciones textuales.
 
-Example:
+Ejemplo:
 
 ```text
 John entered the room.
 He sat down.
 ```
 
-The system resolves:
+El sistema resuelve:
 
 ```text
 He → John
 ```
 
-Ambiguous references are not forced.
+Las referencias ambiguas no se fuerzan.
 
-Example:
+Ejemplo:
 
 ```text
 John met Paul.
 He smiled.
 ```
 
-If the system cannot reliably determine the referent, the reference remains:
+Si el sistema no puede determinar de forma fiable el referente, la referencia permanece:
 
 ```text
 ambiguous / unresolved
 ```
 
-This prevents unsupported POV-shift decisions.
+Esto evita decisiones de cambio de POV sin respaldo.
 
 ---
 
-## Architecture
+## Arquitectura
 
-The project follows a modular architecture:
+El proyecto sigue una arquitectura modular:
 
 ```text
 POVShiftDetector
@@ -313,7 +314,7 @@ Processing Components
 Domain Model
 ```
 
-Recommended components:
+Componentes recomendados:
 
 ```text
 NLPParser
@@ -324,13 +325,13 @@ ShiftDetector
 POVShiftDetector
 ```
 
-Each component has a specific responsibility.
+Cada componente tiene una responsabilidad específica.
 
-The domain model remains independent from spaCy.
+El modelo de dominio sigue siendo independiente de spaCy.
 
 ---
 
-## Project Structure
+## Estructura del proyecto
 
 ```text
 pov-shift-detector/
@@ -372,23 +373,23 @@ pov-shift-detector/
 
 ---
 
-## Testing
+## Pruebas
 
-Testing is divided into two levels:
+Las pruebas se dividen en dos niveles:
 
-### Unit tests
+### Pruebas unitarias
 
-Verify individual processing stages:
+Verifican etapas individuales del procesamiento:
 
-- linguistic analysis;
-- coreference resolution;
-- internal-state detection;
-- focus tracking;
-- shift detection.
+- análisis lingüístico;
+- resolución de coreferencia;
+- detección de estados internos;
+- seguimiento del enfoque narrativo;
+- detección de cambios.
 
-### Integration tests
+### Pruebas de integración
 
-Verify the complete pipeline:
+Verifican la tubería completa:
 
 ```text
 Raw Text
