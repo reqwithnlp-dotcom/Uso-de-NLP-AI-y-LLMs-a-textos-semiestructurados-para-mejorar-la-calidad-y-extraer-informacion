@@ -696,6 +696,22 @@
                         </div>
                         <div class="indicator-item">
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="adv" name="adv">
+                                <i class="bi bi-arrow-repeat indicator-icon"></i>
+                                <label class="form-check-label" for="word-repetition">Adverbios</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="modal" name="modal">
+                                <i class="bi bi-arrow-repeat indicator-icon"></i>
+                                <label class="form-check-label" for="word-repetition">Verbos Modales</label>
+                            </div>
+                        </div>
+
+
+                        <div class="indicator-item">
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="cliches" name="cliches">
                                 <i class="bi bi-chat-quote indicator-icon"></i>
                                 <label class="form-check-label" for="cliches">Clichés</label>
@@ -783,7 +799,7 @@
                     </div>
                 </form>
             </div>
-            <button type="button" class="btn-analyze" onclick="mostrarResultado()">
+            <button type="button" class="btn-analyze" id="btn-analizar">
                 <i class="bi bi-play-fill"></i>
                 Analizar documento
             </button>
