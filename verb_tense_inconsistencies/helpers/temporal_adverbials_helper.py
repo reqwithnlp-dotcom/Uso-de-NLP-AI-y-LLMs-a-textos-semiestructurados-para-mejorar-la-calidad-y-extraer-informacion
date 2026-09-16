@@ -12,7 +12,7 @@ TEMPORAL_COMP_ADVBS = [
     "at present",
 ]
 
-FUTURE_ADBS = [
+FUTURE_ADVERBS = [
     "tomorrow",
     "next",
     "soon",
@@ -30,7 +30,7 @@ FUTURE_ADBS = [
     "coming",
 ]
 
-PAST_ADBS = [
+PAST_ADVERBS = [
     "yesterday",
     "last",
     "ago",
@@ -49,56 +49,39 @@ PAST_ADBS = [
     "prior"
 ]
 
+PAST_INCOMPATIBLE_TENSES = {
+    "PRESENT_SIMPLE",
+    "PRESENT_CONTINUOUS",
+    "PRESENT_PERFECT",
+    "PRESENT_PERFECT_CONTINUOUS",
+    "FUTURE_SIMPLE",
+    "FUTURE_CONTINUOUS",
+    "FUTURE_PERFECT",
+    "FUTURE_PERFECT_CONTINUOUS",
+}
+FUTURE_INCOMPATIBLE_TENSES = {
+    "PAST_SIMPLE",
+    "PAST_CONTINUOUS",
+    "PAST_PERFECT",
+    "PAST_PERFECT_CONTINUOUS",
+}
+
+
+# 1. Agregamos todos los adverbios de pasado
 INCOMPATIBLE_TENSES = {
+    adverb: PAST_INCOMPATIBLE_TENSES
+    for adverb in PAST_ADVERBS
+}
 
-        # =========================================================
-        # PASADO TERMINADO
-        # yesterday, last week, last year, ago, etc.
-        # =========================================================
 
-        "yesterday": {
-            "PRESENT_SIMPLE",
-            "PRESENT_CONTINUOUS",
-            "PRESENT_PERFECT",
-            "PRESENT_PERFECT_CONTINUOUS",
-            "FUTURE_SIMPLE",
-            "FUTURE_CONTINUOUS",
-            "FUTURE_PERFECT",
-            "FUTURE_PERFECT_CONTINUOUS",
-        },
+# 2. Agregamos todos los adverbios de futuro
+INCOMPATIBLE_TENSES.update({
+    adverb: FUTURE_INCOMPATIBLE_TENSES
+    for adverb in FUTURE_ADVERBS
+})
 
-        "last": {
-            "PRESENT_SIMPLE",
-            "PRESENT_CONTINUOUS",
-            "PRESENT_PERFECT",
-            "PRESENT_PERFECT_CONTINUOUS",
-            "FUTURE_SIMPLE",
-            "FUTURE_CONTINUOUS",
-            "FUTURE_PERFECT",
-            "FUTURE_PERFECT_CONTINUOUS",
-        },
 
-        "ago": {
-            "PRESENT_SIMPLE",
-            "PRESENT_CONTINUOUS",
-            "PRESENT_PERFECT",
-            "PRESENT_PERFECT_CONTINUOUS",
-            "FUTURE_SIMPLE",
-            "FUTURE_CONTINUOUS",
-            "FUTURE_PERFECT",
-            "FUTURE_PERFECT_CONTINUOUS",
-        },
-
-        "previously": {
-            "PRESENT_SIMPLE",
-            "PRESENT_CONTINUOUS",
-            "PRESENT_PERFECT",
-            "PRESENT_PERFECT_CONTINUOUS",
-            "FUTURE_SIMPLE",
-            "FUTURE_CONTINUOUS",
-            "FUTURE_PERFECT",
-            "FUTURE_PERFECT_CONTINUOUS",
-        },
+INCOMPATIBLE_TENSES.update({
 
         # =========================================================
         # PRESENTE / MOMENTO ACTUAL
@@ -219,4 +202,4 @@ INCOMPATIBLE_TENSES = {
             "PAST_PERFECT",
             "PAST_PERFECT_CONTINUOUS",
         },
-    }
+})

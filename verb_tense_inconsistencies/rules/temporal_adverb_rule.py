@@ -17,7 +17,6 @@ class TemporalAdverbRule(Rule):
 
         for adverb in context.advberbs:
             verb = self._find_governing_verb(adverb.root)
-
             if verb is None:
                 continue
 
@@ -28,7 +27,7 @@ class TemporalAdverbRule(Rule):
 
             adverb_text = adverb.text.lower()
 
-            incompatible_tenses = self.INCOMPATIBLE_TENSES.get(
+            incompatible_tenses = INCOMPATIBLE_TENSES.get(
                 adverb_text
             )
 
