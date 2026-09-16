@@ -1,8 +1,8 @@
 import re
 
 from helpers.temporal_adverbials_helper import (
-    FUTURE_ADBS,
-    PAST_ADBS,
+    PAST_ADVERBS,
+    FUTURE_ADVERBS,
     TEMPORAL_ADBS,
     TEMPORAL_COMP_ADVBS,
 )
@@ -14,7 +14,7 @@ class AdverbExtractor:
     def extract(context):
         for token in context.sentence.doc:
             if token.text.lower() in (
-                TEMPORAL_ADBS + FUTURE_ADBS + PAST_ADBS
+                TEMPORAL_ADBS + FUTURE_ADVERBS + PAST_ADVERBS
             ):
                 context.advberbs.append(
                     context.sentence.doc[
