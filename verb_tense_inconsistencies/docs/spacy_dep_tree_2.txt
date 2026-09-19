@@ -1,0 +1,358 @@
+
+====================================================================================================
+The system is reliable.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=is
+ 2 is              POS=AUX   TAG=VBZ   DEP=ROOT         HEAD=is
+ 3 reliable        POS=ADJ   TAG=JJ    DEP=acomp        HEAD=is
+ 4 .               POS=PUNCT TAG=.     DEP=punct        HEAD=is
+
+VERB SUBTREES:
+
+====================================================================================================
+The system has a problem.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=has
+ 2 has             POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=has
+ 3 a               POS=DET   TAG=DT    DEP=det          HEAD=problem
+ 4 problem         POS=NOUN  TAG=NN    DEP=dobj         HEAD=has
+ 5 .               POS=PUNCT TAG=.     DEP=punct        HEAD=has
+
+VERB SUBTREES:
+
+Main verb candidate: 'has'
+- 'has' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'problem' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'a' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system should validate the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validate
+ 2 should          POS=AUX   TAG=MD    DEP=aux          HEAD=validate
+ 3 validate        POS=VERB  TAG=VB    DEP=ROOT         HEAD=validate
+ 4 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 5 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validate
+ 6 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validate
+
+VERB SUBTREES:
+
+Main verb candidate: 'validate'
+- 'validate' [POS=VERB, TAG=VB, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'should' [POS=AUX, TAG=MD, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system should have validated the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validated
+ 2 should          POS=AUX   TAG=MD    DEP=aux          HEAD=validated
+ 3 have            POS=AUX   TAG=VB    DEP=aux          HEAD=validated
+ 4 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validated
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'should' [POS=AUX, TAG=MD, DEP=aux]
+  - 'have' [POS=AUX, TAG=VB, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system should be validating the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validating
+ 2 should          POS=AUX   TAG=MD    DEP=aux          HEAD=validating
+ 3 be              POS=AUX   TAG=VB    DEP=aux          HEAD=validating
+ 4 validating      POS=VERB  TAG=VBG   DEP=ROOT         HEAD=validating
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validating
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validating
+
+VERB SUBTREES:
+
+Main verb candidate: 'validating'
+- 'validating' [POS=VERB, TAG=VBG, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'should' [POS=AUX, TAG=MD, DEP=aux]
+  - 'be' [POS=AUX, TAG=VB, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system has to validate the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=has
+ 2 has             POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=has
+ 3 to              POS=PART  TAG=TO    DEP=aux          HEAD=validate
+ 4 validate        POS=VERB  TAG=VB    DEP=xcomp        HEAD=has
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validate
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=has
+
+VERB SUBTREES:
+
+Main verb candidate: 'has'
+- 'has' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+    - 'to' [POS=PART, TAG=TO, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+Main verb candidate: 'validate'
+- 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+  - 'to' [POS=PART, TAG=TO, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+====================================================================================================
+The system does not have to validate the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=have
+ 2 does            POS=AUX   TAG=VBZ   DEP=aux          HEAD=have
+ 3 not             POS=PART  TAG=RB    DEP=neg          HEAD=have
+ 4 have            POS=VERB  TAG=VB    DEP=ROOT         HEAD=have
+ 5 to              POS=PART  TAG=TO    DEP=aux          HEAD=validate
+ 6 validate        POS=VERB  TAG=VB    DEP=xcomp        HEAD=have
+ 7 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 8 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validate
+ 9 .               POS=PUNCT TAG=.     DEP=punct        HEAD=have
+
+VERB SUBTREES:
+
+Main verb candidate: 'have'
+- 'have' [POS=VERB, TAG=VB, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'does' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'not' [POS=PART, TAG=RB, DEP=neg]
+  - 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+    - 'to' [POS=PART, TAG=TO, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+Main verb candidate: 'validate'
+- 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+  - 'to' [POS=PART, TAG=TO, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+====================================================================================================
+The request has been validated by the system.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 1 request         POS=NOUN  TAG=NN    DEP=nsubjpass    HEAD=validated
+ 2 has             POS=AUX   TAG=VBZ   DEP=aux          HEAD=validated
+ 3 been            POS=AUX   TAG=VBN   DEP=auxpass      HEAD=validated
+ 4 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+ 5 by              POS=ADP   TAG=IN    DEP=agent        HEAD=validated
+ 6 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 7 system          POS=NOUN  TAG=NN    DEP=pobj         HEAD=by
+ 8 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'request' [POS=NOUN, TAG=NN, DEP=nsubjpass]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'has' [POS=AUX, TAG=VBZ, DEP=aux]
+  - 'been' [POS=AUX, TAG=VBN, DEP=auxpass]
+  - 'by' [POS=ADP, TAG=IN, DEP=agent]
+    - 'system' [POS=NOUN, TAG=NN, DEP=pobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The request will be validated by the system.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 1 request         POS=NOUN  TAG=NN    DEP=nsubjpass    HEAD=validated
+ 2 will            POS=AUX   TAG=MD    DEP=aux          HEAD=validated
+ 3 be              POS=AUX   TAG=VB    DEP=auxpass      HEAD=validated
+ 4 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+ 5 by              POS=ADP   TAG=IN    DEP=agent        HEAD=validated
+ 6 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 7 system          POS=NOUN  TAG=NN    DEP=pobj         HEAD=by
+ 8 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'request' [POS=NOUN, TAG=NN, DEP=nsubjpass]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'will' [POS=AUX, TAG=MD, DEP=aux]
+  - 'be' [POS=AUX, TAG=VB, DEP=auxpass]
+  - 'by' [POS=ADP, TAG=IN, DEP=agent]
+    - 'system' [POS=NOUN, TAG=NN, DEP=pobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The system needs to validate the request.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 1 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=needs
+ 2 needs           POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=needs
+ 3 to              POS=PART  TAG=TO    DEP=aux          HEAD=validate
+ 4 validate        POS=VERB  TAG=VB    DEP=xcomp        HEAD=needs
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=validate
+ 7 .               POS=PUNCT TAG=.     DEP=punct        HEAD=needs
+
+VERB SUBTREES:
+
+Main verb candidate: 'needs'
+- 'needs' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+    - 'to' [POS=PART, TAG=TO, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+Main verb candidate: 'validate'
+- 'validate' [POS=VERB, TAG=VB, DEP=xcomp]
+  - 'to' [POS=PART, TAG=TO, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+====================================================================================================
+The user needs to submit the request and the system validates it.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=user
+ 1 user            POS=NOUN  TAG=NN    DEP=nsubj        HEAD=needs
+ 2 needs           POS=VERB  TAG=VBZ   DEP=ROOT         HEAD=needs
+ 3 to              POS=PART  TAG=TO    DEP=aux          HEAD=submit
+ 4 submit          POS=VERB  TAG=VB    DEP=xcomp        HEAD=needs
+ 5 the             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 6 request         POS=NOUN  TAG=NN    DEP=dobj         HEAD=submit
+ 7 and             POS=CCONJ TAG=CC    DEP=cc           HEAD=needs
+ 8 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 9 system          POS=NOUN  TAG=NN    DEP=nsubj        HEAD=validates
+10 validates       POS=VERB  TAG=VBZ   DEP=conj         HEAD=needs
+11 it              POS=PRON  TAG=PRP   DEP=dobj         HEAD=validates
+12 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validates
+
+VERB SUBTREES:
+
+Main verb candidate: 'needs'
+- 'needs' [POS=VERB, TAG=VBZ, DEP=ROOT]
+  - 'user' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'submit' [POS=VERB, TAG=VB, DEP=xcomp]
+    - 'to' [POS=PART, TAG=TO, DEP=aux]
+    - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'and' [POS=CCONJ, TAG=CC, DEP=cc]
+  - 'validates' [POS=VERB, TAG=VBZ, DEP=conj]
+    - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+    - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+    - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+Main verb candidate: 'submit'
+- 'submit' [POS=VERB, TAG=VB, DEP=xcomp]
+  - 'to' [POS=PART, TAG=TO, DEP=aux]
+  - 'request' [POS=NOUN, TAG=NN, DEP=dobj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+
+Main verb candidate: 'validates'
+- 'validates' [POS=VERB, TAG=VBZ, DEP=conj]
+  - 'system' [POS=NOUN, TAG=NN, DEP=nsubj]
+    - 'the' [POS=DET, TAG=DT, DEP=det]
+  - 'it' [POS=PRON, TAG=PRP, DEP=dobj]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]
+
+====================================================================================================
+The request should have been validated by the system.
+====================================================================================================
+
+TOKENS:
+------------------------------------------------------------------------------------------
+ 0 The             POS=DET   TAG=DT    DEP=det          HEAD=request
+ 1 request         POS=NOUN  TAG=NN    DEP=nsubjpass    HEAD=validated
+ 2 should          POS=AUX   TAG=MD    DEP=aux          HEAD=validated
+ 3 have            POS=AUX   TAG=VB    DEP=aux          HEAD=validated
+ 4 been            POS=AUX   TAG=VBN   DEP=auxpass      HEAD=validated
+ 5 validated       POS=VERB  TAG=VBN   DEP=ROOT         HEAD=validated
+ 6 by              POS=ADP   TAG=IN    DEP=agent        HEAD=validated
+ 7 the             POS=DET   TAG=DT    DEP=det          HEAD=system
+ 8 system          POS=NOUN  TAG=NN    DEP=pobj         HEAD=by
+ 9 .               POS=PUNCT TAG=.     DEP=punct        HEAD=validated
+
+VERB SUBTREES:
+
+Main verb candidate: 'validated'
+- 'validated' [POS=VERB, TAG=VBN, DEP=ROOT]
+  - 'request' [POS=NOUN, TAG=NN, DEP=nsubjpass]
+    - 'The' [POS=DET, TAG=DT, DEP=det]
+  - 'should' [POS=AUX, TAG=MD, DEP=aux]
+  - 'have' [POS=AUX, TAG=VB, DEP=aux]
+  - 'been' [POS=AUX, TAG=VBN, DEP=auxpass]
+  - 'by' [POS=ADP, TAG=IN, DEP=agent]
+    - 'system' [POS=NOUN, TAG=NN, DEP=pobj]
+      - 'the' [POS=DET, TAG=DT, DEP=det]
+  - '.' [POS=PUNCT, TAG=., DEP=punct]

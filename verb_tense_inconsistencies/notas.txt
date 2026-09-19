@@ -1,0 +1,1 @@
+Un detalle que te va a ahorrar dolores de cabeza más adelante: yo haría que TextAnalyzer siempre trabaje con el Doc de spaCy y no vuelva a parsear cada oración. Cuando lleguemos a la detección de tiempos verbales, podremos extraer los Span de doc.sents y reutilizar el análisis sintáctico ya calculado. Eso evita hacer dos o tres parseos completos del mismo texto.
