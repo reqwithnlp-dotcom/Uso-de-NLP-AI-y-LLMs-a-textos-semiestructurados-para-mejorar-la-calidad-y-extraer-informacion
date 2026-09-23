@@ -185,6 +185,26 @@ $Services = @(
         Port           = 8013
         Url            = "http://127.0.0.1:8013"
         DocsUrl        = "http://127.0.0.1:8013/docs"
+    },
+    [PSCustomObject]@{
+        Id             = "povshift"
+        Name           = "Cambio de Punto de Vista (POV Shift)"
+        Directory      = "povshift"
+        Type           = "uvicorn"
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8014")
+        Port           = 8014
+        Url            = "http://127.0.0.1:8014"
+        DocsUrl        = "http://127.0.0.1:8014/docs"
+    },
+    [PSCustomObject]@{
+        Id             = "verb_tense_inconsistencies"
+        Name           = "Inconsistencias en Tiempos Verbales"
+        Directory      = "verb_tense_inconsistencies"
+        Type           = "uvicorn"
+        CommandArgs    = @("-m", "uvicorn", "api:app", "--host", "127.0.0.1", "--port", "8015")
+        Port           = 8015
+        Url            = "http://127.0.0.1:8015"
+        DocsUrl        = "http://127.0.0.1:8015/docs"
     }
 )
 
@@ -289,11 +309,33 @@ function Show-StatusTable {
     Write-Host "                           ESTADO DE LOS SERVICIOS                                         " -ForegroundColor Cyan
     Write-Host "==========================================================================================" -ForegroundColor Cyan
 
+    $savedState = @{}
+    if (Test-Path $StateFile) {
+        try {
+            $json = Get-Content $StateFile -Raw | ConvertFrom-Json
+            foreach ($item in $json) { $savedState[$item.Id] = $item.PID }
+        } catch { }
+    }
+
     $rows = @()
     foreach ($svc in $Services) {
         $pidOnPort = Get-PortProcessId -Port $svc.Port
-        $status = if ($pidOnPort) { "ACTIVO" } else { "DETENIDO" }
-        $pidText = if ($pidOnPort) { $pidOnPort } else { "-" }
+        $procPid = $savedState[$svc.Id]
+        $isProcAlive = $false
+        if ($procPid) {
+            $p = Get-Process -Id $procPid -ErrorAction SilentlyContinue
+            if ($p -and -not $p.HasExited) { $isProcAlive = $true }
+        }
+
+        $status = if ($pidOnPort) { 
+            "ACTIVO" 
+        } elseif ($isProcAlive) { 
+            "INICIANDO..." 
+        } else { 
+            "DETENIDO" 
+        }
+
+        $pidText = if ($pidOnPort) { $pidOnPort } elseif ($procPid -and $isProcAlive) { "$procPid" } else { "-" }
 
         $rows += [PSCustomObject]@{
             "Servicio"            = $svc.Name
@@ -348,9 +390,9 @@ if ($checkFastAPI -ne "OK") {
 }
 
 # Verificar si los modelos de spaCy estan descargados
-$checkSpacyModels = & $pythonExe -c "import importlib.util; sm = bool(importlib.util.find_spec('en_core_web_sm')); trf = bool(importlib.util.find_spec('en_core_web_trf')); print(f'{sm},{trf}')" 2>$null
+$checkSpacyModels = & $pythonExe -c "import importlib.util; sm = bool(importlib.util.find_spec('en_core_web_sm')); trf = bool(importlib.util.find_spec('en_core_web_trf')); md = bool(importlib.util.find_spec('en_core_web_md')); print(f'{sm},{trf},{md}')" 2>$null
 if ($checkSpacyModels) {
-    $smInstalled, $trfInstalled = $checkSpacyModels.Trim().Split(',')
+    $smInstalled, $trfInstalled, $mdInstalled = $checkSpacyModels.Trim().Split(',')
     if ($smInstalled -ne "True") {
         Write-Host "[!] ADVERTENCIA: Falta descargar el modelo spaCy 'en_core_web_sm'." -ForegroundColor Yellow
         Write-Host "    Ejecuta: & '$pythonExe' -m spacy download en_core_web_sm`n" -ForegroundColor White
@@ -358,6 +400,10 @@ if ($checkSpacyModels) {
     if ($trfInstalled -ne "True") {
         Write-Host "[!] ADVERTENCIA: Falta descargar el modelo spaCy 'en_core_web_trf'." -ForegroundColor Yellow
         Write-Host "    Ejecuta: & '$pythonExe' -m spacy download en_core_web_trf`n" -ForegroundColor White
+    }
+    if ($mdInstalled -ne "True") {
+        Write-Host "[!] ADVERTENCIA: Falta descargar el modelo spaCy 'en_core_web_md'." -ForegroundColor Yellow
+        Write-Host "    Ejecuta: & '$pythonExe' -m spacy download en_core_web_md`n" -ForegroundColor White
     }
 }
 
@@ -438,12 +484,24 @@ foreach ($svc in $Services) {
     }
 }
 
-# Guardar estado para poder detenerlos posteriormente
-$launchedState | ConvertTo-Json | Set-Content -Path $StateFile -Force
+# Guardar estado para poder monitorear y detenerlos posteriormente
+if ($launchedState.Count -gt 0) {
+    $launchedState | ConvertTo-Json | Set-Content -Path $StateFile -Force
+}
 
-# Pausa para permitir que los servicios inicialicen sus modelos y abran sus sockets
+# Pausa con espera activa para permitir que los servicios inicialicen sus modelos y abran sus sockets
 Write-Host "Esperando a que los servicios completen su inicio (cargando modelos NLP)..." -ForegroundColor Gray
-Start-Sleep -Seconds 6
+$maxWait = 25
+$sw = [System.Diagnostics.Stopwatch]::StartNew()
+while ($sw.Elapsed.TotalSeconds -lt $maxWait) {
+    $active = 0
+    foreach ($svc in $Services) {
+        if ($svc.Type -eq "npm") { continue }
+        if (Get-PortProcessId -Port $svc.Port) { $active++ }
+    }
+    if ($active -ge ($Services | Where-Object { $_.Type -ne "npm" }).Count) { break }
+    Start-Sleep -Seconds 2
+}
 
 # =============================================================================
 # MOSTRAR TABLA FINAL CON SERVICIOS Y PUERTOS

@@ -24,7 +24,9 @@ Para permitir la ejecución simultánea en desarrollo local sin conflictos ni co
 | 12 | **Voz Pasiva** | `voz_pasiva` | **`8011`** | [http://127.0.0.1:8011/docs](http://127.0.0.1:8011/docs) | Detecta oraciones en voz pasiva y sus posiciones. |
 | 13 | **Verbos Débiles (Weak Verbs)** | `weak_verbs` | **`8012`** | [http://127.0.0.1:8012/docs](http://127.0.0.1:8012/docs) | Detecta verbos débiles (make, do, have, get, etc.). |
 | 14 | **Palabras Abstractas** | `abstract_words` | **`8013`** | [http://127.0.0.1:8013/docs](http://127.0.0.1:8013/docs) | Estima el grado de abstracción léxica con modelos entrenados. |
-| 15 | *(Opcional)* **Web Documentación** | `WebDocumentacion` | **`5173`** | [http://localhost:5173](http://localhost:5173) | Portal interactivo en React + Vite con la documentación del proyecto. |
+| 15 | **Cambio de Punto de Vista (POV Shift)** | `povshift` | **`8014`** | [http://127.0.0.1:8014/docs](http://127.0.0.1:8014/docs) | Detecta cambios de perspectiva narrativa o punto de vista en el texto. |
+| 16 | **Inconsistencias en Tiempos Verbales** | `verb_tense_inconsistencies` | **`8015`** | [http://127.0.0.1:8015/docs](http://127.0.0.1:8015/docs) | Detecta discordancias y saltos temporales inconsistentes entre verbos. |
+| 17 | *(Opcional)* **Web Documentación** | `WebDocumentacion` | **`5173`** | [http://localhost:5173](http://localhost:5173) | Portal interactivo en React + Vite con la documentación del proyecto. |
 
 ---
 
@@ -79,13 +81,16 @@ python -m spacy download en_core_web_sm
 
 # Modelo Transformer basado en RoBERTa (requerido por doble negación y adverbios)
 python -m spacy download en_core_web_trf
+
+# Modelo mediano (requerido por inconsistencias de tiempos verbales)
+python -m spacy download en_core_web_md
 ```
 
 ---
 
 ## 🚀 Orquestador de Servicios (PowerShell)
 
-Para evitar tener que abrir 14 consolas individuales y recordar los puertos de cada servicio, dispones de scripts automatizados:
+Para evitar tener que abrir consolas individuales y recordar los puertos de cada servicio, dispones de scripts automatizados:
 
 - `start_services.ps1`
 - `iniciar_servicios.ps1` (alias en español)
@@ -204,8 +209,10 @@ Durante la consolidación de dependencias de todos los servicios se identificaro
 ├── detector_doble_negacion/       # Microservicio de detección de doble negación
 ├── metricas-de-legibilidad/       # Microservicio de cálculo de legibilidad (Gunning Fog)
 ├── oraciones-impersonales/        # Microservicio clasificador de oraciones impersonales
+├── povshift/                      # Microservicio detector de cambios de punto de vista (POV Shift)
 ├── servicio-deteccion-cliches/    # Microservicio detector de clichés (spaCy + SBERT)
 ├── servicio-repeticion-palabras/  # Microservicio detector de palabras repetidas
+├── verb_tense_inconsistencies/    # Microservicio detector de inconsistencias temporales en verbos
 ├── verbos_percepcion_opinion/     # Microservicio de verbos de percepción y opinión
 ├── voz_pasiva/                    # Microservicio detector de construcciones en voz pasiva
 ├── weak_verbs/                    # Microservicio detector de verbos débiles

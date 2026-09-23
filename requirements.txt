@@ -30,6 +30,8 @@ pydantic>=2.6.1,<3.0.0
 spacy>=3.8.14,<4.0.0
 spacy-transformers>=1.4.0
 sentence-transformers>=2.2.0
+contractions>=0.1.73
+lemminflect>=0.2.3
 
 # --- Métricas y Análisis de Textos ---
 # Usado por: metricas-de-legibilidad
@@ -75,4 +77,5 @@ flake8>=7.0.0
 # Para instalar los modelos necesarios por los diferentes servicios, ejecutar:
 #   python -m spacy download en_core_web_sm
 #   python -m spacy download en_core_web_trf
+#   python -m spacy download en_core_web_md
 # =============================================================================

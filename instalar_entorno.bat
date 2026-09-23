@@ -10,8 +10,9 @@ echo        INICIANDO INSTALACION DEL ENTORNO (PROYECTO NLP & LLMs)
 echo ==============================================================================
 echo.
 
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0instalar_entorno.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0instalar_entorno.ps1" %*
 
 echo.
 echo Presione cualquier tecla para salir...
 pause >nul
+

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from povshift.detector import POVShiftDetector
@@ -13,6 +14,14 @@ class TextRequest(BaseModel):
 
 
 app = FastAPI(title="POV Shift Detector API", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 detector = POVShiftDetector()
 
 

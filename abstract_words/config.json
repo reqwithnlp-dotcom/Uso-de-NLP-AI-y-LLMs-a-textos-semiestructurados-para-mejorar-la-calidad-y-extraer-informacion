@@ -1,4 +1,4 @@
 {
-  "embedding": "fasttext",
-  "model": "xgboost"
+  "embedding": "spacy",
+  "model": "rf"
 }

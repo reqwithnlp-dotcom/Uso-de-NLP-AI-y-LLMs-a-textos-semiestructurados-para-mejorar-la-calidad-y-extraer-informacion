@@ -1,10 +1,18 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from model.detector import detectar_puntuacion_inusual
 from service.schemas import DetectRequest, DetectResponse
 
 
 app = FastAPI(title="Unusual English Punctuation Detector", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/detect", response_model=DetectResponse)
