@@ -41,11 +41,31 @@ La api buscará los **componentes característicos de la métrica de legibilidad
 
 ## Ejemplos Visuales
 
+### Análisis de Complejidad Sintáctica y Puntuación en Legibilidad
+
 ```json
 {
-  "texto": "The text to analyze.",
+  "texto": "Although the method was complex, the team implemented it successfully.",
   "penalizacion": "medium"
 }
 ```
 
-La respuesta contiene campos como `score`, `gunning_fog`, `comma_penalty`, `comma_ratio`, `words_per_sentence` y `alpha`.
+![Diagrama sintáctico de métricas de legibilidad](diagrama_legibilidad.svg)
+
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`Although` (`SCONJ`, `mark`)**: Marcador de subordinación que introduce la cláusula adverbial subordinada (**`advcl`**). Las oraciones complejas con múltiples cláusulas aumentan la métrica sintáctica y el promedio de palabras por oración (`words_per_sentence`).
+- **Coma `,` (`PUNCT`, `punct`)**: Delimita la cláusula subordinada frente a la principal. El detector extrae el recuento de comas respecto al total de palabras para calcular `comma_ratio` y aplicar la penalización ajustada (`comma_penalty = alpha * comma_ratio * 100`).
+- **`implemented` (`VERB`, `ROOT`)**: Verbo polisilábico principal, factor que influye directamente en el cálculo del índice Gunning Fog tradicional.
+- **`successfully` (`ADV`, `advmod`)**: Modificador adverbial polisilábico.
+
+Respuesta generada por la API:
+```json
+{
+  "score": 11.45,
+  "gunning_fog": 9.85,
+  "comma_penalty": 1.60,
+  "comma_ratio": 0.10,
+  "words_per_sentence": 10.0,
+  "alpha": 16.0
+}
+```

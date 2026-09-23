@@ -1,0 +1,123 @@
+<svg viewBox="0 0 1000 327.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" id="cabcff43181e469a9fa063fd669fa5e0-0" class="displacy" width="1000" height="327.0" direction="ltr" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="50">She</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="50">PRON</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="145">quickly</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="145">ADV</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="240">finished</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="240">VERB</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="335">the</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="335">DET</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="430">task</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="430">NOUN</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="525">and</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="525">CCONJ</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="620">worked</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="620">VERB</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="715">extremely</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="715">ADV</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="810">well</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="810">ADV</tspan>
+</text>
+
+<text class="displacy-token" fill="currentColor" text-anchor="middle" y="237.0">
+    <tspan class="displacy-word" fill="currentColor" x="905">here.</tspan>
+    <tspan class="displacy-tag" dy="2em" fill="currentColor" x="905">ADV</tspan>
+</text>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-0" stroke-width="2px" d="M70,192.0 C70,97.0 230.0,97.0 230.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-0" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">nsubj</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M70,194.0 L62,182.0 78,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-1" stroke-width="2px" d="M165,192.0 C165,144.5 225.0,144.5 225.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-1" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M165,194.0 L157,182.0 173,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-2" stroke-width="2px" d="M355,192.0 C355,144.5 415.0,144.5 415.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-2" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">det</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M355,194.0 L347,182.0 363,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-3" stroke-width="2px" d="M260,192.0 C260,97.0 420.0,97.0 420.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-3" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">dobj</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M420.0,194.0 L428.0,182.0 412.0,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-4" stroke-width="2px" d="M260,192.0 C260,49.5 520.0,49.5 520.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-4" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">cc</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M520.0,194.0 L528.0,182.0 512.0,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-5" stroke-width="2px" d="M260,192.0 C260,2.0 620.0,2.0 620.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-5" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">conj</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M620.0,194.0 L628.0,182.0 612.0,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-6" stroke-width="2px" d="M735,192.0 C735,144.5 795.0,144.5 795.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-6" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M735,194.0 L727,182.0 743,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-7" stroke-width="2px" d="M640,192.0 C640,97.0 800.0,97.0 800.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-7" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M800.0,194.0 L808.0,182.0 792.0,182.0" fill="currentColor"/>
+</g>
+
+<g class="displacy-arrow">
+    <path class="displacy-arc" id="arrow-cabcff43181e469a9fa063fd669fa5e0-0-8" stroke-width="2px" d="M640,192.0 C640,49.5 900.0,49.5 900.0,192.0" fill="none" stroke="currentColor"/>
+    <text dy="1.25em" style="color: #17201d; background: #ffffff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; direction: ltr;">
+        <textPath xlink:href="#arrow-cabcff43181e469a9fa063fd669fa5e0-0-8" class="displacy-label" startOffset="50%" side="left" fill="currentColor" text-anchor="middle">advmod</textPath>
+    </text>
+    <path class="displacy-arrowhead" d="M900.0,194.0 L908.0,182.0 892.0,182.0" fill="currentColor"/>
+</g>
+</svg>

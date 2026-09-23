@@ -38,21 +38,46 @@ La api buscará los **componentes característicos de los conectores lógicos:**
 
 ## Ejemplos Visuales
 
+### Ejemplo 1: Conector Adverbial Conclusivo (`"therefore"`)
+
 ```json
 {
-  "text": "Dog and cat or rabbit"
+  "text": "It rained heavily; therefore, we stayed home."
 }
 ```
 
-La respuesta contiene:
+![Diagrama sintáctico de conector conclusivo](diagrama_conectores_1.svg)
 
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`therefore` (`ADV`, `advmod`)**: Funciona como un modificador adverbial que conecta la causa previa (*it rained*) con la cláusula principal subsiguiente (*we stayed home*).
+- El servicio clasifica `therefore` dentro de la categoría semántica **`conclusion`**.
+- La respuesta identifica `therefore` como conector y separa las palabras de contenido (`rained`, `heavily`, `stayed`, `home`).
+
+---
+
+### Ejemplo 2: Conectores Coordinantes de Adición y Contraste (`"and"`, `"but"`)
+
+```json
+{
+  "text": "The system is fast and reliable, but it requires memory."
+}
+```
+
+![Diagrama sintáctico de conectores coordinantes](diagrama_conectores_2.svg)
+
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`and` (`CCONJ`, `cc`)**: Conjunción coordinante que une dos atributos adjetivales (`fast` y `reliable`). Clasificada por el servicio como **`addition`**.
+- **`but` (`CCONJ`, `cc`)**: Conjunción adversativa que enlaza dos proposiciones contrapuestas. Clasificada por el servicio como **`contrast`**.
+- El diagrama de dependencias ilustra cómo las flechas sintácticas parten de los predicados coordinados hacia sus conjunciones.
+
+Respuesta generada por la API:
 ```json
 {
   "connectors_found": [
     {"word": "and", "type": "addition"},
-    {"word": "or", "type": "disjunction"}
+    {"word": "but", "type": "contrast"}
   ],
-  "normal_words": ["dog", "cat", "rabbit"],
+  "normal_words": ["system", "fast", "reliable", "requires", "memory"],
   "total": 2
 }
 ```

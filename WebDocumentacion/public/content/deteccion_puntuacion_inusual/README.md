@@ -42,7 +42,7 @@ La api revisa los **casos más comunes de puntuación inusual**:
 
 ## Ejemplos Visuales
 
-### Texto normal
+### Caso 1: Texto con Puntuación Normal y Válida
 
 ```json
 {
@@ -50,8 +50,14 @@ La api revisa los **casos más comunes de puntuación inusual**:
 }
 ```
 
-La respuesta es:
+![Diagrama sintáctico de puntuación estándar](diagrama_puntuacion.svg)
 
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **Signo de exclamación `!` (`PUNCT`, `punct`)**: Se adjunta sintácticamente como delimitador de la interjección `Hi` (`INTJ`).
+- **Punto final `.` (`PUNCT`, `punct`)**: Delimita la cláusula verbal principal presidida por `meet` (`VERB`).
+- **Comportamiento esperado:** En una oración bien formada, cada signo de puntuación tiene asignada la dependencia **`punct`** hacia su núcleo léxico correspondiente, sin acumulación de signos adyacentes contradictorios ni delimitadores huérfanos.
+
+Respuesta devuelta por la API:
 ```json
 {
   "unusual_punctuation": false,
@@ -59,7 +65,9 @@ La respuesta es:
 }
 ```
 
-### Texto con puntuación inusual
+---
+
+### Caso 2: Texto con Puntuación Inusual y Aglomerada
 
 ```json
 {
@@ -67,7 +75,9 @@ La respuesta es:
 }
 ```
 
-La respuesta contiene los signos detectados:
+**Análisis del detector:**
+- **Secuencia anómala `!..,`**: La presencia de un signo de exclamación inmediatamente seguido de puntos y comas consecutivos rompe las reglas sintácticas estándar y no corresponde a una elipsis válida (`...`).
+- **Detección por patrones:** El servicio detecta los signos consecutivos e informa su presencia en el atributo `positions`:
 
 ```json
 {

@@ -35,16 +35,26 @@ La api buscará los **componentes característicos de la repetición:**
 
 ## Ejemplos Visuales
 
+### Detección de Palabras Repetidas en Diferentes Contextos Sintácticos
+
 ```json
 {
-  "texto": "good morning, good afternoon, and good night"
+  "texto": "The developer wrote good code for a good cause.",
+  "sin_palabras_frecuentes": true
 }
 ```
 
-La respuesta de la api contiene:
+![Diagrama sintáctico de repetición de palabras](diagrama_repeticion.svg)
 
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **Primera aparición de `good` (`ADJ`, `amod`)**: Modificador adjetival de `code`, que actúa como objeto directo (`dobj`) de `wrote` (`VERB`, `ROOT`).
+- **Segunda aparición de `good` (`ADJ`, `amod`)**: Modificador adjetival de `cause`, que actúa como término de la preposición `for` (`pobj`).
+- **`The developer` (`DET`, `NOUN`, `nsubj`)**: Sujeto agente de la acción.
+- El servicio tokeniza con spaCy, excluye las palabras vacías frecuentes (*stop words* como `the`, `for`, `a`) y cuenta las recurrencias del lema `good` en el texto.
+
+Respuesta devuelta por la API:
 ```json
 {
-  "good": 3
+  "good": 2
 }
 ```

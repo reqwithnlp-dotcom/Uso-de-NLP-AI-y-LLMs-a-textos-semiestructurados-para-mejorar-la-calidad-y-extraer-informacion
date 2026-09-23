@@ -36,16 +36,30 @@ La api buscará los **componentes característicos de los adverbios:**
 
 ## Ejemplos Visuales
 
+### Identificación y Clasificación de Adverbios con Modificación Sintáctica (`advmod`)
+
 ```json
 {
-  "texto": "The dog is here."
+  "texto": "She quickly finished the task and worked extremely well here."
 }
 ```
 
-La respuesta contiene:
+![Diagrama sintáctico de adverbios](diagrama_adverbios.svg)
 
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`quickly` (`ADV`, `advmod`)**: Modificador adverbial dependiente del verbo `finished` (**`ROOT`**). Clasificado por regla morfológica (`-ly`) y diccionario como **`Manner`**.
+- **`extremely` (`ADV`, `advmod`)**: Modificador de grado dependiente de otro adverbio (`well`), ilustrando la capacidad de los adverbios de modificar a otros adverbios. Clasificado como **`Degree`**.
+- **`well` (`ADV`, `advmod`)**: Adverbio de modo dependiente del verbo `worked` (`conj`). Clasificado como **`Manner`**.
+- **`here` (`ADV`, `advmod`)**: Adverbio locativo dependiente de `worked`. Clasificado por el diccionario como **`Place`**.
+
+Respuesta devuelta por el servicio:
 ```json
 {
-  "adverbs": [{"word": "here", "category": "Place"}]
+  "adverbs": [
+    {"word": "quickly", "category": "Manner"},
+    {"word": "extremely", "category": "Degree"},
+    {"word": "well", "category": "Manner"},
+    {"word": "here", "category": "Place"}
+  ]
 }
 ```

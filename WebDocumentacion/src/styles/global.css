@@ -46,7 +46,7 @@ h1 em { color: #638a2d; font-style: normal; }
 .markdown-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 25px 0; background: rgba(255,255,255,.55); }
 .markdown-body th, .markdown-body td { min-width: 220px; padding: 14px 16px; border: 1px solid #c9d6d0; text-align: left; }
 .markdown-body th { color: #35694b; background: #e4eee2; }
-.markdown-body img { display: block; max-width: 100%; max-height: 470px; margin: 30px auto 8px; border: 1px solid #c9d6d0; object-fit: contain; background: #e5ebe7; }
+.markdown-body img { display: block; width: 100%; max-width: 100%; height: auto; margin: 30px auto 8px; border: 1px solid #c9d6d0; border-radius: 6px; background: #ffffff; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
 .markdown-body img + p { text-align: center; color: #687773; font-size: 14px; }
 .loading, .error-box, .empty-state { color: #687773; }
 .error-box { padding: 18px; border-left: 3px solid #b14f43; background: #f7e8e3; }

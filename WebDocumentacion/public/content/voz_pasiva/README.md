@@ -6,22 +6,24 @@ La voz pasiva es una estructura gramatical utilizada para resaltar la acción y 
 En una oración pasiva, el sujeto no ejecuta la acción, sino que la recibe.
 
 ## Estructura
-La voz pasiva se forma habitualmente con un auxiliar y un participio pasado. Este servicio identifica la construcción mediante las dependencias gramaticales del texto.
-The letter was written by Juan:
+El microservicio expone el endpoint HTTP `POST /detectar_voz_pasiva` (puerto `8011`) recibiendo un payload JSON:
 
-- `was` → auxiliar de la voz pasiva
-- `written` → participio del verbo write
-- `by Juan` → complemento agente
+- `texto` → texto en inglés que será analizado en busca de construcciones pasivas
+
+La respuesta devuelve un objeto JSON:
+
+- `is_passive` → valor booleano (`true`/`false`) que indica si la oración está en voz pasiva
+- `positions` → lista de tuplas con las posiciones de caracteres `[inicio, fin]` de la construcción pasiva detectada
 
 ## Ejemplo
 
 | **Oración** | **Resultado** |
 |-------------|---------------|
-| `The letter was written by Juan.` | Voz pasiva: `True` |
-| `Juan wrote the letter.` | Voz pasiva: `False` |
+| `The letter was written by Juan.` | `is_passive: true`, `positions: [[11, 22]]` |
+| `Juan wrote the letter.` | `is_passive: false`, `positions: []` |
 
 ## Objetivo de la api
-El servicio analiza una oración en inglés para identificar si contiene una construcción pasiva y localizar las posiciones de los caracteres correspondientes. Se utiliza como librería o desde la interfaz de consola; no expone un endpoint HTTP.
+El servicio recibe una oración en inglés a través de su endpoint `POST /detectar_voz_pasiva`, analiza su estructura sintáctica con spaCy e identifica si contiene una construcción pasiva y localiza los rangos de caracteres correspondientes. También puede importarse como librería interna (`is_passive`, `passive_positions`).
 
 ## Estrategia
 El servicio buscará los **componentes característicos de la voz pasiva:**
@@ -33,13 +35,47 @@ El servicio buscará los **componentes característicos de la voz pasiva:**
 
 ## Ejemplos Visuales
 
-```text
-The letter was written by Juan.
+### Caso 1: Oración en Voz Pasiva (`is_passive -> true`)
+
+Petición a la API:
+```json
+{
+  "texto": "The letter was written by Juan."
+}
 ```
 
-El análisis produce:
+![Diagrama sintáctico de voz pasiva](diagrama_pasiva.svg)
+
+**Análisis sintáctico y etiquetas identificadas:**
+- **`was` (`AUX`)**: Tiene la dependencia sintáctica **`auxpass`** (auxiliar pasivo) vinculada directamente al verbo principal `written`. Este es el indicador clave que activa la detección.
+- **`written` (`VERB`, tag `VBN`)**: Es la raíz sintáctica (`ROOT`) en forma de participio pasado. El detector calcula el rango completo de la perífrasis verbal pasiva (`was written`).
+- **`letter` (`NOUN`)**: Recibe la etiqueta de dependencia **`nsubjpass`** (sujeto paciente), demostrando gramaticalmente que no realiza la acción sino que la recibe.
+- **`by` (`ADP`)**: Introduce el complemento agente con la relación **`agent`** que conecta hacia el ejecutor `Juan` (`pobj`).
+
+Respuesta del endpoint `POST /detectar_voz_pasiva`:
+```json
+{
+  "is_passive": true,
+  "positions": [
+    [11, 22]
+  ]
+}
+```
+
+---
+
+### Caso 2: Oración en Voz Activa (`is_passive -> False`)
+
+Para contrastar, la versión en voz activa tiene una estructura sintáctica completamente distinta:
 
 ```text
-is_passive(...) -> True
-passive_positions(...) -> [(11, 22)]
+Juan wrote the letter.
 ```
+
+![Diagrama sintáctico de voz activa](diagrama_activa.svg)
+
+**Análisis sintáctico y etiquetas identificadas:**
+- **`Juan` (`PROPN`)**: Cumple la función de sujeto activo estándar con etiqueta **`nsubj`**.
+- **`wrote` (`VERB`)**: Actúa como verbo principal conjugado en pasado simple (`ROOT`), sin ningún auxiliar `auxpass`.
+- **`letter` (`NOUN`)**: Pasa a ser el objeto directo con dependencia **`dobj`**.
+- Al no existir ningún token con dependencia `auxpass`, el detector clasifica correctamente la oración como no pasiva (`False`).

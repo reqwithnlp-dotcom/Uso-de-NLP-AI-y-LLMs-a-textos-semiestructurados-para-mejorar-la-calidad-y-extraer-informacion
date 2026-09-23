@@ -35,13 +35,24 @@ La api buscará los **componentes característicos de las palabras abstractas:**
 
 ## Ejemplos Visuales
 
+### Análisis de Oración con Términos de Alta Abstracción
+
 ```json
 {
   "text": "Love and freedom are important concepts in philosophy."
 }
 ```
 
-La respuesta contiene:
+![Diagrama sintáctico de palabras abstractas](diagrama_abstract_words.svg)
+
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`Love` (`NOUN`, `nsubj`)** y **`freedom` (`NOUN`, `conj`)**: Núcleos nominales coordinados que actúan como sujetos semánticos abstractos.
+- **`important` (`ADJ`, `amod`)**: Modificador adjetival de cualidad evaluativa sobre el sustantivo `concepts`.
+- **`concepts` (`NOUN`, `attr`)**: Atributo nominal del predicado con el verbo copulativo `are`.
+- **`philosophy` (`NOUN`, `pobj`)**: Sustantivo objeto de la preposición `in`.
+
+**Detección del modelo:**
+Las palabras de contenido analizadas (`love`, `freedom`, `important`, `concepts`, `philosophy`) presentan una puntuación de abstracción superior o igual a `3`, mientras que los tokens funcionales (`and`, `are`, `in`) se descartan en la etapa de filtrado lingüístico.
 
 ```json
 {

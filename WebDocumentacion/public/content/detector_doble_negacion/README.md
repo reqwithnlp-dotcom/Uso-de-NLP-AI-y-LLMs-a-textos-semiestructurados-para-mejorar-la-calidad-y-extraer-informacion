@@ -36,17 +36,41 @@ La api buscará los **componentes característicos de la doble negación:**
 
 ## Ejemplos Visuales
 
+### Caso 1: Doble Negación Sintáctica y Morfológica (`has_double_negation: true`)
+
 ```json
 {
-  "text": "It's not impossible that she will come."
+  "text": "It is not impossible that the system will work."
 }
 ```
 
-La respuesta contiene:
+![Diagrama sintáctico de doble negación](diagrama_doble_negacion.svg)
+
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`not` (`PART`, `neg`)**: Partícula negativa con dependencia sintáctica explícita **`neg`** dependiente del verbo copulativo `is` (**`ROOT`**). Aporta la 1.ª negación.
+- **`impossible` (`ADJ`, `acomp`)**: Complemento adjetival portador del prefijo negativo morfológico **`im-`** (reconocido en la estrategia del detector). Aporta la 2.ª negación.
+- Al coincidir la partícula sintáctica `neg` y el término con prefijo negativo en la misma estructura, el contador alcanza 2 y el detector confirma doble negación:
 
 ```json
 {
-  "text": "It's not impossible that she will come.",
+  "text": "It is not impossible that the system will work.",
   "has_double_negation": true
 }
 ```
+
+---
+
+### Caso 2: Negación Simple Estándar (`has_double_negation: false`)
+
+```json
+{
+  "text": "The system did not fail yesterday."
+}
+```
+
+![Diagrama sintáctico de negación simple](diagrama_negacion_simple.svg)
+
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`not` (`PART`, `neg`)**: Modifica al auxiliar `did` (`aux`) y a la raíz `fail` (`ROOT`).
+- No existen pronombres negativos (`nothing`, `nobody`), adverbios negativos (`never`) ni palabras con prefijos morfológicos negativos en la oración.
+- Conteo de negaciones = 1 -> `has_double_negation: false`.

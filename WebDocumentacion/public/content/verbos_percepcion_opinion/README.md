@@ -35,17 +35,27 @@ La api buscará los **componentes característicos de los verbos de percepción 
 
 ## Ejemplos Visuales
 
+### Identificación de Verbos de Opinión y Percepción en Estructura Clausal
+
 ```json
 {
-  "text": "I think this is fine."
+  "text": "I think that they noticed the sudden change."
 }
 ```
 
-La respuesta contiene:
+![Diagrama sintáctico de verbos de percepción y opinión](diagrama_percepcion_opinion.svg)
 
+**Análisis sintáctico y etiquetas (POS y DEP):**
+- **`think` (`VERB`, `ROOT`)**: Verbo matriz de actitud proposicional/opinión con categoría gramatical `VERB` y lema `think`.
+- **`noticed` (`VERB`, `ccomp`)**: Verbo de percepción sensible que encabeza la cláusula subordinada sustantiva completiva (**`ccomp`**).
+- **`that` (`SCONJ`, `mark`)**: Marcador de subordinación que introduce la cláusula dependiente.
+- **`I` y `they` (`PRON`, `nsubj`)**: Pronombres sujeto de las respectivas proposiciones.
+- **`sudden` (`ADJ`, `amod`)** y **`change` (`NOUN`, `dobj`)**: Objeto directo de la acción de percepción.
+
+Resultado del servicio:
 ```json
 {
-  "opinion_perception": ["think"],
-  "others": ["I", "this", "is", "fine"]
+  "opinion_perception": ["think", "noticed"],
+  "others": ["I", "that", "they", "the", "sudden", "change"]
 }
 ```
