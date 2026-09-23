@@ -522,12 +522,17 @@
         const API_NEGATIVE_PHRASE_URL = "{{API_NEGATIVE_PHRASE_URL}}";
         const API_OPINION_PERCEPTION_URL = "{{API_OPINION_PERCEPTION_URL}}";
         const API_UNUSUAL_PUNCTUATION_URL = "{{API_UNUSUAL_PUNCTUATION_URL}}";
+        const API_UNUSUAL_PUNCT_URL = "{{API_UNUSUAL_PUNCT_URL}}";
         const API_ABSTRACT_WORDS_URL = "{{API_ABSTRACT_WORDS_URL}}";
         const API_LOGICAL_CONNECTORS_URL = "{{API_LOGICAL_CONNECTORS_URL}}";
         const API_READABILITY_METRIC_URL = "{{API_READABILITY_METRIC_URL}}";
         const API_TENSES_URL = "{{API_TENSES_URL}}";
         const API_CLICHES_URL = "{{API_CLICHES_URL}}";
+        const API_WEAK_VERBS_URL = "{{API_WEAK_VERBS_URL}}";
         const API_WEAK_VERBS__URL = "{{API_WEAK_VERBS_URL}}";
+        const API_ADVERBS_URL = "{{API_ADVERBS_URL}}";
+        const API_MODAL_VERBS_URL = "{{API_MODAL_VERBS_URL}}";
+        const API_POVSHIFT_URL = "{{API_POVSHIFT_URL}}";
     </script>
 </head>
 <body>
@@ -624,6 +629,25 @@
                         <i class="bi bi-circle-fill" style="color: var(--success); font-size: 0.5rem;"></i>
                         Listo
                     </span>
+                    <select id="select-ejemplos" class="form-select form-select-sm" style="width: auto; max-width: 230px; display: inline-block;" onchange="cargarEjemplo(this.value)" title="Cargar texto de ejemplo para probar servicios">
+                        <option value="" selected disabled>Cargar ejemplo...</option>
+                        <option value="completo">Texto completo (todos los servicios)</option>
+                        <option value="voz-pasiva">Voz pasiva</option>
+                        <option value="word-repetition">Repetición de palabras</option>
+                        <option value="adv">Adverbios</option>
+                        <option value="modal">Verbos modales</option>
+                        <option value="cliches">Clichés</option>
+                        <option value="abstract-words">Palabras abstractas</option>
+                        <option value="weak-verbs">Verbos débiles</option>
+                        <option value="impersonal-sentences">Oraciones impersonales</option>
+                        <option value="negative-phrase">Doble negación</option>
+                        <option value="opinion-perception">Opinión o percepción</option>
+                        <option value="unusual-punctuation">Puntuación inusual</option>
+                        <option value="tenses">Inconsistencia en tiempos verbales</option>
+                        <option value="povshift">Cambio de punto de vista (POV)</option>
+                        <option value="logical-connectors">Conectores lógicos</option>
+                        <option value="readability-metric">Métrica de legibilidad</option>
+                    </select>
                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="guardarDocumento(getCurrentDocId(), obtenerTexto())">
                         <i class="bi bi-floppy"></i> Guardar
                     </button>
@@ -697,15 +721,15 @@
                         <div class="indicator-item">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="adv" name="adv">
-                                <i class="bi bi-arrow-repeat indicator-icon"></i>
-                                <label class="form-check-label" for="word-repetition">Adverbios</label>
+                                <i class="bi bi-fonts indicator-icon"></i>
+                                <label class="form-check-label" for="adv">Adverbios</label>
                             </div>
                         </div>
                         <div class="indicator-item">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="modal" name="modal">
-                                <i class="bi bi-arrow-repeat indicator-icon"></i>
-                                <label class="form-check-label" for="word-repetition">Verbos Modales</label>
+                                <i class="bi bi-question-circle indicator-icon"></i>
+                                <label class="form-check-label" for="modal">Verbos Modales</label>
                             </div>
                         </div>
 
@@ -727,8 +751,8 @@
 			            <div class="indicator-item">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="weak-verbs" name="weak-verbs">
-                                <i class="bi bi-cloud-fog indicator-icon"></i>
-                                <label class="form-check-label" for="weak-verbs">Verbos Debiles</label>
+                                <i class="bi bi-lightning indicator-icon"></i>
+                                <label class="form-check-label" for="weak-verbs">Verbos Débiles</label>
                             </div>
                         </div>
 
@@ -773,6 +797,13 @@
                                 <input class="form-check-input" type="checkbox" id="tenses" name="tenses">
                                 <i class="bi bi-clock-history indicator-icon"></i>
                                 <label class="form-check-label" for="tenses">Tiempos verbales</label>
+                            </div>
+                        </div>
+                        <div class="indicator-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="povshift" name="povshift">
+                                <i class="bi bi-people indicator-icon"></i>
+                                <label class="form-check-label" for="povshift">Cambio de punto de vista (POV)</label>
                             </div>
                         </div>
                         <div class="indicator-item">
