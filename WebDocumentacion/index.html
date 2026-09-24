@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f4f7f6" />
     <title>Documentación de servicios</title>
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('doc_theme_preference');
+          var theme = 'light';
+          if (saved === 'dark' || saved === 'light') {
+            theme = saved;
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
