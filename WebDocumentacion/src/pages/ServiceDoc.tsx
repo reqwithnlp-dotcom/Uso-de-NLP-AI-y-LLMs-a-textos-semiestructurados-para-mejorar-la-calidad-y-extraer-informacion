@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { services } from '../services/services.config'
 import ErrorBoundary from '../components/ErrorBoundary'
+import ProcessSimulator from '../components/ProcessSimulator'
 
 export default function ServiceDoc() {
   const { id } = useParams()
@@ -110,10 +111,34 @@ export default function ServiceDoc() {
                   }
                   return <img src={resolvedSrc} alt={alt || ''} title={title} />
                 },
+                code: ({ className, children, ...props }) => {
+                  if (className === 'language-process-demo') {
+                    return <ProcessSimulator serviceId={service.id} />
+                  }
+                  return <code className={className} {...props}>{children}</code>
+                },
+                pre: ({ children, ...props }) => {
+                  const childArray = Array.isArray(children) ? children : [children]
+                  const hasSimulator = childArray.some(
+                    (c: any) => c && typeof c === 'object' && c.props && c.props.className === 'language-process-demo'
+                  )
+                  if (hasSimulator) {
+                    return <>{children}</>
+                  }
+                  return <pre {...props}>{children}</pre>
+                },
               }}
             >
               {markdown}
             </ReactMarkdown>
+
+            {/* Fallback en caso de que el markdown no contenga el bloque explícito */}
+            {!markdown.includes('process-demo') && (
+              <div style={{ marginTop: '40px' }}>
+                <h2>Simulación interactiva del proceso</h2>
+                <ProcessSimulator serviceId={service.id} />
+              </div>
+            )}
           </div>
         </ErrorBoundary>
       ) : (

@@ -1,5 +1,10 @@
 # API de conversión de voz pasiva a activa
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 La voz pasiva es una estructura gramatical utilizada para resaltar la acción y el objeto que la recibe, en lugar de quien la realiza.

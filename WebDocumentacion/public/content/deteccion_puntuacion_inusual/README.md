@@ -1,5 +1,10 @@
 # API de detección de puntuación inusual
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 La puntuación ayuda a separar las ideas y a entender cómo debe leerse un texto. A veces un texto contiene signos que aparecen en un lugar inesperado, están repetidos o no tienen su signo de cierre correspondiente.

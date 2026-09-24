@@ -1,5 +1,10 @@
 # API de detección de doble negación
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 La doble negación ocurre cuando una misma cláusula contiene dos elementos negativos.

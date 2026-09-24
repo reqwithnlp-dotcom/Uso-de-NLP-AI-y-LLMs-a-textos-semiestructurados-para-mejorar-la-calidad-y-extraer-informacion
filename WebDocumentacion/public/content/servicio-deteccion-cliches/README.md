@@ -1,5 +1,10 @@
 # API de detección de clichés
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Un cliché es una expresión sobreutilizada que ha perdido parte de su fuerza expresiva por repetirse con frecuencia.

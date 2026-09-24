@@ -1,5 +1,10 @@
 # API de detección de conectores lógicos
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Los conectores lógicos relacionan ideas dentro de un texto y expresan relaciones como adición, contraste, causa o conclusión.

@@ -1,5 +1,10 @@
 # API de métricas de legibilidad
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 La legibilidad mide la dificultad de comprensión de un texto.

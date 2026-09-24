@@ -1,5 +1,10 @@
 # API de detección de verbos débiles
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Los verbos débiles son verbos generales o poco expresivos que pueden reemplazarse por verbos más específicos según el contexto.

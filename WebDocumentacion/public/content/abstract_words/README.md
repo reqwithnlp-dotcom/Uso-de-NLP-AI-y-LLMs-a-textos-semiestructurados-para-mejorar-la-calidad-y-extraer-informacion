@@ -1,5 +1,10 @@
 # API de detección de palabras abstractas
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Una palabra abstracta representa una idea, cualidad o concepto que no puede percibirse directamente mediante los sentidos.

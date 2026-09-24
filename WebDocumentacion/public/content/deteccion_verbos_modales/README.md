@@ -1,5 +1,10 @@
 # API de detección de inconsistencias de verbos modales
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Los verbos modales expresan obligación, prohibición, recomendación, posibilidad o permiso.

@@ -1,5 +1,10 @@
 # API de detección de repetición de palabras
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 La repetición de palabras ocurre cuando una palabra aparece varias veces dentro de un texto.

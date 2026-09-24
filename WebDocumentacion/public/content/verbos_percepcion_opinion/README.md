@@ -1,5 +1,10 @@
 # API de detección de verbos de percepción y opinión
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Los verbos de percepción y opinión expresan procesos mentales o información recibida por los sentidos.

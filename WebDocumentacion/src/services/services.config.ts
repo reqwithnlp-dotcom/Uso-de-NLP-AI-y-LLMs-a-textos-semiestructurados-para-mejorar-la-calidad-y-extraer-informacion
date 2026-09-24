@@ -84,4 +84,16 @@ export const services: ServiceConfig[] = [
     shortDescription: 'Identifica usos potencialmente inusuales de signos de puntuación.',
     markdownPath: '/content/deteccion_puntuacion_inusual/README.md',
   },
+  {
+    id: 'povshift',
+    name: 'API Detección de Cambio de Punto de Vista (POV Shift)',
+    shortDescription: 'Detecta cambios injustificados de perspectiva narrativa y estados internos.',
+    markdownPath: '/content/povshift/README.md',
+  },
+  {
+    id: 'verb_tense_inconsistencies',
+    name: 'API Detección de Inconsistencias en Tiempos Verbales',
+    shortDescription: 'Identifica discrepancias y saltos temporales discordantes entre verbos.',
+    markdownPath: '/content/verb_tense_inconsistencies/README.md',
+  },
 ]

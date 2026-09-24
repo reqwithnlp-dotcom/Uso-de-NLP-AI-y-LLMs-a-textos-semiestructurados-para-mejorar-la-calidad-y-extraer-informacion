@@ -1,5 +1,10 @@
 # API de detección y clasificación de adverbios
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Un adverbio es una palabra que modifica un verbo, un adjetivo u otro adverbio.

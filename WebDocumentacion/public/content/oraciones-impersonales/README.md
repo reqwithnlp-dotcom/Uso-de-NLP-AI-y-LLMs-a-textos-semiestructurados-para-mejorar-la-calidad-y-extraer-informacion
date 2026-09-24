@@ -1,5 +1,10 @@
 # API de detección de oraciones impersonales
 
+## Simulación interactiva del proceso
+
+```process-demo
+```
+
 ## Definición
 
 Una oración impersonal no presenta un sujeto que realice la acción de forma explícita.
