@@ -5,6 +5,8 @@
 body { margin: 0; min-width: 320px; background: #f4f7f6; }
 a { color: inherit; }
 .app-shell { min-height: 100vh; display: grid; grid-template-columns: 285px 1fr; }
+.app-shell--no-sidebar { display: block; }
+.app-shell--no-sidebar .main-content { min-height: 100vh; }
 .sidebar { position: sticky; top: 0; height: 100vh; padding: 38px 28px; background: #173c35; color: #e8f0ea; display: flex; flex-direction: column; }
 .brand-mark, .eyebrow, .section-rule, .service-count, .link-index, .card-index { font-family: 'DM Mono', monospace; letter-spacing: .04em; text-transform: uppercase; }
 .brand-mark { color: #b9e94a; font-size: 13px; font-weight: 500; margin-bottom: 100px; }
