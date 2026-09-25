@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 import os
 
 def config_view(request):
-    backend_url = os.getenv("BACKEND_URL", "http://127.0.0.1:8001")
+    backend_url = os.getenv("BACKEND_URL", "http://0.0.0.0:8001")
     return JsonResponse({"backend_url": backend_url})
 
 urlpatterns = [

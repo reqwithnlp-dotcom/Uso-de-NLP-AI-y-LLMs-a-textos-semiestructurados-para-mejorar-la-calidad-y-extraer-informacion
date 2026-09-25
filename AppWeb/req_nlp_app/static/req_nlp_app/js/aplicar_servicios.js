@@ -32,11 +32,15 @@ async function mostrarResultado() {
         resultados.push({ tipo, mensaje });
     };
 
-    // Helper para validar URLs inyectadas por Django con fallback local seguro
+    // Helper para validar URLs inyectadas por Django con fallback seguro y resolucion de 0.0.0.0 en cliente
     const getApiUrl = (urlVar, fallback) => {
-        return (typeof urlVar !== 'undefined' && urlVar && urlVar !== 'None' && urlVar !== '{{' + urlVar + '}}') 
+        let chosen = (typeof urlVar !== 'undefined' && urlVar && urlVar !== 'None' && urlVar !== '{{' + urlVar + '}}') 
             ? urlVar 
             : fallback;
+        if (chosen && chosen.includes('0.0.0.0') && typeof window !== 'undefined' && window.location && window.location.hostname) {
+            return chosen.replace('0.0.0.0', window.location.hostname);
+        }
+        return chosen;
     };
 
     // ==========================================
@@ -45,7 +49,7 @@ async function mostrarResultado() {
 
     // Voz Pasiva (Puerto 8011)
     if (voz_pasiva) {
-        const url = getApiUrl(typeof API_VOZ_PASIVA_URL !== 'undefined' ? API_VOZ_PASIVA_URL : null, "http://127.0.0.1:8011");
+        const url = getApiUrl(typeof API_VOZ_PASIVA_URL !== 'undefined' ? API_VOZ_PASIVA_URL : null, "http://0.0.0.0:8011");
         if (url) {
             const p = fetch(`${url}/detectar_voz_pasiva`, {
                 method: "POST",
@@ -67,7 +71,7 @@ async function mostrarResultado() {
 
     // Repetición de Palabras (Puerto 8002)
     if (word_repetition) {
-        const url = getApiUrl(typeof API_WORD_REPETITION_URL !== 'undefined' ? API_WORD_REPETITION_URL : null, "http://127.0.0.1:8002");
+        const url = getApiUrl(typeof API_WORD_REPETITION_URL !== 'undefined' ? API_WORD_REPETITION_URL : null, "http://0.0.0.0:8002");
         if (url) {
             const p = fetch(`${url}/repeticiones`, {
                 method: "POST",
@@ -95,7 +99,7 @@ async function mostrarResultado() {
 
     // Adverbios (Puerto 8007)
     if (adverbs) {
-        const url = getApiUrl(typeof API_ADVERBS_URL !== 'undefined' ? API_ADVERBS_URL : null, "http://127.0.0.1:8007");
+        const url = getApiUrl(typeof API_ADVERBS_URL !== 'undefined' ? API_ADVERBS_URL : null, "http://0.0.0.0:8007");
         if (url) {
             const p = fetch(`${url}/analizar`, {
                 method: "POST",
@@ -123,7 +127,7 @@ async function mostrarResultado() {
 
     // Verbos Modales (Puerto 8006)
     if (modales) {
-        const url = getApiUrl(typeof API_MODAL_VERBS_URL !== 'undefined' ? API_MODAL_VERBS_URL : null, "http://127.0.0.1:8006");
+        const url = getApiUrl(typeof API_MODAL_VERBS_URL !== 'undefined' ? API_MODAL_VERBS_URL : null, "http://0.0.0.0:8006");
         if (url) {
             const p = fetch(`${url}/analizar`, {
                 method: "POST",
@@ -151,7 +155,7 @@ async function mostrarResultado() {
 
     // Clichés (Puerto 8001)
     if (cliches) {
-        const url = getApiUrl(typeof API_CLICHES_URL !== 'undefined' ? API_CLICHES_URL : null, "http://127.0.0.1:8001");
+        const url = getApiUrl(typeof API_CLICHES_URL !== 'undefined' ? API_CLICHES_URL : null, "http://0.0.0.0:8001");
         if (url) {
             const p = fetch(`${url}/detectar_cliches/`, {
                 method: "POST",
@@ -177,7 +181,7 @@ async function mostrarResultado() {
 
     // Palabras Abstractas (Puerto 8013)
     if (abstract_words) {
-        const url = getApiUrl(typeof API_ABSTRACT_WORDS_URL !== 'undefined' ? API_ABSTRACT_WORDS_URL : null, "http://127.0.0.1:8013");
+        const url = getApiUrl(typeof API_ABSTRACT_WORDS_URL !== 'undefined' ? API_ABSTRACT_WORDS_URL : null, "http://0.0.0.0:8013");
         if (url) {
             const p = fetch(`${url}/predict`, {
                 method: "POST",
@@ -204,7 +208,7 @@ async function mostrarResultado() {
     // Verbos Débiles (Puerto 8012)
     if (weakverbs) {
         const urlWeak = typeof API_WEAK_VERBS_URL !== 'undefined' ? API_WEAK_VERBS_URL : (typeof API_WEAK_VERBS__URL !== 'undefined' ? API_WEAK_VERBS__URL : null);
-        const url = getApiUrl(urlWeak, "http://127.0.0.1:8012");
+        const url = getApiUrl(urlWeak, "http://0.0.0.0:8012");
         if (url) {
             const p = fetch(`${url}/weak_verbs`, {
                 method: "POST",
@@ -246,7 +250,7 @@ async function mostrarResultado() {
 
     // Oraciones Impersonales (Puerto 8009)
     if (impersonal_sentences) {
-        const url = getApiUrl(typeof API_IMPERSONAL_SENTENCES_URL !== 'undefined' ? API_IMPERSONAL_SENTENCES_URL : null, "http://127.0.0.1:8009");
+        const url = getApiUrl(typeof API_IMPERSONAL_SENTENCES_URL !== 'undefined' ? API_IMPERSONAL_SENTENCES_URL : null, "http://0.0.0.0:8009");
         if (url) {
             const p = fetch(`${url}/analyze`, {
                 method: "POST",
@@ -287,7 +291,7 @@ async function mostrarResultado() {
 
     // Frases Negativas / Doble Negación (Puerto 8004)
     if (negative_phrases) {
-        const url = getApiUrl(typeof API_NEGATIVE_PHRASE_URL !== 'undefined' ? API_NEGATIVE_PHRASE_URL : null, "http://127.0.0.1:8004");
+        const url = getApiUrl(typeof API_NEGATIVE_PHRASE_URL !== 'undefined' ? API_NEGATIVE_PHRASE_URL : null, "http://0.0.0.0:8004");
         if (url) {
             const p = fetch(`${url}/detect`, {
                 method: "POST",
@@ -311,7 +315,7 @@ async function mostrarResultado() {
 
     // Opinión o Percepción (Puerto 8010)
     if (opinion_perception) {
-        const url = getApiUrl(typeof API_OPINION_PERCEPTION_URL !== 'undefined' ? API_OPINION_PERCEPTION_URL : null, "http://127.0.0.1:8010");
+        const url = getApiUrl(typeof API_OPINION_PERCEPTION_URL !== 'undefined' ? API_OPINION_PERCEPTION_URL : null, "http://0.0.0.0:8010");
         if (url) {
             const p = fetch(`${url}/perception-opinion`, {
                 method: "POST",
@@ -341,7 +345,7 @@ async function mostrarResultado() {
         const urlPunct = typeof API_UNUSUAL_PUNCTUATION_URL !== 'undefined' 
             ? API_UNUSUAL_PUNCTUATION_URL 
             : (typeof API_UNUSUAL_PUNCT_URL !== 'undefined' ? API_UNUSUAL_PUNCT_URL : null);
-        const url = getApiUrl(urlPunct, "http://127.0.0.1:8005");
+        const url = getApiUrl(urlPunct, "http://0.0.0.0:8005");
 
         if (url) {
             const p = fetch(`${url}/detect`, {
@@ -370,7 +374,7 @@ async function mostrarResultado() {
 
     // Inconsistencias en Tiempos Verbales (Puerto 8015)
     if (tenses) {
-        const url = getApiUrl(typeof API_TENSES_URL !== 'undefined' ? API_TENSES_URL : null, "http://127.0.0.1:8015");
+        const url = getApiUrl(typeof API_TENSES_URL !== 'undefined' ? API_TENSES_URL : null, "http://0.0.0.0:8015");
         if (url) {
             const p = fetch(`${url}/analyze`, {
                 method: "POST",
@@ -400,7 +404,7 @@ async function mostrarResultado() {
 
     // Cambio de Punto de Vista - POV Shift (Puerto 8014)
     if (povshift) {
-        const url = getApiUrl(typeof API_POVSHIFT_URL !== 'undefined' ? API_POVSHIFT_URL : null, "http://127.0.0.1:8014");
+        const url = getApiUrl(typeof API_POVSHIFT_URL !== 'undefined' ? API_POVSHIFT_URL : null, "http://0.0.0.0:8014");
         if (url) {
             const p = fetch(`${url}/detect`, {
                 method: "POST",
@@ -432,7 +436,7 @@ async function mostrarResultado() {
 
     // Conectores Lógicos (Puerto 8003)
     if (logical_connectors) {
-        const url = getApiUrl(typeof API_LOGICAL_CONNECTORS_URL !== 'undefined' ? API_LOGICAL_CONNECTORS_URL : null, "http://127.0.0.1:8003");
+        const url = getApiUrl(typeof API_LOGICAL_CONNECTORS_URL !== 'undefined' ? API_LOGICAL_CONNECTORS_URL : null, "http://0.0.0.0:8003");
         if (url) {
             const p = fetch(`${url}/detect`, {
                 method: "POST",
@@ -467,7 +471,7 @@ async function mostrarResultado() {
 
     // Métricas de Legibilidad (Puerto 8008)
     if (readability_metric) {
-        const url = getApiUrl(typeof API_READABILITY_METRIC_URL !== 'undefined' ? API_READABILITY_METRIC_URL : null, "http://127.0.0.1:8008");
+        const url = getApiUrl(typeof API_READABILITY_METRIC_URL !== 'undefined' ? API_READABILITY_METRIC_URL : null, "http://0.0.0.0:8008");
         if (url) {
             const p = fetch(`${url}/analizar`, {
                 method: "POST",

@@ -51,160 +51,160 @@ $Services = @(
         Name           = "AppWeb (Portal Django)"
         Directory      = "AppWeb"
         Type           = "django"
-        CommandArgs    = @("manage.py", "runserver", "127.0.0.1:8000", "--noreload")
+        CommandArgs    = @("manage.py", "runserver", "0.0.0.0:8000", "--noreload")
         Port           = 8000
-        Url            = "http://127.0.0.1:8000"
-        DocsUrl        = "http://127.0.0.1:8000"
+        Url            = "http://0.0.0.0:8000"
+        DocsUrl        = "http://0.0.0.0:8000"
     },
     [PSCustomObject]@{
         Id             = "cliches"
         Name           = "Deteccion de Cliches"
         Directory      = "servicio-deteccion-cliches"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8001")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001")
         Port           = 8001
-        Url            = "http://127.0.0.1:8001"
-        DocsUrl        = "http://127.0.0.1:8001/docs"
+        Url            = "http://0.0.0.0:8001"
+        DocsUrl        = "http://0.0.0.0:8001/docs"
     },
     [PSCustomObject]@{
         Id             = "repeticion"
         Name           = "Repeticion de Palabras"
         Directory      = "servicio-repeticion-palabras"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8002")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002")
         Port           = 8002
-        Url            = "http://127.0.0.1:8002"
-        DocsUrl        = "http://127.0.0.1:8002/docs"
+        Url            = "http://0.0.0.0:8002"
+        DocsUrl        = "http://0.0.0.0:8002/docs"
     },
     [PSCustomObject]@{
         Id             = "conectores_logicos"
         Name           = "Conectores Logicos"
         Directory      = "deteccion_conectores_logicos"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8003")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8003")
         Port           = 8003
-        Url            = "http://127.0.0.1:8003"
-        DocsUrl        = "http://127.0.0.1:8003/docs"
+        Url            = "http://0.0.0.0:8003"
+        DocsUrl        = "http://0.0.0.0:8003/docs"
     },
     [PSCustomObject]@{
         Id             = "doble_negacion"
         Name           = "Doble Negacion"
         Directory      = "detector_doble_negacion"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8004")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8004")
         Port           = 8004
-        Url            = "http://127.0.0.1:8004"
-        DocsUrl        = "http://127.0.0.1:8004/docs"
+        Url            = "http://0.0.0.0:8004"
+        DocsUrl        = "http://0.0.0.0:8004/docs"
     },
     [PSCustomObject]@{
         Id             = "puntuacion_inusual"
         Name           = "Puntuacion Inusual"
         Directory      = "deteccion_puntuacion_inusual"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8005")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8005")
         Port           = 8005
-        Url            = "http://127.0.0.1:8005"
-        DocsUrl        = "http://127.0.0.1:8005/docs"
+        Url            = "http://0.0.0.0:8005"
+        DocsUrl        = "http://0.0.0.0:8005/docs"
     },
     [PSCustomObject]@{
         Id             = "verbos_modales"
         Name           = "Verbos Modales"
         Directory      = "deteccion_verbos_modales"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8006")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8006")
         Port           = 8006
-        Url            = "http://127.0.0.1:8006"
-        DocsUrl        = "http://127.0.0.1:8006/docs"
+        Url            = "http://0.0.0.0:8006"
+        DocsUrl        = "http://0.0.0.0:8006/docs"
     },
     [PSCustomObject]@{
         Id             = "detector_adverbios"
         Name           = "Detector de Adverbios"
         Directory      = "detector_adverbios"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8007")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8007")
         Port           = 8007
-        Url            = "http://127.0.0.1:8007"
-        DocsUrl        = "http://127.0.0.1:8007/docs"
+        Url            = "http://0.0.0.0:8007"
+        DocsUrl        = "http://0.0.0.0:8007/docs"
     },
     [PSCustomObject]@{
         Id             = "metricas_legibilidad"
         Name           = "Metricas de Legibilidad"
         Directory      = "metricas-de-legibilidad"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8008")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8008")
         Port           = 8008
-        Url            = "http://127.0.0.1:8008"
-        DocsUrl        = "http://127.0.0.1:8008/docs"
+        Url            = "http://0.0.0.0:8008"
+        DocsUrl        = "http://0.0.0.0:8008/docs"
     },
     [PSCustomObject]@{
         Id             = "oraciones_impersonales"
         Name           = "Oraciones Impersonales"
         Directory      = "oraciones-impersonales"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8009")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8009")
         Port           = 8009
-        Url            = "http://127.0.0.1:8009"
-        DocsUrl        = "http://127.0.0.1:8009/docs"
+        Url            = "http://0.0.0.0:8009"
+        DocsUrl        = "http://0.0.0.0:8009/docs"
     },
     [PSCustomObject]@{
         Id             = "verbos_percepcion_opinion"
         Name           = "Verbos Percepcion / Opinion"
         Directory      = "verbos_percepcion_opinion"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8010")
+        CommandArgs    = @("-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8010")
         Port           = 8010
-        Url            = "http://127.0.0.1:8010"
-        DocsUrl        = "http://127.0.0.1:8010/docs"
+        Url            = "http://0.0.0.0:8010"
+        DocsUrl        = "http://0.0.0.0:8010/docs"
     },
     [PSCustomObject]@{
         Id             = "voz_pasiva"
         Name           = "Voz Pasiva"
         Directory      = "voz_pasiva"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8011")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8011")
         Port           = 8011
-        Url            = "http://127.0.0.1:8011"
-        DocsUrl        = "http://127.0.0.1:8011/docs"
+        Url            = "http://0.0.0.0:8011"
+        DocsUrl        = "http://0.0.0.0:8011/docs"
     },
     [PSCustomObject]@{
         Id             = "weak_verbs"
         Name           = "Verbos Debiles (Weak Verbs)"
         Directory      = "weak_verbs"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8012")
+        CommandArgs    = @("-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8012")
         Port           = 8012
-        Url            = "http://127.0.0.1:8012"
-        DocsUrl        = "http://127.0.0.1:8012/docs"
+        Url            = "http://0.0.0.0:8012"
+        DocsUrl        = "http://0.0.0.0:8012/docs"
     },
     [PSCustomObject]@{
         Id             = "abstract_words"
         Name           = "Palabras Abstractas"
         Directory      = "abstract_words"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "api:app", "--host", "127.0.0.1", "--port", "8013")
+        CommandArgs    = @("-m", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8013")
         Port           = 8013
-        Url            = "http://127.0.0.1:8013"
-        DocsUrl        = "http://127.0.0.1:8013/docs"
+        Url            = "http://0.0.0.0:8013"
+        DocsUrl        = "http://0.0.0.0:8013/docs"
     },
     [PSCustomObject]@{
         Id             = "povshift"
         Name           = "Cambio de Punto de Vista (POV Shift)"
         Directory      = "povshift"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", "8014")
+        CommandArgs    = @("-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8014")
         Port           = 8014
-        Url            = "http://127.0.0.1:8014"
-        DocsUrl        = "http://127.0.0.1:8014/docs"
+        Url            = "http://0.0.0.0:8014"
+        DocsUrl        = "http://0.0.0.0:8014/docs"
     },
     [PSCustomObject]@{
         Id             = "verb_tense_inconsistencies"
         Name           = "Inconsistencias en Tiempos Verbales"
         Directory      = "verb_tense_inconsistencies"
         Type           = "uvicorn"
-        CommandArgs    = @("-m", "uvicorn", "api:app", "--host", "127.0.0.1", "--port", "8015")
+        CommandArgs    = @("-m", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8015")
         Port           = 8015
-        Url            = "http://127.0.0.1:8015"
-        DocsUrl        = "http://127.0.0.1:8015/docs"
+        Url            = "http://0.0.0.0:8015"
+        DocsUrl        = "http://0.0.0.0:8015/docs"
     }
 )
 
@@ -214,10 +214,10 @@ if ($IncludeWebDoc) {
         Name           = "Web Documentacion (Vite/React)"
         Directory      = "WebDocumentacion"
         Type           = "npm"
-        CommandArgs    = @("run", "dev", "--", "--port", "5173")
+        CommandArgs    = @("run", "dev", "--", "--host", "0.0.0.0", "--port", "5173")
         Port           = 5173
-        Url            = "http://localhost:5173"
-        DocsUrl        = "http://localhost:5173"
+        Url            = "http://0.0.0.0:5173"
+        DocsUrl        = "http://0.0.0.0:5173"
     }
 }
 
