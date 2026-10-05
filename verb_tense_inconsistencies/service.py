@@ -16,13 +16,13 @@ class VerbTenseService:
 
         result = self.analyzer.analyze(text)
 
-        fragments = []
+        # fragments = []
 
         issues = []
 
         for context in result.contexts:
 
-            fragments.append(context.sentence.text)
+            # fragments.append(context.sentence.text)
 
             for issue in context.issues:
 
@@ -31,6 +31,8 @@ class VerbTenseService:
                     IssueResponse(
 
                         fragment=issue.fragment,
+
+                        sentence=context.sentence.text,
 
                         position=issue.position,
 
@@ -44,10 +46,8 @@ class VerbTenseService:
 
         return AnalyzeResponse(
 
-            normalized_text=result.normalized_text,
-
-            fragments=fragments,
-
+            # normalized_text=result.normalized_text,
+            # fragments=fragments,
             issues=issues
 
         )

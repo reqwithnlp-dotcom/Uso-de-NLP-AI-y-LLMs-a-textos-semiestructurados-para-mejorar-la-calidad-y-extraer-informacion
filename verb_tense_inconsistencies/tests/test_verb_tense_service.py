@@ -14,6 +14,7 @@ def test_service_should_accept_consistent_requirement():
     )
 
     response = service.analyze(text)
+    assert set(response.model_dump()) == {"issues"}
 
     connector_issues = [
         issue
@@ -46,8 +47,11 @@ def test_service_should_detect_inconsistent_tense_in_requirement():
 
     issue = connector_issues[0]
 
-    assert "validates" in issue.fragment
-    assert "verified" in issue.fragment
+    assert issue.fragment == "validates and verified"
+    assert issue.sentence == (
+        "When a registered user submits a new purchase request, "
+        "the system validates the required information and verified the available stock."
+    )
 
 
 def test_service_should_detect_inconsistency_between_multiple_actions():
@@ -128,8 +132,6 @@ def test_service_should_detect_issue_only_in_affected_requirement_sentence():
 
     response = service.analyze(text)
 
-    assert len(response.fragments) == 3
-
     connector_issues = [
         issue
         for issue in response.issues
@@ -138,8 +140,11 @@ def test_service_should_detect_issue_only_in_affected_requirement_sentence():
 
     assert len(connector_issues) == 1
 
-    assert "generates" in connector_issues[0].fragment
-    assert "returned" in connector_issues[0].fragment
+    assert connector_issues[0].fragment == "generates and returned"
+    assert connector_issues[0].sentence == (
+        "If the credentials are valid, the system generates an access token "
+        "and returned it to the client application."
+    )
 
 
 def test_service_should_handle_long_requirement_with_or_connector():
@@ -324,11 +329,15 @@ def test_service_should_report_multiple_invalid_verb_structures():
 
     assert len(auxiliary_issues) == 3
 
-    fragments = [
-        issue.fragment
-        for issue in auxiliary_issues
+    assert [issue.fragment for issue in auxiliary_issues] == [
+        "has load",
+        "is compare",
+        "will generates",
     ]
-
-    assert "has load" in fragments
-    assert "is compare" in fragments
-    assert "will generates" in fragments
+    assert [issue.sentence for issue in auxiliary_issues] == [
+        "When the operator starts the reconciliation process, "
+        "the system has load all pending transactions from the repository.",
+        "The validation module is compare each transaction with the external source.",
+        "After the comparison finishes, the reporting service will generates "
+        "a summary containing every detected discrepancy.",
+    ]
