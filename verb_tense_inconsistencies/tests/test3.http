@@ -1,0 +1,6 @@
+POST http://localhost:8000/analyze
+Content-Type: application/json
+
+{
+  "text": "Yesterday the system processes the batch request. The validation service stores the result in the repository. The monitoring service will validates the generated report before publication. The notification service sends a confirmation to the administrator. The audit module records the operation and stores the corresponding timestamp. The dashboard displays the final processing status."
+}
