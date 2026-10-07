@@ -1,4 +1,5 @@
 spacy>=3.0.0
+en-core-web-sm==3.8.0
 python-dotenv>=1.0.0
 fastapi>=0.100.0
 uvicorn>=0.20.0

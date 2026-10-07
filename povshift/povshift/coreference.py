@@ -6,7 +6,6 @@ import spacy
 
 from povshift.domain import Character, Clause
 
-
 class CoreferenceResolver:
     def __init__(self, nlp: spacy.language.Language):
         # accept an initialized spaCy Language object to reuse model loading
