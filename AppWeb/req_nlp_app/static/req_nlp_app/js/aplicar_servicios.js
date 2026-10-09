@@ -28,8 +28,8 @@ async function mostrarResultado() {
     const promesas = [];
 
     // Helper para agregar resultados
-    const agregarResultado = (tipo, mensaje) => {
-        resultados.push({ tipo, mensaje });
+    const agregarResultado = (tipo, mensaje, opciones = {}) => {
+        resultados.push({ tipo, mensaje, ...opciones });
     };
 
     // Helper para validar URLs inyectadas por Django con fallback seguro y resolucion de 0.0.0.0 en cliente
@@ -61,8 +61,49 @@ async function mostrarResultado() {
                 return response.json();
             })
             .then(data => {
-                const mensaje = data.is_passive ? "Se detectó voz pasiva" : "No se detectó voz pasiva";
-                agregarResultado("Voz Pasiva", mensaje);
+                if (data.is_passive) {
+                    let detallePos = "";
+                    if (data.positions && data.positions.length > 0) {
+                        const rangos = data.positions.map(pos => `[${pos[0]}, ${pos[1]}]`).join(', ');
+                        detallePos = `<div class="text-secondary small mt-1"><i class="bi bi-geo-alt me-1"></i>Posición detectada: ${rangos}</div>`;
+                    }
+
+                    let detalleActiva = "";
+                    if (data.active_voice) {
+                        const textoEscapado = encodeURIComponent(data.active_voice);
+                        const textoSeguro = data.active_voice
+                            .replace(/&/g, "&amp;")
+                            .replace(/</g, "&lt;")
+                            .replace(/>/g, "&gt;")
+                            .replace(/"/g, "&quot;")
+                            .replace(/'/g, "&#39;");
+
+                        detalleActiva = `
+                            <div class="mt-2 p-2 rounded bg-light border">
+                                <div class="fw-semibold text-primary" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em;">
+                                    <i class="bi bi-arrow-repeat me-1"></i>Sugerencia en voz activa:
+                                </div>
+                                <div class="text-dark font-monospace mt-1 p-2 bg-white rounded border" style="font-size: 0.85rem; line-height: 1.4;">
+                                    ${textoSeguro}
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="aplicarVozActiva(decodeURIComponent('${textoEscapado}'))">
+                                    <i class="bi bi-check2-circle me-1"></i>Aplicar al editor
+                                </button>
+                            </div>
+                        `;
+                    }
+
+                    const mensajeHtml = `
+                        <div>
+                            <span class="fw-semibold">Se detectó voz pasiva</span>
+                            ${detallePos}
+                            ${detalleActiva}
+                        </div>
+                    `;
+                    agregarResultado("Voz Pasiva", mensajeHtml, { icono: "bi-arrow-left-right", iconoClase: "warning" });
+                } else {
+                    agregarResultado("Voz Pasiva", "No se detectó voz pasiva (el texto se encuentra en voz activa)", { icono: "bi-check-circle", iconoClase: "success" });
+                }
             })
             .catch(err => agregarResultado("Error", "Error en voz pasiva: " + err.message));
             promesas.push(p);
@@ -517,31 +558,36 @@ async function mostrarResultado() {
     resultados.forEach(resultado => {
         const tipo = resultado.tipo || 'General';
         if (!grupos[tipo]) grupos[tipo] = [];
-        grupos[tipo].push(resultado.mensaje);
+        grupos[tipo].push(resultado);
     });
 
     // Renderizar HTML final
     let html = '';
     Object.entries(grupos).forEach(([tipo, items]) => {
         const esError = tipo.toLowerCase() === 'error';
-        const iconoClase = esError ? 'danger' : 'warning';
-        const icono = esError ? 'bi-x-circle' : 'bi-exclamation-triangle';
+        const defaultIconoClase = esError ? 'danger' : 'warning';
+        const defaultIcono = esError ? 'bi-x-circle' : 'bi-exclamation-triangle';
 
         html += `
             <div class="mb-3">
                 <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">
                     ${tipo} <span class="badge ${esError ? 'bg-danger' : 'bg-secondary'}">${items.length}</span>
                 </h4>
-                ${items.map(item => `
+                ${items.map(item => {
+                    const mensaje = typeof item === 'object' ? item.mensaje : item;
+                    const iconoClase = (typeof item === 'object' && item.iconoClase) ? item.iconoClase : defaultIconoClase;
+                    const icono = (typeof item === 'object' && item.icono) ? item.icono : defaultIcono;
+                    return `
                     <div class="result-card">
                         <div class="result-icon ${iconoClase}">
                             <i class="bi ${icono}"></i>
                         </div>
                         <div class="result-content">
-                            <p class="result-desc">${item}</p>
+                            <div class="result-desc">${mensaje}</div>
                         </div>
                     </div>
-                `).join('')}
+                    `;
+                }).join('')}
             </div>
         `;
     });
@@ -642,9 +688,18 @@ function cargarEjemplo(clave) {
     if (sel) sel.value = "";
 }
 
+function aplicarVozActiva(nuevoTexto) {
+    const textarea = document.getElementById("editor-texto");
+    if (textarea && nuevoTexto) {
+        textarea.value = nuevoTexto;
+        textarea.dispatchEvent(new Event("input"));
+    }
+}
+
 // Exponer funciones al ámbito global
 window.mostrarResultado = mostrarResultado;
 window.cargarEjemplo = cargarEjemplo;
+window.aplicarVozActiva = aplicarVozActiva;
 
 // Enlazar automáticamente al botón por clase o selector al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {

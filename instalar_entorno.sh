@@ -295,7 +295,7 @@ done
 write_section "INSTALACIÓN COMPLETADA"
 
 # Dar permisos de ejecución a los scripts creados
-chmod +x "$SCRIPT_DIR/start_services.sh" "$SCRIPT_DIR/iniciar_servicios.sh" "$SCRIPT_DIR/instalar_entorno.sh" 2>/dev/null || true
+chmod +x "$SCRIPT_DIR/start_services.sh" "$SCRIPT_DIR/iniciar_servicios.sh" "$SCRIPT_DIR/instalar_entorno.sh" "$SCRIPT_DIR/liberar_puertos.sh" "$SCRIPT_DIR/AppWeb/app.sh" 2>/dev/null || true
 
 if [ "$ALL_PASSED" = true ]; then
     echo -e "\n  ${C_GREEN}${C_BOLD}¡EL ENTORNO HA SIDO CONFIGURADO EXITOSAMENTE EN UBUNTU LINUX!${C_RESET}"

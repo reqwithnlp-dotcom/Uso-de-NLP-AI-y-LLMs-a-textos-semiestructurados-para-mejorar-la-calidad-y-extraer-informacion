@@ -38,6 +38,7 @@ C_BLUE="\033[0;34m"
 OPT_STOP=false
 OPT_STATUS=false
 OPT_INCLUDE_WEBDOC=false
+OPT_WAIT=false
 
 for arg in "$@"; do
     case "$arg" in
@@ -50,6 +51,9 @@ for arg in "$@"; do
         --include-webdoc|-include-webdoc|-webdoc)
             OPT_INCLUDE_WEBDOC=true
             ;;
+        --wait|-wait|wait)
+            OPT_WAIT=true
+            ;;
         --help|-h|help)
             echo -e "${C_CYAN}Uso:${C_RESET} ./start_services.sh [OPCIONES]"
             echo ""
@@ -57,6 +61,7 @@ for arg in "$@"; do
             echo "  (sin args)          Inicia todos los servicios en segundo plano (0.0.0.0)"
             echo "  --status, status    Muestra el estado actual de cada servicio y puerto"
             echo "  --stop, stop        Detiene todos los servicios y libera los puertos"
+            echo "  --wait, wait        Mantiene el script en primer plano para monitoreo continuo"
             echo "  --include-webdoc    Incluye el servidor frontend Vite de WebDocumentacion"
             echo "  --help, -h          Muestra este mensaje de ayuda"
             exit 0
@@ -455,3 +460,11 @@ echo -e "${C_CYAN}Instrucciones de uso en el servidor:${C_RESET}"
 echo -e "  * Para verificar el estado de los servicios:   ${C_BOLD}./iniciar_servicios.sh --status${C_RESET}"
 echo -e "  * Para detener todos los servicios:           ${C_BOLD}./iniciar_servicios.sh --stop${C_RESET}"
 echo -e "  * Registros (logs) de cada servicio en:       ${C_BOLD}logs/${C_RESET} (o .logs/)\n"
+
+if [ "$OPT_WAIT" = true ]; then
+    echo -e "${C_GREEN}Manteniendo servicios activos (presiona Ctrl+C o ejecuta ./iniciar_servicios.sh --stop para detener)...${C_RESET}"
+    trap stop_all_services INT TERM
+    while true; do
+        sleep 5
+    done
+fi

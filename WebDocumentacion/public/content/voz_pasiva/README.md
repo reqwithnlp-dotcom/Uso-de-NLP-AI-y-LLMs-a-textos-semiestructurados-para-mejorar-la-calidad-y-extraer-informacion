@@ -19,16 +19,17 @@ La respuesta devuelve un objeto JSON:
 
 - `is_passive` → valor booleano (`true`/`false`) que indica si la oración está en voz pasiva
 - `positions` → lista de tuplas con las posiciones de caracteres `[inicio, fin]` de la construcción pasiva detectada
+- `active_voice` → versión convertida a voz activa en inglés (`string` o `null` si no es pasiva)
 
 ## Ejemplo
 
 | **Oración** | **Resultado** |
 |-------------|---------------|
-| `The letter was written by Juan.` | `is_passive: true`, `positions: [[11, 22]]` |
-| `Juan wrote the letter.` | `is_passive: false`, `positions: []` |
+| `The letter was written by Juan.` | `is_passive: true`, `positions: [[11, 22]]`, `active_voice: "Juan wrote the letter."` |
+| `Juan wrote the letter.` | `is_passive: false`, `positions: []`, `active_voice: null` |
 
 ## Objetivo de la api
-El servicio recibe una oración en inglés a través de su endpoint `POST /detectar_voz_pasiva`, analiza su estructura sintáctica con spaCy e identifica si contiene una construcción pasiva y localiza los rangos de caracteres correspondientes. También puede importarse como librería interna (`is_passive`, `passive_positions`).
+El servicio recibe una oración en inglés a través de su endpoint `POST /detectar_voz_pasiva`, analiza su estructura sintáctica con spaCy e identifica si contiene una construcción pasiva, localiza los rangos de caracteres correspondientes y genera la versión transformada en voz activa. También puede importarse como librería interna (`is_passive`, `passive_positions`, `to_active_voice`).
 
 ## Estrategia
 El servicio buscará los **componentes característicos de la voz pasiva:**
@@ -37,6 +38,7 @@ El servicio buscará los **componentes característicos de la voz pasiva:**
 2. **Auxiliar pasivo:** busca tokens cuya dependencia sintáctica sea `auxpass`.
 3. **Participio:** extiende el rango de la construcción hasta el token con etiqueta `VBN`.
 4. **Clasificación:** devuelve `True` cuando encuentra una construcción pasiva.
+5. **Conversión a voz activa:** extrae el sujeto agente (tras la preposición 'by'), ajusta la concordancia y conjugación verbal según el tiempo del auxiliar, reposiciona el sujeto paciente como objeto directo y preserva los modificadores adverbiales y contextuales.
 
 ## Ejemplos Visuales
 
@@ -63,7 +65,8 @@ Respuesta del endpoint `POST /detectar_voz_pasiva`:
   "is_passive": true,
   "positions": [
     [11, 22]
-  ]
+  ],
+  "active_voice": "Juan wrote the letter."
 }
 ```
 

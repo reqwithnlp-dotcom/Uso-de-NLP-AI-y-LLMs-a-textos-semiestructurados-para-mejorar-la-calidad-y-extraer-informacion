@@ -6,7 +6,8 @@
 param(
     [switch]$Stop,
     [switch]$Status,
-    [switch]$IncludeWebDoc
+    [switch]$IncludeWebDoc,
+    [switch]$Wait
 )
 
 $target = Join-Path $PSScriptRoot "start_services.ps1"

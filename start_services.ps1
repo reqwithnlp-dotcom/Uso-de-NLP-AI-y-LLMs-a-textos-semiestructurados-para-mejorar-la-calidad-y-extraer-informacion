@@ -32,7 +32,8 @@
 param(
     [switch]$Stop,
     [switch]$Status,
-    [switch]$IncludeWebDoc
+    [switch]$IncludeWebDoc,
+    [switch]$Wait
 )
 
 $ErrorActionPreference = "Continue"
@@ -512,3 +513,14 @@ Write-Host "Instrucciones de uso:" -ForegroundColor Cyan
 Write-Host "  * Para verificar el estado de los servicios:   .\start_services.ps1 -Status" -ForegroundColor White
 Write-Host "  * Para detener todos los servicios:           .\start_services.ps1 -Stop" -ForegroundColor White
 Write-Host "  * Los registros (logs) de cada servicio estan en: .logs\`n" -ForegroundColor White
+
+if ($Wait) {
+    Write-Host "Manteniendo servicios activos (presiona Ctrl+C para detener)..." -ForegroundColor Green
+    try {
+        while ($true) {
+            Start-Sleep -Seconds 5
+        }
+    } finally {
+        Stop-AllServices
+    }
+}

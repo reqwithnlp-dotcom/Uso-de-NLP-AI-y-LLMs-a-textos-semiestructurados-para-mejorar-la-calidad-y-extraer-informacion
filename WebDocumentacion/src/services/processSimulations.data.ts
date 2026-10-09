@@ -264,6 +264,7 @@ export const serviceSimulations: Record<string, ServiceSimulation> = {
         resultPreview: {
           is_passive: true,
           positions: [[11, 22]],
+          active_voice: 'Juan wrote the letter yesterday.',
         },
       },
     ],
