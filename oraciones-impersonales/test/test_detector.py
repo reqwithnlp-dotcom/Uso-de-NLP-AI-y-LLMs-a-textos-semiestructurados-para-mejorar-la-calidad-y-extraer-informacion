@@ -151,6 +151,7 @@ class TestBordes:
         assert set(r.keys()) == {
             "sentence", "personal", "impersonal",
             "ambiguous", "type", "personal_type",
+            "final_label", "decided_by", "layer2_scores",
         }
         assert isinstance(r["personal"], bool)
         assert isinstance(r["impersonal"], bool)

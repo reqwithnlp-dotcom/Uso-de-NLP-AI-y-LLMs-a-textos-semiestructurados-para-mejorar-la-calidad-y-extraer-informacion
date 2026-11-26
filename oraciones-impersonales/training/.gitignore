@@ -1,0 +1,15 @@
+# Generado por build_corpus.py: se reconstruye desde data/raw/
+data/corpus/
+
+# Modelos entrenados: pesan mucho, no van al repo.
+# Distribuir por release o script de descarga.
+output/
+# config.cfg SÍ se versiona: es parte del experimento reproducible
+
+# Cache de Python
+__pycache__/
+
+# Treebanks UD descargados (se bajan con el comando del README)
+data/external/
+# CSV de revisión: lo intermedio no se versiona, lo revisado vive en data/raw/
+data/review/

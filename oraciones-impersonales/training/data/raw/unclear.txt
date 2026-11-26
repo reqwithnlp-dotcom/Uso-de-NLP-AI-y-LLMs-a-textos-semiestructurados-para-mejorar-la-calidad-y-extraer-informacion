@@ -1,0 +1,232 @@
+# CASOS DUDOSOS / LÍMITE
+#
+# Oraciones que NO pudiste clasificar con confianza.
+#
+# IMPORTANTE: este archivo se EXCLUYE del entrenamiento a propósito.
+# No se tira: sirve para comprobar si el pipeline las manda a la capa 2,
+# que es justamente lo que tiene que pasar con ellas.
+#
+# Si dudás más de unos segundos con una oración, va acá. No la fuerces
+# a una clase: una etiqueta dudosa mete ruido en el modelo.
+
+
+# ---------------------------------------------------------------------------
+# Sujeto genérico "one" / "you" impersonal
+# ---------------------------------------------------------------------------
+One must be careful with the data.
+
+
+# ---------------------------------------------------------------------------
+# "it" sin contexto suficiente para saber si es referencial o expletivo
+# ---------------------------------------------------------------------------
+It is fast.
+
+
+# --- minado 2026-11-26 (candidates_etiquetado.csv) ---
+Well, the theory it is their theory of intervening, superseding cause that she stayed to fight the fire.
+Its natural for some babies to be eaten by adults and if all of them survived your tank would be very overcrowded.
+It's open now drink now wines, as I said they are lifestyle wines, easy drinking, everyday drinking styles.
+It would have been too painful to watch.
+If you can't buy ballet shoes, that it is okay.
+When you are going through the headlines, is it just you guys sitting around trying to crack each other up?
+As I watched my mother and father's health deteriorate and ultimately watched them die, it is a very defining time in our lives.
+It was sure beautiful coming up last night.
+Financially, it could be a lean year, although some advance planning can help you weather the storm.
+You know, it's like as opposed to there's a bear in my castle, I'm going to go kill it.
+She -- it wasn't that she was overcome and never had a chance to get to these alternative routes.
+July 12, 2:30 it is.
+Well there’s no defense against Soviet aggression, so whether you believe that doctrine or not that’s gone.
+There is a painting on my wall in the Oval -- first of all, I don't know.
+Well, there's a hole, no, if you're thinking there's a hole, think again.
+There are a lot of genetics at play between a Sussex and Silkie, so the offspring would vary in appearance.
+So mom there's coupons in here, so we can get some things.
+After they showed up there was a little trouble to get my car unlocked, it took quite a bit of time but the job was well done.
+Then of course there seem to be in this picture, so called historians, like the man you mentioned over the phone, Ed. K. Gross etc.
+There's a lot of unfunny jokes that are told in a back room, that's why they stay and die in that back room and don’t go out in The Onion.
+And there is nothing we can do about it really, people who are suggesting that we go out and fight them are living in dream land.
+It boggles the mind that ANYONE can take at face value Bush's claims to be a christian, yet many seem to do just that.
+It is likely that the shock will dislocate or break both your arms; nevertheless this is a small price to pay for your life.
+It will take me a little while to read the whole thing, but I rarely agree with a John Paul Stevens opinion.
+It takes around a million years for evolutionary change to happen in a species, and people have been around for about 200,000 years.
+It took over 1.5 hours for our food to come out and by that time my 8 month old had it!
+But it really does not matter.
+But sometimes, of course, when Z happens after X it is because of X.
+Because wasn't it -- isn't it relativistic that something?
+Um, I've learned so much from Project London, but, um, it's fun to try to implement that now, like, just kind of short stuff.
+This means the experimenter doesn't know which ants belong to which treatment, so it's impossible to influence the results with 'observer bias'.
+I received a report from HR and it appears there is conflicting information regarding some of the titles for various employees.
+They are normally quiet and it is easy to take care of them.
+What if it is the state itself that exhibits predatory behavior?
+I wish there was something good to say about the business, but unfortunately, there isn't.
+I have a male and female cockatiel, and there are 2 eggs in the bottom of the cage, will they hatch?
+At times, even those who work in academia may be unsure of a particular journal’s legitimacy, and there are genuine borderline cases.
+However, Dumas is alone in this assertion, and if he were correct it is unclear why d'Herbinville would have been involved.
+I was not happy with the way they looked, very wavy, uneven edges, and with the exception of 1, there is a dip in the center of each nail.
+Vessels can call at the Chathams and there are a number of "safe"" harbours for shelter if the need arises."
+So I think the first question is, what is this all about, why should we even be debating NATO, is there any reason why it should exist?
+Must say, in Delhi it's hard to get good price/quality rating.
+Some board members pushed to have Winter removed, but there were concerns such action would lead to more chaos, the governor's spokesman Maviglio said.
+Both have shared this country for the last 14 centuries and there is no possible way that one can live without the other.
+It is overcast today and they said there could be some rain, so we're probably gonna go far and that's okay.
+After all, your goal was to build a treehouse whose design you like—does it really matter whether you’re the one who actually designed it?
+I'm sure that you can find some hotels that are running in the christchurch area, but if not then there would be some in close by towns.
+WHEN YOU FIRST COME IN THE HOSTESS IS NOT VERY FRIENDLY,THERE IS JUST A BUNCH OF WORKERS STANDING THERE.
+You order at the counter and there is a space for tip on your credit card receipt.
+But with the disappearance of that base, I now believe that the constitutional purpose has been served, and there is no longer a need for the process to be prolonged.
+Allow 4 - 7 days for the whole trail depending on experience and your desired pace, but it is also possible do to day trips along the route.
+I have no idea how China Delight won number 1 Chinese restaurant in Montgomery - There needs to be a recount on that vote.
+I visited the festival on Saturday night, the opening night, and there was a sea of people in the square.
+The best there is in service.
+We didn't do a whole lot of hiking here because there was not a whole lot of cloud coverage that day, and it was so hot.
+Everyone tries it once — Except that there aren’t any mites around her.
+He doesn't just take pictures he makes art out of them and you won't even notice that there's a camera there.
+Is it, is it all over now?
+Whi- — if it doesn't take into account the to- — the the the whole human experience, and, including, the unbelievable parts of it.
+It's kind of an interesting week.
+It was like a workday hours.
+Sorry, hi, it's me now.
+So, no it is not as good as Dubai, but its quieter and more peaceful, and you can still go to Dubai in 45 mins.
+It's life-changing, and so for the first couple of weeks that's all I could focus on, was how life-changing it was and it was really scary.
+It was a really weird tiring semester, I think, relatively, compared to last semester, so you know, it is what it is.
+Of THESE three, it's a toss-up between Royal and Carnival.
+So it's meal prep and meal plan.
+It's getting out of hand.
+Yes, in South Africa Chardonnay and Pinot Noir, it's a popular wine.
+Its still a fairly new relationship and we havent had sex yet so its kind of a big deal.
+What could it be?
+If you go later, it's all cleaned up.
+It is trying to play ice hockey by sending a ballerina ice-skater into the ring or to knock out a heavyweight boxer by a chess player.
+If it falls on the floor, it's okay?
+The next time you feel like being condescending to someone, it is not going to be me!!!!!!
+Hey it’s Jackie and welcome back to my vlog channel.
+Well what was it?
+And it -- because of the slant of the building and the shape of the shoreline, it moved away from that.
+It's f- like on Saturdays and Wednesdays.
+It is now two o'clock and today is my friend Megumi's birthday.
+It's just, like, a little twist.
+That it doesn't say Stanford over here.
+No it couldn't be.
+It’s more analytical and clinical?
+It can be a real mess on Broadway.
+As you can see it will take someone with some very good skills in organizing and interpersonal relationships.
+If someone were able to shut the system down, or hack inside and delete or corrupt the information, it could affect the prosecution of the lawbreakers.
+And it has, because it is spring and inside the ground something is stirring.
+Is based uh, alright, what is it, it's based, as it is, on the concept, that human nature is totally depraved, and of itself not capable of any good will.
+It was no longer a headache anymore.
+It's like, yeah, let's go kill that bear.
+In one sense it's great, but it also makes things a lot harder to read.
+Well, it's not as simple and clear cut as all that.
+So it's our last day and we are just driving the uh – Going to the Sun Road and we’re just gonna stop along wherever we want to go.
+I mean, it's not impossible.
+Oh my god it’s so peaceful.
+How has it gone so far?
+Was it always like this?
+Now it's gotten back to eight, hunh?
+It will be tough.
+Well, but it's "waive"" particular regulatory or statutory provisions."
+Okay it costs, nine ninety-nine.
+It’s Jenna McMasters in 5C.
+Why does it always have to be my deals...?!!!
+And it probably doesn't seem that way, by the way I feel myself, but it's always just something that's in here, do you know what I mean?
+It's just a really big like traffic jam here on the road.
+Even taking into account the fact that my 3 year old wanted to run most of the way round, it took us just over one hour start to finish.
+So, it's like, uhh, that motion.
+It's really strange occurrence, over the years.
+A little bit of frost, it's gone.
+In the operating room, it’s not just the phone, although that’s sometimes present, but you have all the displays and technology.
+It's the Star Trek computer or it's Hal or whatever.
+Whatever it is that the common Manhattan water-pixie uses for blood.
+It didn't it didn't try to do anything with the maybe a legally relevant -- a legally relevant line of defense.
+I love that this room has floor-to-ceiling windows as well, it really lets the light come in, especially in the summer time.
+Could — naw I can't do that, it's not mine.
+I will get a treat and try to get him in there that way, it wont work.
+Is there any other way to communicate or do your friends only understand text.
+Uh, so there you go, 1783.
+There's lots of towns called Miramar, it'd help alot if you listed a state or some sort of context you're looking for it in.
+There isn't much to see in the delta, it's a lifestyle not a resort area.
+There is something wrong or maybe the individual made a mistake but to me that is not integrity.
+No doubt there was, some two things that happened to be making noises at the same time.
+There was a change made in the coding for the delta position and this has somehow messed up the liq value.
+There are no same-day return flights, so once there you have to stay at least one night.
+Then there is a big problem on Earth, and the people of Earth forget we are here.
+There are so many things to do that you will only use your room for sleeping and the extra cost of the balcony is wasted.
+Although there is 'bad press' directing at AREA'S of limerick, but nowhere near the university.
+Yes, there are bigger, but bigger isn't necessarily better.
+There are so many wonderful great places to dine in houston....don't.waste your time here.
+Beside these two buses, there is no public transport, but car rental with driver is available.
+There would be four of us so we would probably be looking at 2 twin rooms for Rs1000, close to the centre of these cities.
+There was minimal cheese and sauce and it completely lacked flavor.
+There was some horrible fate impending for Sonia and I had to kill her before something worse happened.
+There was a sense of oppression in my head, and I noticed that I was breathing very fast.
+So there's nothing too special about the bed itself, but it does have a very important function, which, it has a lot of storage.
+At this time of transition and dysfunction in global power relations, there is a new risk looming on the horizon that may not yet be large but it is real.
+There was a change of ownership a couple of years ago and service is both quick and extremely friendly.
+There is much to do, and we are ready to get to work.
+There's plenty of parking, and I've never had an issue with audience members who won't stop talking or answering their cellphones.
+There were 2 in our group, and a 3rd person was also in the parking lot waiting for this class.
+There are a couple decent people working there, but the rest are VERY dishonest, as well as rude, I have yet to hear the truth come out of their mouths.
+Yes, there is a 100 year-old Israeli-Arab conflict, but it is not where the main show is.
+There can be many ideas; one can see numerous options passing through their mind.
+At the moment there's no interest, but that'll probably change.
+There is a very large Quidditch community, have a look at the IQA website to find teams near you.
+Not that there is anything wrong with that because they also employ local people that live and shop in the area.
+There are many different ways of playing Quidditch, but the most commonly used set of rules are those given by the International Quidditch Association (which can be found here).
+There is a corporate data sheet for this company, but this entity seems to have been inactive since it's creation.
+Also, by the way, it's, there's this whole, like, Ahab quality.
+K- there is a connection on the story.
+There was no holder and the end was jagged.
+There's a- in there.
+From May to September there are southeast trade winds but during the summer months the winds are from the northeast.
+There is an emerging scientific consensus that extreme weather events are on the rise, and such events can impact regional infrastructure for transporting food goods.
+Sometimes it is hard to get parking in the lot in front of the storefront, and it is on a one-way street, but the restaurant itself is NEVER overcrowded.
+It has been a pleasure to meet with you and I hope we can continue to talk about energy and finance in the future.
+It is hard to find...and the mexican food is bland, almost equivalent to eating out of a can.
+It's really cool that so many local businesses are found so quickly in one place and I want to spread the word.
+It is heartbreaking to try to bring a horse back and then have to put it down, but some horses are worth the risk.
+When they sound off, it is a true audio/visual experience.
+Pasta if I want something hot maybe, I've had soup, but essentially starchy carbs and that's quite normal it seems.
+Read the entire article; there's a punchline, too.
+The plots were thin, there was little development of character and they were loaded down by excessive sentiment, especially when compared to what she was writing concurrently in her diary.
+Sounds like your 2 at least tolerate each other, so there is hope there.
+Basil needs warm air and sun to do well, so it's often easiest to start the seeds indoors instead of risking that they'll get damaged by frost.
+A common one is arsenic and there really isn't a way to cure that.
+Also, Beardies often do not eat food that is not moving, so its anyone's guess whether or not he'll touch the freeze-dried crickets or the processed food.
+Everything is white and hospital-like but there’s no examining couch.
+Nevertheless, the past is over and it is the future that beckons us now.
+Got your note today, many thanks, it was good to hear from you.
+Settlers continued to stream illegally across the long border; by 1835, after immigration resumed, there were twenty thousand Anglo-Americans in Texas.
+You should give her a try - it's worth every penny to know that you pet is in GREAT hands with Wunderbar pet sitting!!!!
+You will please excuse this hasty and roughly scribbled epistle—it is not my intention to rob you of that jewel—honesty of intention.
+He was sitting there, there were two guys sitting at a table right where you are.
+I'm speaking this year, so it's been crazy trying to get things together.
+Everyone is apprehensive, there is some talk that April 9th and 10th are going to be bloody days.
+On Monday I called and again it was a big to-do to find anyone who knew anything about it.
+Budgies are breast feeding birds and it may be the male is bisexual.
+You are not French for a start, so the "rules"" or ""customs"" may not apply to you when it comes to entering into a relationship between people from different backgrounds."
+It had listed that there was a hot breakfast but all this meant is that they added a waffle maker to the common continental affair at most cheap hotels.
+The technology could have gone either way; it was the corporate managers who made the call.
+An American passport should get you right into the country, there is no need for a VISA, for six months.
+It just sort of becomes this little um I guess summer camp type thing where it's like insular and it's a, it's a community.
+Um, it's not like super cold w- where I am just yet, but it's getting there, so ignore my hair right now.
+Another thought with this being a mosquito season from hell could it be West Nile?
+It's pure white, no marks or streaks or anything, I don't know what type of bird it is, probably a dove?
+It used to be fabulous, why did you guys change it??
+Last time I got a medium rat it was a girl and my snake handled her easily.
+It's a fine place, I'm just a little mystified about the Michelin star.
+It is very clean, staff is friendly, and I have never waited!
+It is busy every day at lunch for a reason, the service is fast and the food is great.
+Cause if it's not.
+It's like, no, she was going to make this movie.
+It makes it more enjoyable, like, we're here all the time, so we just, like, have fun together and do this.
+If anyone else has voted?
+Montana, you can get beer.
+A lot of Americans down there, uh because, cost of living was so cheap at the time.
+But you, just, this movie's all over the place and it's, do you, here's the question.
+Cyclone Phailin has winds that have been measured at 200 km / h, as it surges over land will it begin to lose strength?
+Maybe because they hint at a larger conspiracy/network of abusers/satanic underground?
+You did a great job at the hearing----it went decidely downhill after you left.
+You should be able to no problem.
+The problem is, would it fit the business plans of the corporations that make the cars?
+Why Sex Gets Better in Older Age by Miri Forbes, Nicholas Eaton, and Robert Krueger is licensed under a Creative Commons Attribution-Share Alike 4.0 International License.
+And students get $5 off, can't argue with that.
+Why certain slogans work and why some don't.
