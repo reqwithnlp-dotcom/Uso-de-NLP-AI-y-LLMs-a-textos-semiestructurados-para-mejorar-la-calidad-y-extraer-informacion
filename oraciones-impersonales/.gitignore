@@ -1,0 +1,5 @@
+# Modelo entrenado de la capa 2: se genera con training/ (ver training/README.md)
+model/textcat/
+
+# Informe interno de la capa 2 (no se versiona)
+informe_capa2/
